@@ -1,0 +1,21 @@
+.Intro{
+    height:800px;
+    width:100%;
+    margin-top:20px;
+    background: linear-gradient( rgba(184, 61, 53, 0.6), rgba(100, 89, 211, 0.6)), url("../../assets/images/beach_dock.jpg");
+    background-repeat: no-repeat;
+    background-size:cover;
+    
+}
+
+.Intro h1{
+    padding-top:40px;
+    text-decoration: underline;
+    color:white;
+    
+}
+
+.Intro p{
+    color:white;
+    font-size: 1.5em;
+}
