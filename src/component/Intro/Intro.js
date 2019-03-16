@@ -4,7 +4,7 @@ import classes from './Intro.module.css'
 
 const intro = ( props ) => (
     <div className={classes.Intro}>
-        <h1>Welcome to our MultiMedia Website</h1>
+        <h1>CMPT 365 - MultiMedia</h1>
         
     </div>
 )
