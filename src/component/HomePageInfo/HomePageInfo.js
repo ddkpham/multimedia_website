@@ -9,7 +9,7 @@ class HomePageInfo extends Component{
                 justifyContent: 'center',
                 marginLeft: 'auto',
                 marginRight: 'auto',
-                paddingTop:'100px',
+                paddingTop:'80px',
                 align:'middle',
                 width:'200px',
                 height: '300px'
@@ -33,8 +33,9 @@ class HomePageInfo extends Component{
                 </div>
                 <div id='class-image' className={classes.ClassImage}>
                     <h1>Fundamentals of Multimedia, 2nd Edition </h1>
-                    <img style={imgStyle} src={textbook}></img>
-                    
+                    <img style={imgStyle} src={textbook} alt="textbook"></img>
+                    <h2>ISBN: 978-3-319-05289-2, Springer (students can download via www.lib.sfu.ca)</h2>
+                    <p><a href="http://www.cs.sfu.ca/mmbook/">http://www.cs.sfu.ca/mmbook/</a> (1st ed., plus student resources)</p>
                 </div>
             </div>
         )
