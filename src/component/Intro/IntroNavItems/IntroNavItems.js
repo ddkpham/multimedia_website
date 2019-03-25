@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import classes from './IntroNavItems.module.css'
-import { Link as Link }from 'react-router-dom';
+import { Link  }from 'react-router-dom';
 class IntroNavItems extends Component{
     render(){
         let linkStyle = {
