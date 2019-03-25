@@ -44,9 +44,11 @@ class ArithmeticCodec extends Component{
         lowFreq : [],
         highFreq: [],
         cumulativeFreqCheck: false,
-        messageToBeDecoded: "",
+        messageToBeEncoded: "",
         encodedBitString: "",
-        encodedBitStringLength: null
+        encodedBitStringLength: null,
+        messageToBeDecoded: "",
+        decodedMsg: ""
     }
 
     shouldComponentUpdate(nextProps, nextState){
@@ -108,32 +110,31 @@ class ArithmeticCodec extends Component{
     }
 
     Encoder = () => {
-        let messageToBeDecoded = this.state.messageToBeDecoded;
-        // console.log("messageToBeDecoded: ",messageToBeDecoded)
+        let messageToBeEncoded = this.state.messageToBeEncoded;
         let a = 0.0;
         let b = 1.0;
         let width = 1.0;
         let s = 0;
         let bitString = "";
         let letterIndex = null;
-        let messageArr = messageToBeDecoded.split("")
+        let messageArr = messageToBeEncoded.split("")
         //add terminating character to message
         messageArr.push('$')
-        let len = messageToBeDecoded.length + 1
+        let len = messageToBeEncoded.length + 1
 
         const highFreq = Object.values(this.state.highFreq)
         const lowFreq = Object.values(this.state.lowFreq)
         for(let i =0; i<len; i++){
             letterIndex = this.findLetterIndex(messageArr[i])
             width = b - a;
-            console.log("width: ", width)
+            // console.log("width: ", width)
             b = a + width * (highFreq[letterIndex])
             a = a + width * (lowFreq[letterIndex])
 
-            console.log("letter to be encoded", messageArr[i])
-            console.log("s: ", s)
-            console.log("a: ", a)
-            console.log("b: ", b)
+            // console.log("letter to be encoded", messageArr[i])
+            // console.log("s: ", s)
+            // console.log("a: ", a)
+            // console.log("b: ", b)
             //Check if scaling is required
             //E1/E2 
             let scaledValues = null;
@@ -146,11 +147,11 @@ class ArithmeticCodec extends Component{
                     b = scaledValues.b
                     s = scaledValues.s
                     bitString = scaledValues.bitString
-                    console.log("E1 Scaling...")
-                    console.log("s: ", s)
-                    console.log("a: ", a)
-                    console.log("b: ", b)
-                    console.log("[bitString]: ", bitString)
+                    // console.log("E1 Scaling...")
+                    // console.log("s: ", s)
+                    // console.log("a: ", a)
+                    // console.log("b: ", b)
+                    // console.log("[bitString]: ", bitString)
                 }   //E2 Scaling
                 else{
                     scaledValues = this.e2Scaling( a ,b ,s, bitString );
@@ -158,11 +159,11 @@ class ArithmeticCodec extends Component{
                     b = scaledValues.b
                     s = scaledValues.s
                     bitString = scaledValues.bitString
-                    console.log("E2 Scaling...")
-                    console.log("s: ", s)
-                    console.log("a: ", a)
-                    console.log("b: ", b)
-                    console.log("[bitString]: ", bitString)
+                    // console.log("E2 Scaling...")
+                    // console.log("s: ", s)
+                    // console.log("a: ", a)
+                    // console.log("b: ", b)
+                    // console.log("[bitString]: ", bitString)
                 }
                 
                 
@@ -177,27 +178,27 @@ class ArithmeticCodec extends Component{
                 b = scaledValues.b
                 s = scaledValues.s
                 bitString = scaledValues.bitString
-                    console.log("E3 Scaling...")
-                    console.log("s: ", s)
-                    console.log("a: ", a)
-                    console.log("b: ", b)
-                    console.log("[bitString]: ", bitString)
+                    // console.log("E3 Scaling...")
+                    // console.log("s: ", s)
+                    // console.log("a: ", a)
+                    // console.log("b: ", b)
+                    // console.log("[bitString]: ", bitString)
                 
             }
         
-        console.log("Letter has been encoded")
+        
         }
-        console.log("exited for loop")
+        
         s = s+1;
         if(a <= 0.25){
             bitString = bitString.concat('0')
             for (let i = 0; i < s; i++){
                 bitString = bitString.concat( '1')
             }
-            console.log("s: ", s)
-            console.log("a: ", a)
-            console.log("b: ", b)
-            console.log("[bitString]: ", bitString)
+            // console.log("s: ", s)
+            // console.log("a: ", a)
+            // console.log("b: ", b)
+            // console.log("[bitString]: ", bitString)
 
             
         } else {
@@ -251,31 +252,8 @@ class ArithmeticCodec extends Component{
             s += 1;
             a = 2 * (a - 0.25)
             b = 2 * (b - 0.25)
-            console.log("s: ", s)
-            console.log("a: ", a)
-            console.log("b: ", b)
            
         }
-        // if(a <= 0.25){
-        //     bitString = bitString.concat( '0')
-        //     for (let i = 0; i < s; i++){
-        //         bitString = bitString.concat( '1')
-        //     }
-        //     console.log("a: ", a)
-        //     console.log("b: ", b)
-        //     console.log("[bitString]: ", bitString)
-
-            
-        // } else {
-        //     bitString = bitString.concat( '1')
-        //     for (let i = 0; i < s; i++){
-        //         bitString = bitString.concat( '0')
-        //     }
-        //     console.log("a: ", a)
-        //     console.log("b: ", b)
-        //     console.log("[bitString]: ", bitString)
-
-        // }
         return {
             a: a,
             b: b,
@@ -289,8 +267,6 @@ class ArithmeticCodec extends Component{
         if(letter === " "){
             letter = "space"
         }
-        let letterArr = Object.keys(this.state.letterFrequency);
-        //console.log("[findLetterIndex fn]:",letterArr);
         let letterIndex = alphabetArr.indexOf(letter);
         //console.log("letter index", letterIndex);
         return letterIndex
@@ -298,9 +274,86 @@ class ArithmeticCodec extends Component{
 
     MsgHandler = ( event ) =>{
         //console.log(event)
+        const messageToBeEncoded = event.target.value;
+        console.log(messageToBeEncoded)
+        this.setState({messageToBeEncoded: messageToBeEncoded})
+    }
+
+    decodeMsgHandler = ( event ) =>{
+        //console.log(event)
         const messageToBeDecoded = event.target.value;
         console.log(messageToBeDecoded)
         this.setState({messageToBeDecoded: messageToBeDecoded})
+    }
+
+    MessageDecoder = () =>{
+        let bitString = this.state.messageToBeDecoded;
+        let targetVal = this.bitStringToTargetValue(bitString)
+        let decodedMsg = ""
+        const highFreq = Object.values(this.state.highFreq)
+        const lowFreq = Object.values(this.state.lowFreq)
+        console.log('highFreq:' , highFreq)
+        console.log('lowFreq:' , lowFreq)
+        let a = 0;
+        let b = 1;
+        let atemp = 0;
+        let btemp = 1;
+        let width = b - a;
+        let notEndOfString = true;
+        let letterArr = Object.keys(this.state.letterFrequency)
+        let len = letterArr.length
+        let x = 0;
+        while(notEndOfString && x < 100){
+            for(let i=0; i<len; i++){
+                width = b - a;
+                btemp = a + width * (highFreq[i])
+                atemp = a + width * (lowFreq[i])
+                
+                console.log("atemp: ", atemp)
+                console.log("btemp: ", btemp)
+                console.log("targetVal", targetVal)
+
+                if(targetVal >= atemp && targetVal <btemp){
+                    console.log("TARGET FOUND")
+                    console.log("decodedletter: ", letterArr[i])
+                    console.log()
+                    let decodedLetter = String(letterArr[i])
+                    decodedMsg = decodedMsg.concat(decodedLetter)
+                    console.log("decoded MSG so far:", decodedMsg)
+                    a = atemp;
+                    b = btemp;
+                    if(letterArr[i]=== '$' ){
+                        notEndOfString = false;
+                    }
+                }
+                
+            }
+            x++;
+        }
+
+        console.log("decodedMsg: ", decodedMsg);
+        this.setState({decodedMsg: decodedMsg})
+        
+    }
+
+    bitStringToTargetValue = (bitString)=>{
+        let bitStringArr = bitString.split("")
+        let len = bitStringArr.length
+        let value = 0;
+        let target = 0; 
+        //compute target/binary string value
+        for(let i=1; i< len+1; i++){
+            value = parseInt(bitStringArr[i-1]);
+            if (value === 1){
+                // console.log("i", i)
+                let currAddition = 1/(Math.pow(2,i))
+                // console.log(currAddition)
+                target += currAddition
+            }
+
+        }
+        return target
+        //console.log(target)
     }
 
     render(){
@@ -308,16 +361,27 @@ class ArithmeticCodec extends Component{
         //this.lowFrequencyInitiation();
         let encodedBitString = <p>{this.state.encodedBitString}</p>
         let encodedBitStringLength = <p>{this.state.encodedBitStringLength}</p>
+        let decodedMsg = this.state.decodedMsg.split("$")
+        decodedMsg = decodedMsg[0]
+        decodedMsg = <p>{decodedMsg}</p>
         
         
         return (
            <div className={classes.ArithmeticCodec}>
                <h1>Arithmetic Codec</h1>
-               <input type="text" onChange={this.MsgHandler}></input>
-               <button onClick= {this.FrequencyInitiation}>Click me</button>
+               <div>
+                    <input type="text" onChange={this.MsgHandler}></input>
+                    <button onClick= {this.FrequencyInitiation}>Encode MSG</button>
 
-               <h1>Encoded BitString : {encodedBitString} </h1>
-               <h1>Encoded BitStringLength : {encodedBitStringLength} </h1>
+                    <h1>Encoded BitString : {encodedBitString} </h1>
+                    <h1>Encoded BitStringLength : {encodedBitStringLength} </h1>
+               </div>
+               <div>
+                    <input type="text" onChange={this.decodeMsgHandler}></input>
+                    <button onClick= {this.MessageDecoder}>Decode MSG</button>
+                    <h1>Decoded Msg : {decodedMsg} </h1>
+                    
+               </div>
            </div>
         )
     }
