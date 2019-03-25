@@ -4,41 +4,41 @@ import classes from './ArithmeticCodec.module.css'
 class ArithmeticCodec extends Component{
     state = {
         letterFrequency : {
-            // a : 0.08167,
-            // b: 0.01492,
-            // c: 0.02782,
-            // d: 0.04253,
-            // e: 0.12702,
-            // f: 0.02228,
-            // g: 0.02015,
-            // h: 0.06094,
-            // i: 0.06966,
-            // j: 0.00153,
-            // k: 0.00772,
-            // l: 0.04025,
-            // m: 0.02405,
-            // n: 0.06748,
-            // o: 0.07506,
-            // p: 0.01928,
-            // q: 0.00094,
-            // r: 0.05986,
-            // s: 0.06326,
-            // t: 0.09055,
-            // u: 0.02757, 
-            // v: 0.00977, 
-            // w: 0.02360, 
-            // x: 0.00150,
-            // y: 0.01973,
-            // z: 0.00073, 
-            // $: 0.00007,
-            // space: 0.00007
-            a: 0.2,
-            b: 0.1,
-            c: 0.2,
-            d: 0.05,
-            e: 0.3,
-            f: 0.05,
-            $: 0.1
+            a : 0.08167,
+            b: 0.01492,
+            c: 0.02782,
+            d: 0.04253,
+            e: 0.12702,
+            f: 0.02228,
+            g: 0.02015,
+            h: 0.06094,
+            i: 0.06966,
+            j: 0.00153,
+            k: 0.00772,
+            l: 0.04025,
+            m: 0.02405,
+            n: 0.06748,
+            o: 0.07506,
+            p: 0.01928,
+            q: 0.00094,
+            r: 0.05986,
+            s: 0.06326,
+            t: 0.09055,
+            u: 0.02757, 
+            v: 0.00977, 
+            w: 0.02360, 
+            x: 0.00150,
+            y: 0.01973,
+            z: 0.00073, 
+            $: 0.00007,
+            space: 0.00007
+            // a: 0.2,
+            // b: 0.1,
+            // c: 0.2,
+            // d: 0.05,
+            // e: 0.3,
+            // f: 0.05,
+            // $: 0.1
             
         }, 
         lowFreq : [],
@@ -303,7 +303,8 @@ class ArithmeticCodec extends Component{
         let letterArr = Object.keys(this.state.letterFrequency)
         let len = letterArr.length
         let x = 0;
-        while(notEndOfString && x < 100){
+        let messageCharLimit = 100
+        while(notEndOfString && x < messageCharLimit){
             for(let i=0; i<len; i++){
                 width = b - a;
                 btemp = a + width * (highFreq[i])
@@ -316,8 +317,10 @@ class ArithmeticCodec extends Component{
                 if(targetVal >= atemp && targetVal <btemp){
                     console.log("TARGET FOUND")
                     console.log("decodedletter: ", letterArr[i])
-                    console.log()
                     let decodedLetter = String(letterArr[i])
+                    if(decodedLetter === "space"){
+                        decodedLetter = " "
+                    }
                     decodedMsg = decodedMsg.concat(decodedLetter)
                     console.log("decoded MSG so far:", decodedMsg)
                     a = atemp;
