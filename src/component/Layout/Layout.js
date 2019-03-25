@@ -24,7 +24,7 @@ const layout = (props) =>{
        <Switch>
         {/* --------------------- Temporary anon functions for Pages --------------------*/}
         <Route path="/course-content" component= {CourseContentPage} />
-        <Route path="/resources" component = {()=> <h1> Resource Page </h1>} />
+        <Route path="/resources" component = {ResourcePage} />
         <Route path="/course-work" component = {()=> <h1> Course Work</h1>} />
         <Route path="/arithmetic_encoding" component = {ArithmetricCodec} />
         <Route path="/" component={HomePage} />
