@@ -1,6 +1,6 @@
 import React from 'react';
 
-import JPEGLogo from '../../assets/images/JPEG.png';
+import JPEGLogo from '../../assets/images/sfulogo.jpg';
 import classes from './Logo.module.css';
 
 const logo = ( props ) => (

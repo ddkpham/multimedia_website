@@ -1,22 +1,24 @@
 .Button {
     background-color: transparent;
-    border: solid green;
+    border: solid #239962;
     color: white;
     outline: none;
     cursor: pointer;
     font: inherit;
     padding: 10px;
     margin: 10px;
+    border-radius: 0.4rem;
     font-weight: bold;
+    opacity: 0.6;
+    margin-bottom: 30px;
 }
 
-.Button:first-of-type {
-    margin-left: 0;
-    padding-left: 0;
+.Button:hover {
+    opacity: 1
 }
 
 .Success {
-    color: #5C9210;
+    color: #239962;
 }
 
 .Danger {

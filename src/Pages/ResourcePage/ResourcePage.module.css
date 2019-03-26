@@ -1,23 +1,15 @@
 .ResourcePage{
-    padding-top: 100px;
-}
-
-.ResourcePage ul{
-   list-style: none;
+    padding-top: 30px;
 }
 
 .ResourceList{
-    padding-top: 100px;
-}
-
-.ResourceList ul{
-   list-style: none;
+    padding-top: 30px;
+    padding-bottom: 10px;
 }
 
 .DemoList{
-    padding-top: 100px;
+    padding-top: 30px;
+    padding-bottom: 10px;
 }
 
-.DemoList ul{
-   list-style: none;
-}
+

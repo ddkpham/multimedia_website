@@ -59,6 +59,7 @@ const imgStyle = {
     width: '170px',
     height: '170px'
 }
+
 const headerStyle = {
     background: '#000',
     color: '#fff',
@@ -72,7 +73,6 @@ const liStyle =  {
     fontSize: '20px',
     padding: '10px',
 }
-
 
 const ulStyle = {
     style: 'none',
