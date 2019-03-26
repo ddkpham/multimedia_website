@@ -17,6 +17,21 @@ import Chapter11 from '../../assets/material/lectureslides/Chapter11.pdf';
 import Chapter12 from '../../assets/material/lectureslides/Chapter12.pdf';
 import Chapter14 from '../../assets/material/lectureslides/Chapter14.pdf';
 
+// Supplementary Materials
+import Week1 from '../../assets/material/supplements/Week1.pdf';
+import Week2 from '../../assets/material/supplements/Week2.pdf';
+import Week3 from '../../assets/material/supplements/Week3.pdf';
+import Week4 from '../../assets/material/supplements/Week4.pdf';
+import Week5 from '../../assets/material/supplements/Week5.pdf';
+import Week6 from '../../assets/material/supplements/Week6.pdf';
+import Week7 from '../../assets/material/supplements/Week7.pdf';
+import Week9 from '../../assets/material/supplements/Week9.pdf';
+import Week10 from '../../assets/material/supplements/Week10.pdf';
+import Week10_2 from '../../assets/material/supplements/Week10_2.pdf';
+import Week11 from '../../assets/material/supplements/Week11.pdf';
+import Week12 from '../../assets/material/supplements/Week12.pdf';
+import Week12_2 from '../../assets/material/supplements/Week12_2.pdf';
+
 class CourseContentPageInfo extends Component{
     render(){
         return(
@@ -28,12 +43,6 @@ class CourseContentPageInfo extends Component{
                 <section>
                 <nav style={navStyle}>
                     <ul style = {ulStyle}>
-                    <li style = {liStyle} >
-                        Grades
-                    </li>
-                    <li>
-                        <a href='https://coursys.sfu.ca/'>Go to coursys</a>
-                    </li>
                     <li style = {liStyle} >
                         Lecture notes
                     </li>
@@ -84,49 +93,49 @@ class CourseContentPageInfo extends Component{
                         Supplementary Materials
                     </li>
                     <li>
-                        <a href='http://www.cs.sfu.ca/CourseCentral/365/li/material/lectureslides/1-MMAuthoring.pdf' target='iframe_slides'>Week1: Multimedia Authoring</a>
+                        <a href={Week1} target='iframe_slides'>Week1: Multimedia Authoring</a>
                     </li>
                     <li>
-                        <a href='http://www.cs.sfu.ca/CourseCentral/365/li/material/lectureslides/2-Img-reps.pdf' target='iframe_slides'>Week2: Image Representations</a>
+                        <a href={Week2} target='iframe_slides'>Week2: Image Representations</a>
                     </li>
                     <li>
-                        <a href='http://www.cs.sfu.ca/CourseCentral/365/li/material/lectureslides/4-Color-reps.pdf' target='iframe_slides'>Week3: Color Representations</a>
+                        <a href={Week3} target='iframe_slides'>Week3: Color Representations</a>
                     </li>
                     <li>
-                        <a href='http://www.cs.sfu.ca/CourseCentral/365/li/material/lectureslides/5-DCT-implementation.pdf' target='iframe_slides'>Week4: DCT matrix implementation</a>
+                        <a href={Week4} target='iframe_slides'>Week4: DCT matrix implementation</a>
                     </li>
                     <li>
-                        <a href='http://www.cs.sfu.ca/CourseCentral/365/li/material/lectureslides/6-DCT-basis.pdf' target='iframe_slides'>Week5: Analogy to DCT basis functions</a>
+                        <a href={Week5} target='iframe_slides'>Week5: Analogy to DCT basis functions</a>
                     </li>
                     <li>
-                        <a href='http://www.cs.sfu.ca/CourseCentral/365/li/material/lectureslides/6-Arith-coding-example.pdf' target='iframe_slides'>Week6: Arithmetic Coding Example</a>
+                        <a href={Week6} target='iframe_slides'>Week6: Arithmetic Coding Example</a>
                     </li>
                     <li>
-                        <a href='http://www.cs.sfu.ca/CourseCentral/365/li/material/lectureslides/6-diff-coding-lossy.pdf' target='iframe_slides'>Week7: Notes on Lossy Differential Coding</a>
+                        <a href={Week7} target='iframe_slides'>Week7: Notes on Lossy Differential Coding</a>
                     </li>
                     <li>
-                        <a href='http://www.cs.sfu.ca/CourseCentral/365/li/material/lectureslides/10-MPEG-2-SNR-scalability.pdf' target='iframe_slides'>Week9: MPEG-2 SNR Scalability</a>
+                        <a href={Week9} target='iframe_slides'>Week9: MPEG-2 SNR Scalability</a>
                     </li>
                     <li>
-                        <a href='http://www.cs.sfu.ca/CourseCentral/365/li/material/lectureslides/11-Integer-transform.pdf' target='iframe_slides'>Week10: Derivation of the Integer Transform Matrix</a>
+                        <a href={Week10} target='iframe_slides'>Week10: Derivation of the Integer Transform Matrix</a>
                     </li>
                     <li>
-                        <a href='http://www.cs.sfu.ca/CourseCentral/365/li/material/lectureslides/H264_Codec_Notes.pdf'target='iframe_slides'>Week10: ** Implementation details about H.264 Codec</a>
+                        <a href={Week10_2} target='iframe_slides'>Week10: ** Implementation details about H.264 Codec</a>
                     </li>
                     <li>
-                        <a href='http://www.cs.sfu.ca/CourseCentral/365/li/material/lectureslides/H266.pdf' target='iframe_slides'>Week11: Features of H.266 (VVC)</a>
+                        <a href={Week11} target='iframe_slides'>Week11: Features of H.266 (VVC)</a>
                     </li>
                     <li>
-                        <a href='http://www.cs.sfu.ca/CourseCentral/365/li/material/lectureslides/Notes-MPEG-audio.pdf' target='iframe_slides'>Chapter12: Notes on MPEG audio compression</a>
+                        <a href={Week12} target='iframe_slides'>Chapter12: Notes on MPEG audio compression</a>
                     </li>
                     <li>
-                        <a href='http://www.cs.sfu.ca/CourseCentral/365/li/material/lectureslides/12-MPEG-audio.pdf' target='iframe_slides'>Chapter12: ** Additional Notes on Audio Compression</a>
+                        <a href={Week12_2} target='iframe_slides'>Chapter12: ** Additional Notes on Audio Compression</a>
                     </li>
                     </ul>
                 </nav>
-                    <iframe 
+                    <iframe
                         src={Intro} name='iframe_slides'
-                        height="700" width="70%"/>
+                        height="630" width="70%" />
                 </section>
 
                 
@@ -152,7 +161,9 @@ const liStyle =  {
 const navStyle =  {
     float: 'left',
     width: '30%',
-    height: '700px',
+    height: '630px',
+    textAlign: 'center',
+    padding: '10px',
     background: '#ccc',
 }
 

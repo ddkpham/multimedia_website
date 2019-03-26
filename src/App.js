@@ -16,7 +16,7 @@ class App extends Component {
           
           </Layout>
           <footer className={classes.Footer}>
-            <p>Copyright &copy;2018 Design by David Pham | Subin Bae | Paul Miller</p>
+            <p>Copyright &copy;2019 Design by David Pham | Subin Bae | Paul Miller</p>
           </footer>
         </div>
       </HashRouter>
