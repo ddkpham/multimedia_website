@@ -289,6 +289,7 @@ class ArithmeticCodec extends Component{
     MessageDecoder = () =>{
         let bitString = this.state.messageToBeDecoded;
         let targetVal = this.bitStringToTargetValue(bitString)
+        console.log("[TARGET VALUE]: ", targetVal);
         let decodedMsg = ""
         const highFreq = Object.values(this.state.highFreq)
         const lowFreq = Object.values(this.state.lowFreq)
@@ -306,16 +307,27 @@ class ArithmeticCodec extends Component{
         let messageCharLimit = 100
         while(notEndOfString && x < messageCharLimit){
             for(let i=0; i<len; i++){
+                if(letterArr[i]=== 'l'){
+                    console.log("%c Trying Letter: ", "color: red", letterArr[i])
+                    console.log("before atemp is tried: ", atemp)
+                    console.log("before btemp is tried: ", btemp)
+                    console.log("before targetVal", targetVal)
+                }
                 width = b - a;
                 btemp = a + width * (highFreq[i])
                 atemp = a + width * (lowFreq[i])
                 
+                console.log("[width]: ", width);
+                console.log("[highFreq]: ", highFreq[i] )
+                console.log("[lowFreq]: ", lowFreq[i] )
+                
+                console.log("Trying Letter: ", letterArr[i])
                 console.log("atemp: ", atemp)
                 console.log("btemp: ", btemp)
                 console.log("targetVal", targetVal)
 
                 if(targetVal >= atemp && targetVal <btemp){
-                    console.log("TARGET FOUND")
+                    console.log("%cTARGET FOUND", "color:blue")
                     console.log("decodedletter: ", letterArr[i])
                     let decodedLetter = String(letterArr[i])
                     if(decodedLetter === "space"){
