@@ -1,9 +1,8 @@
 .Intro{
     height:110vh;
-    width:102%;
-    margin-top: -50px;
+    width:100%;
     /*background: linear-gradient(45deg, rgba(65, 68, 231, 0.6), rgba(231, 230, 241, 0.6)), url("../../assets/images/beach_dock.jpg");*/
-    background-image:url("../../assets/images/dark-paths.png");
+    background-image:url("../../assets/images/background_start.jpg");
     background-repeat: no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -17,15 +16,11 @@
 }
 
 .Intro h1{
-    padding-top:40px;
-    text-decoration: underline;
-    color:white;
+    padding-top: 20%;
+    color: white;
     text-align: center;
-    vertical-align: center;
-    line-height: 400px;
-    font-size: 3em;
-    
-
+    font-weight: 520;
+    font-size: 7.7em;
 }
 
 .Intro p{

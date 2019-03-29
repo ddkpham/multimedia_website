@@ -4,38 +4,34 @@ import classes from './IntroNavItems.module.css'
 import { Link  }from 'react-router-dom';
 class IntroNavItems extends Component{
     render(){
-        let linkStyle = {
+        const linkStyle = {
             textDecoration:'none', 
             color:'white', 
-            fontSize:'1.4em',
-            position:'relative',
-            top:'-215px'
+            fontSize:'1.6em',
         }
+
         return(
             <div className={classes.IntroNavItems}>
 
                <div> 
-                   <h1>SFU CMPT 365  |"|  Multi-Media</h1> 
+                   <h1>C M P T 3 6 5</h1>
                    <div className={classes.NavLink}> 
                     <ul >
                         <li>
-                            <Link to="/" style={linkStyle} >Home</Link>
+                            <Link to="/" style={linkStyle} >HOME</Link>
                         </li>
                         <li>
-                            <Link to="/course-content" style={linkStyle} >Course Content</Link>
+                            <Link to="/course-content" style={linkStyle} >COURSE CONTENT</Link>
                         </li>
                         <li>
-                            <Link to="/course-work" style={linkStyle} >Course Work</Link>
+                            <Link to="/course-work" style={linkStyle} >COURSE WORK</Link>
                         </li>
                         <li>
-                            <Link to="/resources" style={linkStyle} >Resources</Link>
+                            <Link to="/resources" style={linkStyle} >RESOURCES</Link>
                         </li>
                     </ul>
                 </div>
-               </div>
-               
-                
-                
+               </div> 
             </div>
 
             

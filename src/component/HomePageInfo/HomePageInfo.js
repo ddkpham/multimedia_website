@@ -9,10 +9,11 @@ class HomePageInfo extends Component{
                 justifyContent: 'center',
                 marginLeft: 'auto',
                 marginRight: 'auto',
-                paddingTop:'80px',
+                marginTop: '50px',
+                marginBottom: '50px',
                 align:'middle',
                 width:'200px',
-                height: '300px'
+                height: '260px'
         }
         return(
             
@@ -32,7 +33,8 @@ class HomePageInfo extends Component{
                     <p>For remote desktop access to the CSIL lab, see <a href="http://www.sfu.ca/computing/about/support/csil/how-to-remote-access-to-csil.html">here</a></p>
                 </div>
                 <div id='class-image' className={classes.ClassImage}>
-                    <h1>Fundamentals of Multimedia, 2nd Edition </h1>
+                    <h1>Fundamentals of Multimedia</h1>
+                    <h1>2nd Edition </h1>
                     <img style={imgStyle} src={textbook} alt="textbook"></img>
                     <h2>ISBN: 978-3-319-05289-2, Springer (students can download via www.lib.sfu.ca)</h2>
                     <p><a href="http://www.cs.sfu.ca/mmbook/">http://www.cs.sfu.ca/mmbook/</a> (1st ed., plus student resources)</p>

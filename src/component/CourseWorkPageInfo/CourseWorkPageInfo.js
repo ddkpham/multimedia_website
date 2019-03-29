@@ -63,7 +63,7 @@ const imgStyle = {
 const headerStyle = {
     background: '#000',
     color: '#fff',
-    padding: '25px',
+    padding: '45px',
     textAlign: 'center',
     fontSize: '25px'
 }

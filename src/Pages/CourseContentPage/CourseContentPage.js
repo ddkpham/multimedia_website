@@ -6,15 +6,16 @@ import CourseContentPageInfo from '../../component/CourseContentPageInfo/CourseC
 class CourseContentPage extends Component{
     render(){
         return(
-            <div>
-                <br />
-                <br />
-                <br />
+            <div style = {bodyStyle}>
                 <CourseContentPageInfo />
             </div>
 
         )
     }
+}
+
+const bodyStyle = {
+    marginTop: '70px'
 }
 
 export default CourseContentPage;
