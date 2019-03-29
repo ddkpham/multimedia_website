@@ -1,19 +1,23 @@
 self.__precacheManifest = [
   {
-    "revision": "1f0275bc322980be6e48",
-    "url": "/multimedia_website/static/css/main.f5cca809.chunk.css"
+    "revision": "51243454e28e8f74af78",
+    "url": "/multimedia_website/static/css/main.66db1481.chunk.css"
   },
   {
-    "revision": "1f0275bc322980be6e48",
-    "url": "/multimedia_website/static/js/main.a3146f91.chunk.js"
+    "revision": "51243454e28e8f74af78",
+    "url": "/multimedia_website/static/js/main.fb78a2db.chunk.js"
   },
   {
     "revision": "4e7ba8cd0cc339117b15",
     "url": "/multimedia_website/static/js/runtime~main.259f39c0.js"
   },
   {
-    "revision": "1c229f20607b98e3cb96",
-    "url": "/multimedia_website/static/js/2.ccb1da33.chunk.js"
+    "revision": "7c928b9d15e4780bc5b2",
+    "url": "/multimedia_website/static/css/2.5cd8e47c.chunk.css"
+  },
+  {
+    "revision": "7c928b9d15e4780bc5b2",
+    "url": "/multimedia_website/static/js/2.f954c857.chunk.js"
   },
   {
     "revision": "7d91755166fd557af35e3dc8a36dad08",
@@ -26,10 +30,6 @@ self.__precacheManifest = [
   {
     "revision": "50a42a7f3a523f016708f8c6fe5453f5",
     "url": "/multimedia_website/static/media/Chapter1.50a42a7f.pdf"
-  },
-  {
-    "revision": "aa96f48cf4c67eeb8dc91642f0622a07",
-    "url": "/multimedia_website/static/media/sfulogo.aa96f48c.jpg"
   },
   {
     "revision": "b1609666347351ad2b3941f9c3782999",
@@ -144,7 +144,7 @@ self.__precacheManifest = [
     "url": "/multimedia_website/static/media/library.9eec37f0.png"
   },
   {
-    "revision": "b574f297ed9a4b4c12f693057b3ebe49",
+    "revision": "56b9e68fb728ed262c63f440b7dcd10d",
     "url": "/multimedia_website/index.html"
   }
 ];
