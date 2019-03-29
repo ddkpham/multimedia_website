@@ -3,6 +3,7 @@
 }
 
 .ClassInfo{
+    padding: 20px;
     height:100vh;
     width:50%;
     background: linear-gradient(45deg, rgba(54, 196, 149, 0.6), rgba(35, 153, 113, 0.6)), url("../../assets/images/polaroid.png");
@@ -22,6 +23,7 @@
 }
 
 .ClassImage{
+    padding: 20px;
     height:100vh;
     width:50%;
     /*background: linear-gradient(45deg, rgba(65, 68, 231, 0.6), rgba(231, 230, 241, 0.6)), url("../../assets/images/beach_dock.jpg");*/

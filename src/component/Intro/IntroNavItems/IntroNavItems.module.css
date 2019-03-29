@@ -1,29 +1,22 @@
 
 .IntroNavItems {
     color: white !important;
-    
 }
 
 .IntroNavItems ul {
     list-style:none;
 }
 
-.IntroNavItems h1{
-    
-}
 .IntroNavItems ul li{
     color: white;
-    
+    padding: 0px;
     display: inline-block;
-    width: 17%;
+    width: 18%;
     text-decoration: none !important;
     
 }
 
 .IntroNavItems .NavLink{
     position: absolute;
-    
     width:100%;
-    
-
 }
