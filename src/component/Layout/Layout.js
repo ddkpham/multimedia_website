@@ -11,6 +11,7 @@ import ArithmetricCodec from '../ArithmeticCodec/ArithmeticCodec'
 import HomePage from '../../Pages/HomePage/HomePage'
 import CourseContentPage from '../../Pages/CourseContentPage/CourseContentPage';
 import CourseWorkPage from '../../Pages/CourseWorkPage/CourseWorkPage';
+import Huffman from '../Huffman/Huffman'
 //import Toolbar from '../Navigation/Toolbar/Toolbar';
 
 
@@ -28,6 +29,7 @@ const layout = (props) =>{
         <Route path="/resources" component = {ResourcePage} />
         <Route path="/course-work" component = {CourseWorkPage} />
         <Route path="/arithmetic_encoding" component = {ArithmetricCodec} />
+        <Route path="/huffman" component = {Huffman} />
         <Route path="/" component={HomePage} />
         
         

@@ -50,7 +50,7 @@ class ResourcePage extends Component{
                 <img style = {imgStyle} src={Data} alt='icon'></img>
                     <ul style = {ulStyle}>
                         <li><NavLink to="/arithmetic_encoding" >Arithmetic Encoding</NavLink></li><br></br>
-                        <li><a href="http://www.cs.sfu.ca/CourseCentral/365/li/material/handouts.htm l">Huffman</a></li><br></br>
+                        <li><NavLink to="/huffman">Huffman Coding </NavLink></li><br></br>
                         <li><a href="http://www.cs.sfu.ca/CourseCentral/365/li/material/misc/usenetfaq.html">JPEG</a></li><br></br>
                     </ul>
                 </div>
