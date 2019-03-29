@@ -1,6 +1,6 @@
 .Button {
     background-color: transparent;
-    border: solid #239962;
+    border: solid #ff6161;
     color: white;
     outline: none;
     cursor: pointer;
@@ -10,15 +10,15 @@
     border-radius: 0.4rem;
     font-weight: bold;
     opacity: 0.6;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .Button:hover {
-    opacity: 1
+    opacity: 0.3;
 }
 
 .Success {
-    color: #239962;
+    color: #ff6161;
 }
 
 .Danger {

@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 
 import classes from './IntroNavItems.module.css'
-import { Link  }from 'react-router-dom';
+import { Link, NavLink }from 'react-router-dom';
+
 class IntroNavItems extends Component{
     render(){
         const linkStyle = {
@@ -14,23 +15,8 @@ class IntroNavItems extends Component{
             <div className={classes.IntroNavItems}>
 
                <div> 
-                   <h1>C M P T 3 6 5</h1>
-                   <div className={classes.NavLink}> 
-                    <ul >
-                        <li>
-                            <Link to="/" style={linkStyle} >HOME</Link>
-                        </li>
-                        <li>
-                            <Link to="/course-content" style={linkStyle} >COURSE CONTENT</Link>
-                        </li>
-                        <li>
-                            <Link to="/course-work" style={linkStyle} >COURSE WORK</Link>
-                        </li>
-                        <li>
-                            <Link to="/resources" style={linkStyle} >RESOURCES</Link>
-                        </li>
-                    </ul>
-                </div>
+                   <h1>CMPT365</h1>
+                   <h3>SFU SPRING 2019 MULTIMEDIA</h3>
                </div> 
             </div>
 

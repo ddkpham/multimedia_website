@@ -16,7 +16,8 @@ class App extends Component {
           
           </Layout>
           <footer className={classes.Footer}>
-            <p>Copyright &copy;2019 Design by David Pham | Subin Bae | Paul Miller</p>
+          <p>Simon Fraser University, 8888 University Drive, Burnaby, B.C. Canada. V5A 1S6 </p>
+          <p>Copyright &copy;2019 Design by David Pham | Subin Bae | Paul Miller</p>
           </footer>
         </div>
       </HashRouter>
