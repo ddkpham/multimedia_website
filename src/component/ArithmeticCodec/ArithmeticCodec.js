@@ -32,13 +32,19 @@ class ArithmeticCodec extends Component{
             // z: 0.00073, 
             // $: 0.00007,
             // space: 0.00007
-            a: 0.2,
-            b: 0.1,
-            c: 0.2,
-            d: 0.05,
-            e: 0.3,
-            f: 0.05,
-            $: 0.1
+            
+            // a: 0.2,
+            // b: 0.1,
+            // c: 0.2,
+            // d: 0.05,
+            // e: 0.3,
+            // f: 0.05,
+            // $: 0.1
+
+            a: 0.5,
+            b: 0.2, 
+            c: 0.2999,
+            $: 0.0001
             
         }, 
         lowFreq : [],
@@ -48,7 +54,8 @@ class ArithmeticCodec extends Component{
         encodedBitString: "",
         encodedBitStringLength: null,
         messageToBeDecoded: "",
-        decodedMsg: ""
+        decodedMsg: "",
+        encodedMsgLength: null
     }
 
     shouldComponentUpdate(nextProps, nextState){
@@ -118,9 +125,11 @@ class ArithmeticCodec extends Component{
         let bitString = "";
         let letterIndex = null;
         let messageArr = messageToBeEncoded.split("")
+        
         //add terminating character to message
         messageArr.push('$')
         let len = messageToBeEncoded.length + 1
+        this.setState({encodedMsgLength: len})
 
         const highFreq = Object.values(this.state.highFreq)
         const lowFreq = Object.values(this.state.lowFreq)
@@ -286,6 +295,144 @@ class ArithmeticCodec extends Component{
         this.setState({messageToBeDecoded: messageToBeDecoded})
     }
 
+    MessageDecoderWithScaling = ()=>{
+        let bitString = this.state.messageToBeDecoded;
+        //find symbol with min frequency
+        //1. find symbol with minFrequency
+        let minFreqSymbolFreq = this.symbolIndexWithMinFrequency()
+        console.log(minFreqSymbolFreq)
+
+        //2. find length of bits for window size
+        let windowSize = this.findBitsForWindowSize(minFreqSymbolFreq)
+        //3. set window size 
+        // start = 0  end = l - 1
+        let bitStringToBeDecoded = this.state.encodedBitString;
+        console.log(bitStringToBeDecoded)
+        let bitStringArr = bitStringToBeDecoded.split("");
+        let start = 0;
+        let end = start + windowSize; 
+        // while symbol is not EOF 
+        // take in window size number of bits from bitstream
+        // find symbol range that fits in that window
+        // once you find a symbol, shift 1 bit right performing E1/E2 scaling
+        // if symbol is EOF break 
+        
+        
+        console.log(bitStringArr.slice(start, end))
+        let letterArr = Object.keys(this.state.letterFrequency)
+        let symbolListLength = letterArr.length
+        let symbol = null;
+        let tempBitStringArr = null;
+        //slice is not inclusive
+        let x = 0;
+        let val = 0;
+        let a = 0;
+        let b = 1;
+        let atemp = 0;
+        let btemp = 1;
+        let width = b-a;
+        let highFreq = this.state.highFreq;
+        let lowFreq = this.state.lowFreq;
+        let decodedMsg = ""
+        let charLimit = 100
+        let decodedSequenceLengthSoFar = 0;
+        let msgLength = this.state.encodedMsgLength;
+        
+
+
+        while(symbol !== "$" && x < charLimit && decodedSequenceLengthSoFar < msgLength-1){
+            console.log("[Beggining of loop]")
+            console.log("[decoded sequence length]:", decodedSequenceLengthSoFar)
+            console.log("[msg length]:", msgLength-1 )
+            x +=1; 
+            tempBitStringArr = bitStringArr.slice(start, end);
+            //convert bitstring to Freq
+            val = this.bitStringArrToTargetValue(tempBitStringArr);
+            console.log(val)
+            //check to see if val fits in any of the symbol high-low ranges
+            for(let i = 0; i< symbolListLength; i++){
+                width = b - a;
+                btemp = a + width * (highFreq[i])
+                atemp = a + width * (lowFreq[i])
+                console.log("trying symbol: ", letterArr[i])
+                console.log("atemp: ", atemp)
+                console.log("btemp: ", btemp)
+                console.log("val: ", val)
+                if(val >= atemp && val < btemp){
+                    console.log("TARGET FOUND")
+                    console.log("decodedletter: ", letterArr[i])
+                    let decodedLetter = String(letterArr[i])
+                    if(decodedLetter === "space"){
+                        decodedLetter = " "
+                    }
+                    decodedMsg = decodedMsg.concat(decodedLetter)
+                    console.log("decoded MSG so far:", decodedMsg)
+                    
+                    decodedSequenceLengthSoFar += 1;
+                    console.log("[decoded sequence length]:", decodedSequenceLengthSoFar)
+                    console.log("[msg length]:", msgLength-1 )
+                    if(decodedSequenceLengthSoFar == msgLength-1){
+                        break;
+                    }
+                    a = atemp;
+                    b = btemp;
+                    symbol = decodedLetter;
+                    
+                }
+                while (b < 0.5 || a > 0.5){
+                    console.log("E1/E2 scaling...")
+                    if(b < 0.5){
+                        a = 2 * a;
+                        b = 2 * b;
+                        //shift bits 
+                        start += 1;
+                        end += 1;
+
+                    } else {
+                        a = 2 * (a - 0.5);
+                        b = 2 * (b - 0.5);
+                        //shift bits
+                        start += 1;
+                        end += 1;
+                    }
+                }
+                
+                
+            }
+            console.log('[x]', x)
+            console.log('[symbol]', symbol)
+            console.log("exiting letter check")
+            
+        }
+        this.setState({decodedMsg: decodedMsg})
+
+    }
+
+    symbolIndexWithMinFrequency = () => {
+        console.log("finding symbol with min freq")
+        let lowFreqArr = this.state.letterFrequency;
+        lowFreqArr = Object.values(lowFreqArr)
+        let len = lowFreqArr.length
+        console.log("length: ", len)
+        let minFreq = 1;
+        //let minIndex = -1;
+        for(let i =0; i<len; i++){
+            if(lowFreqArr[i] < minFreq){
+                minFreq = lowFreqArr[i];
+                //minIndex = i;
+            }
+        }
+        return minFreq
+    }
+
+    findBitsForWindowSize = (minFreq) =>{
+        console.log("finding window size")
+        let windowSize = -Math.log2(minFreq)
+        windowSize = Math.ceil(windowSize)
+        console.log(windowSize)
+        return windowSize
+    }
+
     MessageDecoder = () =>{
         let bitString = this.state.messageToBeDecoded;
         let targetVal = this.bitStringToTargetValue(bitString)
@@ -339,6 +486,26 @@ class ArithmeticCodec extends Component{
         
     }
 
+    bitStringArrToTargetValue = (bitStringArr)=>{
+        let len = bitStringArr.length
+        let value = 0;
+        let target = 0; 
+        //compute target/binary string value
+        for(let i=1; i< len+1; i++){
+            value = parseInt(bitStringArr[i-1]);
+            if (value === 1){
+                // console.log("i", i)
+                let currAddition = 1/(Math.pow(2,i))
+                // console.log(currAddition)
+                target += currAddition
+            }
+
+        }
+        //console.log("[bitStringArrToTargetValue] target", target)
+        return target
+        //console.log(target)
+    }
+
     bitStringToTargetValue = (bitString)=>{
         let bitStringArr = bitString.split("")
         let len = bitStringArr.length
@@ -381,7 +548,7 @@ class ArithmeticCodec extends Component{
                </div>
                <div>
                     <input type="text" onChange={this.decodeMsgHandler}></input>
-                    <button onClick= {this.MessageDecoder}>Decode MSG</button>
+                    <button onClick= {this.MessageDecoderWithScaling}>Decode MSG</button>
                     <h1>Decoded Msg : {decodedMsg} </h1>
                     
                </div>
