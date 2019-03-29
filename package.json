@@ -4,12 +4,16 @@
   "private": true,
   "homepage": "https://ddkpham.github.io/multimedia_website",
   "dependencies": {
+    "bootstrap": "^4.0.0-alpha.6",
     "gh-pages": "^1.2.0",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
+    "react": "^16.8.6",
+    "react-addons-css-transition-group": "^15.6.2",
+    "react-addons-transition-group": "^15.6.2",
+    "react-dom": "^16.8.6",
     "react-router-dom": "^4.4.0-beta.8",
     "react-scripts": "2.1.8",
-    "react-video-cover": "^1.2.2"
+    "react-video-cover": "^1.2.2",
+    "reactstrap": "^7.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -6,15 +6,16 @@ import CourseWorkPageInfo from '../../component/CourseWorkPageInfo/CourseWorkPag
 class CourseWorkPage extends Component{
     render(){
         return(
-            <div>
-                <br />
-                <br />
-                <br />
+            <div style = {bodyStyle}>
                 <CourseWorkPageInfo />
             </div>
 
         )
     }
+}
+
+const bodyStyle = {
+    marginTop: '70px'
 }
 
 export default CourseWorkPage;

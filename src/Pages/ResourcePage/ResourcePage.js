@@ -59,10 +59,7 @@ class ResourcePage extends Component{
 
         return(
             
-            <div >
-                <br />
-                <br />
-                <br />
+            <div style = {bodyStyle}>
                 <header style = {headerStyle}>
                 {title}
                 </header>
@@ -76,6 +73,10 @@ class ResourcePage extends Component{
             </div>
         )
     }
+}
+ 
+const bodyStyle = {
+    marginTop: '70px'
 }
 
 const imgStyle = {
@@ -94,7 +95,7 @@ const ulStyle = {
 const headerStyle = {
     background: '#000',
     color: '#fff',
-    padding: '25px',
+    padding: '45px',
     textAlign: 'center',
     fontSize: '25px'
 }

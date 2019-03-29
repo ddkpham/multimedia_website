@@ -147,7 +147,7 @@ class CourseContentPageInfo extends Component{
 const headerStyle = {
     background: '#000',
     color: '#fff',
-    padding: '25px',
+    padding: '45px',
     textAlign: 'center',
     fontSize: '25px'
 }
@@ -163,6 +163,7 @@ const navStyle =  {
     width: '30%',
     height: '630px',
     textAlign: 'center',
+    fontSize: '12.5px',
     padding: '10px',
     background: '#ccc',
 }
