@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
 import Project_topic from '../../assets/material/365-term-project-topics.pdf';
 import Library from '../../assets/images/library.png';
+import classes from './CourseWorkPageInfo.module.css'
 
 
 class CourseWorkPageInfo extends Component{
     render(){
         return(
-            <div> 
-                <header style = {headerStyle}>
-                <h2>Course Work</h2>
-                </header>
+            <div className={classes.CourseWorkPageInfo}> 
+                <p className={classes.Header} >Course Work</p>
 
                 <img style = {imgStyle} src={Library} alt='library'></img>
                 <ul style = {ulStyle}>
@@ -58,14 +57,6 @@ const imgStyle = {
     marginBottom: '10px',
     width: '170px',
     height: '170px'
-}
-
-const headerStyle = {
-    background: '#000',
-    color: '#fff',
-    padding: '45px',
-    textAlign: 'center',
-    fontSize: '25px'
 }
 
 const liStyle =  {

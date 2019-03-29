@@ -26,7 +26,7 @@ class ResourcePage extends Component{
         let icon = null;
         console.log(this.state.demoPage)
         if(!this.state.demoPage){
-            title = <h2>Resources</h2>
+            title = <p className={classes.Header}> Resources </p>
             buttonStr = 'Go to Demos'
             icon = {Books}
             resourceList = (
@@ -42,7 +42,7 @@ class ResourcePage extends Component{
                 </div>
             )
         } else{
-            title = <h2>Demos</h2>
+            title = <p className={classes.Header}> Demos</p>
             buttonStr = 'Go to Resources'
             icon = {Data}
             demoList = (
@@ -60,9 +60,7 @@ class ResourcePage extends Component{
         return(
             
             <div style = {bodyStyle}>
-                <header style = {headerStyle}>
                 {title}
-                </header>
 
                 {demoList}
                 {resourceList}
@@ -90,14 +88,6 @@ const imgStyle = {
 const ulStyle = {
     style: 'none',
     padding: '0px'
-}
-
-const headerStyle = {
-    background: '#000',
-    color: '#fff',
-    padding: '45px',
-    textAlign: 'center',
-    fontSize: '25px'
 }
 
 export default ResourcePage;

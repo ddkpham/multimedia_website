@@ -1,14 +1,12 @@
 .Intro{
-    height:110vh;
+    height:0;
     width:100%;
-    /*background: linear-gradient(45deg, rgba(65, 68, 231, 0.6), rgba(231, 230, 241, 0.6)), url("../../assets/images/beach_dock.jpg");*/
-    background-image:url("../../assets/images/background_start.jpg");
     background-repeat: no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: 100% 100%;
-    z-index: 100;
+    z-index: 10;
     position: relative;
     /* Add the blur effect */
     filter: blur(0.5px);
@@ -16,11 +14,11 @@
 }
 
 .Intro h1{
-    padding-top: 20%;
+    padding-top: 23%;
     color: white;
     text-align: center;
     font-weight: 520;
-    font-size: 7.7em;
+    font-size: 7.4em;
 }
 
 .Intro p{
