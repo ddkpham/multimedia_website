@@ -286,6 +286,58 @@ class ArithmeticCodec extends Component{
         this.setState({messageToBeDecoded: messageToBeDecoded})
     }
 
+    MessageDecoderWithScaling = ()=>{
+        let bitString = this.state.messageToBeDecoded;
+        //find symbol with min frequency
+        //1. find symbol with minFrequency
+        let minFreqSymbolFreq = this.symbolIndexWithMinFrequency()
+        console.log(minFreqSymbolFreq)
+
+        //2. find length of bits for window size
+        let windowSize = this.findBitsForWindowSize(minFreqSymbolFreq)
+        //3. set window size 
+        // start = 0  end = l - 1
+        let bitStringToBeDecoded = this.encodedBitString;
+        let bitStringArr = bitStringToBeDecoded.spilt("");
+        let start = 0;
+        let end = start + windowSize - 1; 
+        // while symbol is not EOF 
+        // take in window size number of bits from bitstream
+        // find symbol range that fits in that window
+        // once you find a symbol, shift 1 bit right performing E1/E2 scaling
+        // if symbol is EOF break 
+        let symbol = null;
+        while(symbol !== "$"){
+            
+        }
+
+    }
+
+    symbolIndexWithMinFrequency = () => {
+        console.log("finding symbol with min freq")
+        let lowFreqArr = this.state.letterFrequency;
+        lowFreqArr = Object.values(lowFreqArr)
+        let len = lowFreqArr.length
+        console.log("length: ", len)
+        let minFreq = 1;
+        //let minIndex = -1;
+        for(let i =0; i<len; i++){
+            if(lowFreqArr[i] < minFreq){
+                minFreq = lowFreqArr[i];
+                //minIndex = i;
+            }
+        }
+        return minFreq
+    }
+
+    findBitsForWindowSize = (minFreq) =>{
+        console.log("finding window size")
+        let windowSize = -Math.log2(minFreq)
+        windowSize = Math.ceil(windowSize)
+        console.log(windowSize)
+        return windowSize
+    }
+
     MessageDecoder = () =>{
         let bitString = this.state.messageToBeDecoded;
         let targetVal = this.bitStringToTargetValue(bitString)
@@ -381,7 +433,7 @@ class ArithmeticCodec extends Component{
                </div>
                <div>
                     <input type="text" onChange={this.decodeMsgHandler}></input>
-                    <button onClick= {this.MessageDecoder}>Decode MSG</button>
+                    <button onClick= {this.MessageDecoderWithScaling}>Decode MSG</button>
                     <h1>Decoded Msg : {decodedMsg} </h1>
                     
                </div>
