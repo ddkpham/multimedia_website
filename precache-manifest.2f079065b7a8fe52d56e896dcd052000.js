@@ -1,31 +1,35 @@
 self.__precacheManifest = [
   {
-    "revision": "51243454e28e8f74af78",
-    "url": "/multimedia_website/static/css/main.66db1481.chunk.css"
+    "revision": "c1831ddd7963734a3826",
+    "url": "/multimedia_website/static/css/main.1f47f022.chunk.css"
   },
   {
-    "revision": "51243454e28e8f74af78",
-    "url": "/multimedia_website/static/js/main.fb78a2db.chunk.js"
+    "revision": "c1831ddd7963734a3826",
+    "url": "/multimedia_website/static/js/main.3f917afc.chunk.js"
   },
   {
     "revision": "4e7ba8cd0cc339117b15",
     "url": "/multimedia_website/static/js/runtime~main.259f39c0.js"
   },
   {
-    "revision": "7c928b9d15e4780bc5b2",
+    "revision": "343e29f6cb44f48e363c",
     "url": "/multimedia_website/static/css/2.5cd8e47c.chunk.css"
   },
   {
-    "revision": "7c928b9d15e4780bc5b2",
-    "url": "/multimedia_website/static/js/2.f954c857.chunk.js"
+    "revision": "343e29f6cb44f48e363c",
+    "url": "/multimedia_website/static/js/2.ee9133af.chunk.js"
+  },
+  {
+    "revision": "fdff6feca26e6f410e48b5771e41f710",
+    "url": "/multimedia_website/static/media/data.fdff6fec.png"
   },
   {
     "revision": "7d91755166fd557af35e3dc8a36dad08",
     "url": "/multimedia_website/static/media/dark-paths.7d917551.png"
   },
   {
-    "revision": "fdff6feca26e6f410e48b5771e41f710",
-    "url": "/multimedia_website/static/media/data.fdff6fec.png"
+    "revision": "9eec37f0efbc0f8044645476e284e741",
+    "url": "/multimedia_website/static/media/library.9eec37f0.png"
   },
   {
     "revision": "50a42a7f3a523f016708f8c6fe5453f5",
@@ -140,11 +144,79 @@ self.__precacheManifest = [
     "url": "/multimedia_website/static/media/365-term-project-topics.1c012190.pdf"
   },
   {
-    "revision": "9eec37f0efbc0f8044645476e284e741",
-    "url": "/multimedia_website/static/media/library.9eec37f0.png"
+    "revision": "887599b2fc788a8c7c2a08e1e8921cc0",
+    "url": "/multimedia_website/static/media/landscape.887599b2.jpg"
   },
   {
-    "revision": "56b9e68fb728ed262c63f440b7dcd10d",
+    "revision": "bae3b25d193a589056ddc930b2c566f4",
+    "url": "/multimedia_website/static/media/JPEG.1.bae3b25d.png"
+  },
+  {
+    "revision": "bae3b25d193a589056ddc930b2c566f4",
+    "url": "/multimedia_website/static/media/JPEG.bae3b25d.png"
+  },
+  {
+    "revision": "4e11cf395865fc1966279abea97a636f",
+    "url": "/multimedia_website/static/media/JPEG0.5.4e11cf39.jpg"
+  },
+  {
+    "revision": "4e11cf395865fc1966279abea97a636f",
+    "url": "/multimedia_website/static/media/JPEG5.4e11cf39.jpg"
+  },
+  {
+    "revision": "b0b7914f7b925a4101dd1e0ab5662b8c",
+    "url": "/multimedia_website/static/media/background_start.b0b7914f.jpg"
+  },
+  {
+    "revision": "e642fe0f5d3b8e34491edb7b1ebb209a",
+    "url": "/multimedia_website/static/media/beach_dock.e642fe0f.jpg"
+  },
+  {
+    "revision": "412d9ec6db4e44e85320d4b95db44097",
+    "url": "/multimedia_website/static/media/forrest.412d9ec6.jpg"
+  },
+  {
+    "revision": "8a78cd7c05228af53d10f196bbbf4342",
+    "url": "/multimedia_website/static/media/hotel_spot.1.8a78cd7c.jpg"
+  },
+  {
+    "revision": "8a78cd7c05228af53d10f196bbbf4342",
+    "url": "/multimedia_website/static/media/hotel_spot.8a78cd7c.jpg"
+  },
+  {
+    "revision": "887599b2fc788a8c7c2a08e1e8921cc0",
+    "url": "/multimedia_website/static/media/landscape.1.887599b2.jpg"
+  },
+  {
+    "revision": "881e450b59fd1671e23b53820623f87c",
+    "url": "/multimedia_website/static/media/lena1.881e450b.jpg"
+  },
+  {
+    "revision": "57eedc092e07d744a87ddbcb3f8e3c8e",
+    "url": "/multimedia_website/static/media/lena2.57eedc09.jpg"
+  },
+  {
+    "revision": "5549d632ed95aab3dd06bb2ec697b34b",
+    "url": "/multimedia_website/static/media/lena3.5549d632.jpg"
+  },
+  {
+    "revision": "53b055b664a2f9fd4f25b34a35bcd2dd",
+    "url": "/multimedia_website/static/media/lena4.53b055b6.jpg"
+  },
+  {
+    "revision": "34e9b485c9ea72e89f88c66bb277e601",
+    "url": "/multimedia_website/static/media/lena5.34e9b485.jpg"
+  },
+  {
+    "revision": "2a663543e4591acbcb29c2ab5d0311cf",
+    "url": "/multimedia_website/static/media/multimedia.2a663543.png"
+  },
+  {
+    "revision": "aa96f48cf4c67eeb8dc91642f0622a07",
+    "url": "/multimedia_website/static/media/sfulogo.aa96f48c.jpg"
+  },
+  {
+    "revision": "197a02d240fed08da4e866cac1496dbd",
     "url": "/multimedia_website/index.html"
   }
 ];
