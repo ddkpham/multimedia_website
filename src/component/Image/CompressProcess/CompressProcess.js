@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import Aux from '../../../hoc/Aux';
 import Button from '../../UI/Button/Button';
 import classes from './CompressProcess.module.css'
+import ImageDropdown from '../../ImageDropdownMenu/ImageDropdownMenu'
+import CompressDropdown from '../../CompressDropdownMenu/CompressDropdownMenu'
 class CompressProcess extends Component{
     render(){
         let text = null;
@@ -19,10 +21,11 @@ class CompressProcess extends Component{
         return(
             <Aux>
                 {text}
-                <input type='text' onChange={this.props.currentImage}></input>
+                <ImageDropdown imageHandler={this.props.imageHandler} />
                 <br />
                 <p>Please select Quantization value (1-10)</p>
-                <input type='text' onChange={this.props.currentCompress}></input>
+               
+                <CompressDropdown compressHandler={this.props.compressHandler} />
                 <br />
                 <Button
                     clicked={this.props.cancel}

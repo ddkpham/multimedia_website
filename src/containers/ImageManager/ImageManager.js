@@ -57,44 +57,13 @@ class ImageManager extends Component{
     //This will be a HTTP request for image compression later
     //Return: FILE SIZE- Before and After 
     compressAndShowImage = () =>{ 
-        this.setState({loadingImage:true, confirmedCompressVal:this.state.currentCompressVal, 
-            confirmedImage:this.state.currentImage })
+        this.setState({loadingImage:true })
         const images = [...this.state.images]
         const id = this.state.indexCount
         const filePath = this.state.confirmedImage;
         console.log('[ImageManger.js]',filePath)
-        const compression = this.state.currentCompressVal;
-        if(compression > 10){
-            alert('Please pick a scaling factor between 1-10');
-            return
-        }
+        const compression = this.state.confirmedCompressVal;
 
-        const data = {
-            filePath: filePath,
-            compression:compression
-        }
-
-        // axios.post('http://localhost:5000/compress', data).then(
-        //     (request) =>{
-        //         const fileSizeBefore = request.data.fileSizeBefore;
-        //         const fileSizeAfter = request.data.fileSizeAfter;
-        //         images.push({id:id, filePath:filePath, compression:compression,
-        //             sizeBefore:fileSizeBefore, sizeAfter:fileSizeAfter});
-                
-        //         this.setState((prevState, props)=>{
-        //             return{
-        //                 images:images,
-        //                 indexCount:prevState.indexCount + 1,
-        //                 imageProcessing:!prevState.imageProcessing,
-        //                 loadingImage:false
-        //             }
-        //         })
-        //         console.log(this.state.images) 
-        //     }).catch(
-        //         (error) => {
-        //             console.log(error)
-        //         }
-        //     )
 
         images.push({id:id, filePath: filePath, compression:compression, 
                     sizeBefore: 20, sizeAfter:10})
@@ -113,6 +82,15 @@ class ImageManager extends Component{
         
     }
 
+    imageHandler = (image) =>{
+        this.setState({confirmedImage:image})
+    }
+
+    compressHandler = (compressVal) =>{
+        console.log(compressVal)
+        this.setState({confirmedCompressVal:compressVal})
+    }
+
     render(){
         return(
             <Aux>
@@ -122,10 +100,12 @@ class ImageManager extends Component{
                 cancel={this.toggleImageModal}>
                     <CompressProcess
                     loadingImage={this.state.loadingImage}
-                    currentImage={this.currentImageHandler}
+                    //currentImage={this.currentImageHandler}
                     cancel={this.toggleImageModal}
                     confirm={this.compressAndShowImage}
-                    currentCompress={this.currentCompressValHandler}
+                    //currentCompress={this.currentCompressValHandler}
+                    imageHandler = {this.imageHandler}
+                    compressHandler = {this.compressHandler}
                     ></CompressProcess>
                 </Modal>
                 <div className={classes.StartApp}>
