@@ -1,0 +1,35 @@
+.IntervalBar{
+    color: blue;
+    border: 1px solid black;
+    width: 60%;
+    display: inline-block;
+    background-color: grey;
+    margin: 20px;
+}
+
+.start{
+    width:10%;
+    background-color: white;
+    float: left;
+
+}
+
+.end{
+    width:20%;
+    background-color: white;
+    float: right;
+}
+
+.quarter{
+    border: solid 1px black;
+    width: 25%;
+}
+
+.half{
+    border: solid 1px black;
+    width: 50%;
+}
+.threeQuarters{
+    border: solid 1px black;
+    width: 75%;
+}
