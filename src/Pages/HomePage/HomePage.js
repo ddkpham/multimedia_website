@@ -5,13 +5,14 @@ import MinimalCoverVideo from '../../component/MinimalCoverVideo/MinimalCoverVid
 import HomePageInfo from '../../component/HomePageInfo/HomePageInfo'
 class HomePage extends Component{
     render(){
+        let randNum = Math.floor(Math.random() * Math.floor(4));
         return(
             <div>
                 <Intro />
-                <MinimalCoverVideo />
+                <MinimalCoverVideo randNum={randNum}/>
                 
                 <HomePageInfo />
-                <MinimalCoverVideo />
+                <MinimalCoverVideo randNum={randNum}/>
                 
             </div>
 
