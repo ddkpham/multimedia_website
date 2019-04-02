@@ -8,11 +8,25 @@ class MinimalCoverExample extends Component {
       this.videoRef.loop = true;
       this.videoRef.play();
     }
-    
+
     render() {
-      let test = process.env.PUBLIC_URL + '/ink.mp4'
+      let videoPath = process.env.PUBLIC_URL + '/ink.mp4'
+      switch(this.props.randNum){
+          case 0:
+            videoPath = process.env.PUBLIC_URL + '/ink.mp4'
+            break;
+          case 1:
+            videoPath = process.env.PUBLIC_URL + '/sky.mp4'
+            break;
+          case 2:
+            videoPath = process.env.PUBLIC_URL + '/flower.mp4'
+            break;
+          case 3:
+            videoPath = process.env.PUBLIC_URL + '/seal.mp4'
+            break;
+      }
       const videoOptions = {
-        src: test,
+        src: videoPath,
         ref: videoRef => {
           this.videoRef = videoRef;
         },
