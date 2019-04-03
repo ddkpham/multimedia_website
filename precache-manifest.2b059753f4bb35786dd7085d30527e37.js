@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "4e52e787b4cea9df5980",
+    "revision": "e95fe7ba0d246012c147",
     "url": "/multimedia_website/static/css/main.d660beae.chunk.css"
   },
   {
-    "revision": "4e52e787b4cea9df5980",
-    "url": "/multimedia_website/static/js/main.8d805be6.chunk.js"
+    "revision": "e95fe7ba0d246012c147",
+    "url": "/multimedia_website/static/js/main.79064551.chunk.js"
   },
   {
     "revision": "4e7ba8cd0cc339117b15",
@@ -188,20 +188,20 @@ self.__precacheManifest = [
     "url": "/multimedia_website/static/media/landscape.1.887599b2.jpg"
   },
   {
-    "revision": "881e450b59fd1671e23b53820623f87c",
-    "url": "/multimedia_website/static/media/lena1.881e450b.jpg"
+    "revision": "030c713d03c5663b4c64ec534a45ae5b",
+    "url": "/multimedia_website/static/media/lena1.030c713d.jpg"
   },
   {
-    "revision": "57eedc092e07d744a87ddbcb3f8e3c8e",
-    "url": "/multimedia_website/static/media/lena2.57eedc09.jpg"
+    "revision": "e26c5599531eacec2f8ec06504ffd502",
+    "url": "/multimedia_website/static/media/lena2.e26c5599.jpg"
   },
   {
-    "revision": "5549d632ed95aab3dd06bb2ec697b34b",
-    "url": "/multimedia_website/static/media/lena3.5549d632.jpg"
+    "revision": "fae8fbb57afdae646c8ed316487273a7",
+    "url": "/multimedia_website/static/media/lena3.fae8fbb5.jpg"
   },
   {
-    "revision": "53b055b664a2f9fd4f25b34a35bcd2dd",
-    "url": "/multimedia_website/static/media/lena4.53b055b6.jpg"
+    "revision": "b4b34a3d4990a2a53f867a6c780dfa6b",
+    "url": "/multimedia_website/static/media/lena4.b4b34a3d.jpg"
   },
   {
     "revision": "34e9b485c9ea72e89f88c66bb277e601",
@@ -216,7 +216,7 @@ self.__precacheManifest = [
     "url": "/multimedia_website/static/media/sfulogo.aa96f48c.jpg"
   },
   {
-    "revision": "9c4531f996a0001966d7b13ee3bcefde",
+    "revision": "f2dde3e814a0d237f723c4fb0265e005",
     "url": "/multimedia_website/index.html"
   }
 ];
