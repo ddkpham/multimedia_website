@@ -748,8 +748,8 @@ class ArithmeticCodec extends Component{
                     <input type="text" onChange={this.MsgHandler}></input>
                     <button onClick= {this.FrequencyInitiation}>Encode MSG</button>
                     <br></br>
-                    {letterToBeEncodedMsg}
                     {beforeUpdateMsg}
+                    {letterToBeEncodedMsg}
                     {afterUpdateMsg}
                     {E1}
                     {E2}
