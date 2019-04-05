@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "a32f09b902a9ce477498",
+    "revision": "75ffd94d6506caa09daf",
     "url": "/multimedia_website/static/css/main.5b5f0e03.chunk.css"
   },
   {
-    "revision": "a32f09b902a9ce477498",
-    "url": "/multimedia_website/static/js/main.7d7c5c34.chunk.js"
+    "revision": "75ffd94d6506caa09daf",
+    "url": "/multimedia_website/static/js/main.7cde6d23.chunk.js"
   },
   {
     "revision": "4e7ba8cd0cc339117b15",
@@ -216,7 +216,7 @@ self.__precacheManifest = [
     "url": "/multimedia_website/static/media/sfulogo.aa96f48c.jpg"
   },
   {
-    "revision": "175f1daa02e075f400c38c014ea973f8",
+    "revision": "4861afe1081eb03858de1a1264aaa9e9",
     "url": "/multimedia_website/index.html"
   }
 ];
