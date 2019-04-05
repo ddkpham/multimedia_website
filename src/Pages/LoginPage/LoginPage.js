@@ -31,7 +31,7 @@ class LoginPage extends Component{
             console.log("correct password")
             this.props.authenticateUser();
         } else {
-            console.log('incorrect password')
+            alert('wrong username or password')
         }
     }
 
