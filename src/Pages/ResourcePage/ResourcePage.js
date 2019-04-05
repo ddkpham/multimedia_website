@@ -51,6 +51,7 @@ class ResourcePage extends Component{
                     <ul style = {ulStyle}>
                         <li><NavLink to="/arithmetic_encoding" >Arithmetic Encoding</NavLink></li><br></br>
                         <li><NavLink to="/huffman">Huffman Coding </NavLink></li><br></br>
+                        <li><NavLink to="/adaptive-huffman">Adaptive Huffman Coding </NavLink></li><br></br>
                         <li><NavLink to="/jpeg">JPEG </NavLink></li><br></br>
                     </ul>
                 </div>
