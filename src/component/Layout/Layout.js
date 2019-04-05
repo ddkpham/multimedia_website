@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Route, Switch} from 'react-router-dom'
 
 
@@ -13,35 +13,66 @@ import CourseContentPage from '../../Pages/CourseContentPage/CourseContentPage';
 import CourseWorkPage from '../../Pages/CourseWorkPage/CourseWorkPage';
 import Huffman from '../DemoPageInfo/Huffman/Huffman'
 import JPEG from '../DemoPageInfo/JPEG/JPEG'
+import LoginPage from '../../Pages/LoginPage/LoginPage'
+import { hasRole, isAllowed } from '../../Auth/auth';
+
 //import Toolbar from '../Navigation/Toolbar/Toolbar';
 
 
-const layout = (props) =>{
-    return(
-    <Aux>
-        {/* ----------- Toolbar/Navbar --------------------*/}
-         <Toolbar /> 
-       
-       {/* --------------------- Routes --------------------*/}
-
-       <Switch>
-        {/* --------------------- Temporary anon functions for Pages --------------------*/}
-        <Route path="/course-content" component= {CourseContentPage} />
-        <Route path="/resources" component = {ResourcePage} />
-        <Route path="/course-work" component = {CourseWorkPage} />
-        <Route path="/arithmetic_encoding" component = {ArithmetricCodec} />
-        <Route path="/huffman" component = {Huffman} />
-        <Route path="/jpeg" component = {JPEG}/>
-        <Route path="/" component={HomePage} />
-        
-        
-       </Switch>
-       
-
-       
-    </Aux>
+class layout extends Component{
     
-    )
+    state = {
+        user: {
+            name: "visitor",
+            // roles: ['user'],
+            // rights:['can-view-website'],
+            authenticated: false
+        }
+    }
+
+    authenticateUser = ()=>{
+        const user = {
+            name:"student",
+            authenticated:true
+        }
+        this.setState({user: user})
+    }
+
+
+    render(){
+        const user = this.state.user;
+        let routes = null;
+        if(user.authenticated){
+            routes = (
+                <Switch>
+                    {/* --------------------- Temporary anon functions for Pages --------------------*/}
+                    <Route path="/course-content" component= {CourseContentPage} />
+                    <Route path="/resources" component = {ResourcePage} />
+                    <Route path="/course-work" component = {CourseWorkPage} />
+                    <Route path="/arithmetic_encoding" component = {ArithmetricCodec} />
+                    <Route path="/huffman" component = {Huffman} />
+                    <Route path="/jpeg" component = {JPEG}/>
+                    <Route path="/" component={HomePage} />
+               </Switch>
+            )
+        } else{
+            routes = (
+                <Switch>
+                    <Route path="/" component= {()=>{return <LoginPage authenticateUser={this.authenticateUser}/>}} />
+                </Switch>
+            )
+        }
+        return(
+            <Aux>
+                {/* ----------- Toolbar/Navbar --------------------*/}
+                 <Toolbar /> 
+               
+               {/* --------------------- Routes --------------------*/}
+                {routes}
+            </Aux>
+            
+            )
+    }
 }
 
 export default layout;
