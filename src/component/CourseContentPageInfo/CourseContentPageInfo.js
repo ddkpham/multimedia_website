@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import classes from './CourseContentPageInfo.module.css'
+import { ListGroup, ListGroupItem } from 'reactstrap';
 
 // Lecture notes
 import Intro from '../../assets/material/lectureslides/Intro.pdf';
@@ -31,7 +32,6 @@ import Week10_2 from '../../assets/material/supplements/Week10_2.pdf';
 import Week11 from '../../assets/material/supplements/Week11.pdf';
 import Week12 from '../../assets/material/supplements/Week12.pdf';
 import Week12_2 from '../../assets/material/supplements/Week12_2.pdf';
-import { ListGroup, ListGroupItem } from 'reactstrap';
 
 class CourseContentPageInfo extends Component{
     render(){

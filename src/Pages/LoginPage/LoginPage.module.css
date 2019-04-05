@@ -1,3 +1,25 @@
 .Login{
-    margin-top: 100px;
+    margin-top: 95px;
+    padding: 9%;
+}
+
+.Login h6{
+    margin-bottom: 40px;
+}
+
+.Login input {
+    width: 20%;
+    margin-left: 40%;
+    margin-right: 40%;
+}
+
+.Login Label{
+    margin-top: 0px;
+}
+
+.Submitbutton{
+    width: 20%;
+    margin-top: 15px;
+    margin-left: 40%;
+    margin-right: 40%;
 }

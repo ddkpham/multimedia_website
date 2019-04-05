@@ -1,0 +1,9 @@
+.DemoNav {
+    width: 15%;
+    float: left;
+    overflow: 'scroll';
+}
+
+.DemoNav p{
+    padding: 30px;
+}

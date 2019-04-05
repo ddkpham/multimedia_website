@@ -5,6 +5,8 @@ import IntervalBar from '../../IntervalBars/IntervalBar/IntervalBar';
 import E1IntervalBar from '../../IntervalBars/E1IntervalBar/E1IntervalBar'
 import E2IntervalBar from '../../IntervalBars/E2IntervalBar/E2IntervalBar'
 import E3IntervalBar from '../../IntervalBars/E3IntervalBar/E3IntervalBar'
+import DemoNav from '../DemoNav/DemoNav';
+
 class ArithmeticCodec extends Component{
     state = {
         letterFrequency : {
@@ -743,8 +745,10 @@ class ArithmeticCodec extends Component{
         
         return (
            <div className={classes.ArithmeticCodec}>
-               <h1>Arithmetic Codec</h1>
-               <div>
+                <DemoNav></DemoNav>
+                <div className={classes.ArithmeticAlgorithm}>
+                <h1>Arithmetic Codec</h1>
+                <div>
                     <input type="text" onChange={this.MsgHandler}></input>
                     <button onClick= {this.FrequencyInitiation}>Encode MSG</button>
                     <br></br>
@@ -754,14 +758,15 @@ class ArithmeticCodec extends Component{
                     {E1}
                     {E2}
                     {E3}
-                    <h1>Encoded BitString : {encodedBitString} </h1>
-                    <h1>Encoded BitStringLength : {encodedBitStringLength} </h1>
+                    <h3>Encoded BitString : {encodedBitString} </h3>
+                    <h3>Encoded BitStringLength : {encodedBitStringLength} </h3>
                </div>
                <div>
                     <input type="text" onChange={this.decodeMsgHandler}></input>
                     <button onClick= {this.MessageDecoderWithScaling}>Decode MSG</button>
-                    <h1>Decoded Msg : {decodedMsg} </h1>
+                    <h3>Decoded Msg : {decodedMsg} </h3>
                     
+               </div>
                </div>
            </div>
         )
