@@ -27,7 +27,7 @@ class layout extends Component{
             name: "visitor",
             // roles: ['user'],
             // rights:['can-view-website'],
-            authenticated: false
+            authenticated: true
         }
     }
 
