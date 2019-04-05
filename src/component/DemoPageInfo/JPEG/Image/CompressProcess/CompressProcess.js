@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import Aux from '../../../hoc/Aux';
-import Button from '../../UI/Button/Button';
+import Aux from '../../../../../hoc/Aux';
+import Button from '../../../../UI/Button/Button';
 import classes from './CompressProcess.module.css'
 import ImageDropdown from '../../ImageDropdownMenu/ImageDropdownMenu'
 import CompressDropdown from '../../CompressDropdownMenu/CompressDropdownMenu'
@@ -26,7 +26,6 @@ class CompressProcess extends Component{
                 <p>Please select Quantization value (1-10)</p>
                
                 <CompressDropdown compressHandler={this.props.compressHandler} />
-                <br />
                 <Button
                     clicked={this.props.cancel}
                     btnType='Danger'

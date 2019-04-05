@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 
 import classes from './ArithmeticCodec.module.css';
-import IntervalBar from '../IntervalBars/IntervalBar/IntervalBar';
-import E1IntervalBar from '../IntervalBars/E1IntervalBar/E1IntervalBar'
-import E2IntervalBar from '../IntervalBars/E2IntervalBar/E2IntervalBar'
-import E3IntervalBar from '../IntervalBars/E3IntervalBar/E3IntervalBar'
+import IntervalBar from '../../IntervalBars/IntervalBar/IntervalBar';
+import E1IntervalBar from '../../IntervalBars/E1IntervalBar/E1IntervalBar'
+import E2IntervalBar from '../../IntervalBars/E2IntervalBar/E2IntervalBar'
+import E3IntervalBar from '../../IntervalBars/E3IntervalBar/E3IntervalBar'
 class ArithmeticCodec extends Component{
     state = {
         letterFrequency : {

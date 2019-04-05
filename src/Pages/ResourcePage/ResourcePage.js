@@ -61,7 +61,6 @@ class ResourcePage extends Component{
             
             <div style = {bodyStyle}>
                 {title}
-
                 {demoList}
                 {resourceList}
                 <Button
@@ -78,11 +77,9 @@ const bodyStyle = {
 }
 
 const imgStyle = {
-    padding: '20px',
-    marginTop: '20px',
-    marginBottom: '15px',
-    width: '165px',
-    height: '165px'
+    marginBottom: '40px',
+    width: '135px',
+    height: '135px'
 }
 
 const ulStyle = {

@@ -55,10 +55,10 @@ showDropdownMenu(event) {
 
           { this.state.displayMenu ? (
           <ul>
-         <li><a onClick={()=>this.setImage("lena.jpg")}>Lena</a></li>
-         <li><a onClick={()=>this.setImage("space.jpg")}>Space</a></li>
-         <li><a onClick={()=>this.setImage("puppy.jpg")}>Puppy</a></li>
-         <li><a onClick={()=>this.setImage("kitty.jpg")}>Kitty</a></li>
+         <li onClick={()=>this.setImage("lena.jpg")}><a>Lena</a></li>
+         <li onClick={()=>this.setImage("space.jpg")}><a>Space</a></li>
+         <li onClick={()=>this.setImage("puppy.jpg")}><a>Puppy</a></li>
+         <li onClick={()=>this.setImage("kitty.jpg")}><a>Kitty</a></li>
           </ul>
         ):
         (

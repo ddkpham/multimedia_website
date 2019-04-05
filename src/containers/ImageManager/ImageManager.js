@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 import classes from './ImageManager.module.css';
 import Aux from '../../hoc/Aux'
-import ImageControl from '../../component/Image/ImageControls/ImageControl';
+import ImageControl from '../../component/DemoPageInfo/JPEG/Image/ImageControls/ImageControl';
 import Modal from '../../UI/Modal/Modal';
-import CompressProcess from '../../component/Image/CompressProcess/CompressProcess';
+import CompressProcess from '../../component/DemoPageInfo/JPEG/Image/CompressProcess/CompressProcess';
 
 class ImageManager extends Component{
     state ={
@@ -109,7 +109,7 @@ class ImageManager extends Component{
                     ></CompressProcess>
                 </Modal>
                 <div className={classes.StartApp}>
-                    <h1>START THE APPLICATION</h1>
+                    <h1 style = {h1Style}>START THE APPLICATION</h1>
                     <button onClick={this.toggleImageModal}>CLICK ME</button>
                 </div>
                 <ImageControl 
@@ -121,6 +121,12 @@ class ImageManager extends Component{
             </Aux>
         );
     }
+}
+
+const h1Style =  {
+    padding: '40px',
+    fontWeight: 'bold',
+    textAlign: 'center'
 }
 
 export default ImageManager;

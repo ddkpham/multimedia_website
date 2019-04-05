@@ -7,12 +7,12 @@ import Aux from '../../hoc/Aux';
 
 
 import ResourcePage from '../../Pages/ResourcePage/ResourcePage';
-import ArithmetricCodec from '../ArithmeticCodec/ArithmeticCodec'
+import ArithmetricCodec from '../DemoPageInfo/ArithmeticCodec/ArithmeticCodec'
 import HomePage from '../../Pages/HomePage/HomePage'
 import CourseContentPage from '../../Pages/CourseContentPage/CourseContentPage';
 import CourseWorkPage from '../../Pages/CourseWorkPage/CourseWorkPage';
-import Huffman from '../Huffman/Huffman'
-import JPEG from '../JPEG/JPEG'
+import Huffman from '../DemoPageInfo/Huffman/Huffman'
+import JPEG from '../DemoPageInfo/JPEG/JPEG'
 //import Toolbar from '../Navigation/Toolbar/Toolbar';
 
 
