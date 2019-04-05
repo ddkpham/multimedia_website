@@ -1,0 +1,74 @@
+.IntervalBar{
+    color: blue;
+    border: 1px solid black;
+    width: 60%;
+    display: inline-block;
+    background-color: grey;
+    
+}
+
+.a{
+    width:40%;
+    background-color: white;
+    float: left;
+    border: 1px solid black;
+
+}
+
+.b{
+    width:30%;
+    background-color: white;
+    float: left;
+    border: 1px solid black;
+
+}
+.c{
+    width:20%;
+    background-color: white;
+    float: left;
+    border: 1px solid black;
+}
+.end{
+    width:10%;
+    background-color: white;
+    float: left;
+    border: 1px solid black;
+}
+
+.quarter{
+    border: solid 1px black;
+    width: 25%;
+    border: 1px solid black;
+}
+
+.half{
+    border: solid 1px black;
+    width: 50%;
+}
+.threeQuarters{
+    border: solid 1px black;
+    width: 75%;
+}
+
+
+.atext{
+    padding-left: 20% !important;
+    float: left;
+}
+
+.btext{
+    padding-left: 21% !important;
+    float:left;
+}
+.ctext{
+    padding-left: 15% !important;
+    float:left;
+}
+.dtext{
+    padding-left: 7% !important;
+    float:left;
+}
+.endtext{
+    padding-left: 4% !important;
+    float:left;
+}

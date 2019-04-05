@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 
-import classes from './ArithmeticCodec.module.css'
+import classes from './ArithmeticCodec.module.css';
+import IntervalBar from '../IntervalBars/IntervalBar/IntervalBar';
+import E1IntervalBar from '../IntervalBars/E1IntervalBar/E1IntervalBar'
+import E2IntervalBar from '../IntervalBars/E2IntervalBar/E2IntervalBar'
+import E3IntervalBar from '../IntervalBars/E3IntervalBar/E3IntervalBar'
 class ArithmeticCodec extends Component{
     state = {
         letterFrequency : {
@@ -41,10 +45,10 @@ class ArithmeticCodec extends Component{
             // f: 0.05,
             // $: 0.1
 
-            a: 0.5,
-            b: 0.2, 
-            c: 0.2999,
-            $: 0.0001
+            a: 0.4,
+            b: 0.3, 
+            c: 0.2,
+            $: 0.1
             
         }, 
         lowFreq : [],
@@ -54,8 +58,29 @@ class ArithmeticCodec extends Component{
         encodedBitString: "",
         encodedBitStringLength: null,
         messageToBeDecoded: "",
+        EncodedMsgSoFar: "",
+        lettersEncodedSoFar: 0,
         decodedMsg: "",
-        encodedMsgLength: null
+        letterToBeEncoded: "",
+        encodedMsgLength: null,
+        e1status:false,
+        e2status:false,
+        e3status:false,
+        startBeforeUpdate: 0.0,
+        endBeforeUpdate: 1.0,
+        startAfterUpdate: 0.0,
+        endAfterUpdate: 1.0,
+        startAfterScaling: 0.0,
+        endAfterScaling: 1.0,
+        start: 0.0,
+        end: 1.0,
+        s: 0,
+        width: 1.0,
+        e1IntervalInfo : [],
+        e2IntervalInfo : [],
+        e3IntervalInfo : [],
+        encoderInitated:false
+
     }
 
     shouldComponentUpdate(nextProps, nextState){
@@ -67,12 +92,10 @@ class ArithmeticCodec extends Component{
     frequencyTotalCheck = () => {
         let letterFrequency = this.state.letterFrequency;
         let totalFrequency = Object.values(letterFrequency).reduce(( total, el) =>{
-            //console.log(el)
+       
             return el + total
         }, 0);
 
-        //console.log(typeof(letterFrequency))
-        //console.log(totalFrequency)
     }
 
     FrequencyInitiation = () =>{
@@ -112,7 +135,154 @@ class ArithmeticCodec extends Component{
         }
         console.log("lowFreq[]",this.state.lowFreq)
         console.log("highFreq[]",highFreq)
-        this.setState({highFreq: highFreq}, this.Encoder)
+        this.setState({highFreq: highFreq}, this.EncoderWithUI)
+
+    }
+
+    EncoderWithUI = () => {
+        // append terminator letter to sequence 
+        if(this.state.lettersEncodedSoFar === 0){
+            console.log("0 letters coded so far")
+            let msgArr = this.state.messageToBeEncoded.split("")
+            msgArr.push('$')
+            let msgLength = msgArr.length;
+            let messageToBeEncoded = msgArr.join("")
+            this.setState({encodedMsgLength:msgLength , messageToBeEncoded: messageToBeEncoded, encoderInitated:true})
+            console.log(messageToBeEncoded)
+
+        }
+        
+        let msgLength = this.state.messageToBeEncoded;
+        msgLength = msgLength.length
+        console.log(msgLength)
+        let lettersEncodedSoFar = this.state.lettersEncodedSoFar;
+        console.log("[letters encoded so far]", lettersEncodedSoFar)
+        if(lettersEncodedSoFar >= msgLength){
+            console.log('FINISHED ENCODING')
+        } else{
+            
+            let reset = [];
+            //RESET E1/2/3 states 
+            this.setState({e1IntervalInfo: reset, e2IntervalInfo: reset, e3IntervalInfo: reset})
+            //initiate variables
+            let messageToBeEncoded = this.state.messageToBeEncoded;
+            let a = this.state.start;
+            let b = this.state.end;
+            console.log("[a,b]: ", a, b)
+            let width = this.state.width;
+            let s = this.state.s;
+            let bitString = this.state.encodedBitString;
+            let letterIndex = null;
+            let messageArr = messageToBeEncoded.split("")
+            //obtain letter to be encoded
+            lettersEncodedSoFar = this.state.lettersEncodedSoFar;
+            
+            console.log("[lettersEncodedSoFar]:", lettersEncodedSoFar)
+            let letterToBeEncoded = messageArr[lettersEncodedSoFar];
+
+            //Initiate Freq Arrays 
+            const highFreq = Object.values(this.state.highFreq)
+            const lowFreq = Object.values(this.state.lowFreq)
+
+            //Encode Letter
+            letterIndex = this.findLetterIndex(letterToBeEncoded)
+            console.log("[letterIndex]: ", letterIndex)
+            width = b - a;
+            // console.log("width: ", width)
+            this.setState({startBeforeUpdate:a, endBeforeUpdate:b})
+            b = a + width * (highFreq[letterIndex])
+            a = a + width * (lowFreq[letterIndex])
+            this.setState({startAfterUpdate: a, endAfterUpdate:b})
+
+            console.log("[a]: ", a)
+            console.log("[b]: ", b)
+
+            let scaledValues = null;
+            // let test = {...this.state.e1IntervalInfo}
+            // console.log("test: ", test.a)
+            //console.log("before entering scaling check s: ", s)
+            while (b<= 0.5 || a >= 0.5){
+                
+                if(b <=0.5){ //E1 Scaling
+                    console.log("e1 scaling")
+                    scaledValues = this.e1Scaling( a ,b ,s, bitString );
+                    a = scaledValues.a
+                    b = scaledValues.b
+                    s = scaledValues.s
+                    bitString = scaledValues.bitString
+                    let data = {
+                        a:a,
+                        b:b,
+                        bitString: bitString
+                    }
+                    let e1IntervalInfo = [...this.state.e1IntervalInfo, data];
+                    
+                    //e1IntervalInfo.push(data)
+                    this.setState({e1IntervalInfo: e1IntervalInfo, s:s})
+                    
+                }   
+                else{ //E2 Scaling
+                    console.log("e2 scaling")
+                    scaledValues = this.e2Scaling( a ,b ,s, bitString );
+                    a = scaledValues.a
+                    b = scaledValues.b
+                    s = scaledValues.s
+                    bitString = scaledValues.bitString
+                    console.log('[E2 scaling bitstring]', bitString)
+                    let e2IntervalInfo = [...this.state.e2IntervalInfo];
+                    let data = {
+                        a:a,
+                        b:b,
+                        bitString: bitString
+                    }
+                    e2IntervalInfo.push(data)
+                    this.setState({e2IntervalInfo: e2IntervalInfo, s:s})
+                }
+            }
+            //E3 Scaling
+            
+            if(a > 0.25 && b < 0.75){
+                console.log("e3 scaling")
+                scaledValues = null; 
+                scaledValues = this.e3Scaling( a , b, s , bitString )
+                a = scaledValues.a
+                b = scaledValues.b
+                s = scaledValues.s
+                bitString = scaledValues.bitString
+                let e3IntervalInfo = [...this.state.e3IntervalInfo];
+                let data = {
+                    a:a,
+                    b:b,
+                    bitString: bitString
+                }
+                e3IntervalInfo.push(data)
+                this.setState({e3IntervalInfo: e3IntervalInfo, s:s})
+            }
+            let lettersEncodedSoFar = this.state.lettersEncodedSoFar + 1;
+            this.setState({lettersEncodedSoFar: lettersEncodedSoFar})
+            if(lettersEncodedSoFar === msgLength){
+                s = s + 1;
+                if(a <= 0.25){
+                    bitString = bitString.concat('0')
+                    for (let i = 0; i < s; i++){
+                        bitString = bitString.concat( '1')
+                    }
+                } else {
+                    bitString = bitString.concat( '1')
+                    for (let i = 0; i < s; i++){
+                        bitString = bitString.concat( '0')
+                    }
+                    //console.log("[bitString]: ", bitString)
+
+                }
+                
+                this.setState({encodedBitString:bitString})
+            }
+            console.log("[bitString]: ", bitString)
+            this.setState({encodedBitString: bitString, start:a, end:b, width:width, s:s})
+
+        }
+        
 
     }
 
@@ -140,14 +310,11 @@ class ArithmeticCodec extends Component{
             b = a + width * (highFreq[letterIndex])
             a = a + width * (lowFreq[letterIndex])
 
-            // console.log("letter to be encoded", messageArr[i])
-            // console.log("s: ", s)
-            // console.log("a: ", a)
-            // console.log("b: ", b)
+
             //Check if scaling is required
             //E1/E2 
             let scaledValues = null;
-            console.log("before entering scaling check s: ", s)
+            //console.log("before entering scaling check s: ", s)
             while (b<= 0.5 || a >= 0.5){
                 
                 if(b <=0.5){ //E1 Scaling
@@ -156,29 +323,16 @@ class ArithmeticCodec extends Component{
                     b = scaledValues.b
                     s = scaledValues.s
                     bitString = scaledValues.bitString
-                    // console.log("E1 Scaling...")
-                    // console.log("s: ", s)
-                    // console.log("a: ", a)
-                    // console.log("b: ", b)
-                    // console.log("[bitString]: ", bitString)
-                }   //E2 Scaling
-                else{
+                }   
+                else{ //E2 Scaling
                     scaledValues = this.e2Scaling( a ,b ,s, bitString );
                     a = scaledValues.a
                     b = scaledValues.b
                     s = scaledValues.s
                     bitString = scaledValues.bitString
-                    // console.log("E2 Scaling...")
-                    // console.log("s: ", s)
-                    // console.log("a: ", a)
-                    // console.log("b: ", b)
-                    // console.log("[bitString]: ", bitString)
                 }
-                
-                
-
             }
-            //E3
+            //E3 Scaling
             
             if(a > 0.25 && b < 0.75){
                 scaledValues = null; 
@@ -187,35 +341,23 @@ class ArithmeticCodec extends Component{
                 b = scaledValues.b
                 s = scaledValues.s
                 bitString = scaledValues.bitString
-                    // console.log("E3 Scaling...")
-                    // console.log("s: ", s)
-                    // console.log("a: ", a)
-                    // console.log("b: ", b)
-                    // console.log("[bitString]: ", bitString)
-                
             }
         
         
         }
         
-        s = s+1;
+        s = s + 1;
         if(a <= 0.25){
             bitString = bitString.concat('0')
             for (let i = 0; i < s; i++){
                 bitString = bitString.concat( '1')
             }
-            // console.log("s: ", s)
-            // console.log("a: ", a)
-            // console.log("b: ", b)
-            // console.log("[bitString]: ", bitString)
-
-            
         } else {
             bitString = bitString.concat( '1')
             for (let i = 0; i < s; i++){
                 bitString = bitString.concat( '0')
             }
-            console.log("[bitString]: ", bitString)
+            //console.log("[bitString]: ", bitString)
 
         }
         console.log("[bitString]: ", bitString)
@@ -296,7 +438,6 @@ class ArithmeticCodec extends Component{
     }
 
     MessageDecoderWithScaling = ()=>{
-        let bitString = this.state.messageToBeDecoded;
         //find symbol with min frequency
         //1. find symbol with minFrequency
         let minFreqSymbolFreq = this.symbolIndexWithMinFrequency()
@@ -304,6 +445,7 @@ class ArithmeticCodec extends Component{
 
         //2. find length of bits for window size
         let windowSize = this.findBitsForWindowSize(minFreqSymbolFreq)
+
         //3. set window size 
         // start = 0  end = l - 1
         let bitStringToBeDecoded = this.state.encodedBitString;
@@ -316,14 +458,13 @@ class ArithmeticCodec extends Component{
         // find symbol range that fits in that window
         // once you find a symbol, shift 1 bit right performing E1/E2 scaling
         // if symbol is EOF break 
-        
-        
-        console.log(bitStringArr.slice(start, end))
+    
         let letterArr = Object.keys(this.state.letterFrequency)
         let symbolListLength = letterArr.length
         let symbol = null;
         let tempBitStringArr = null;
         //slice is not inclusive
+        //set up initial parameters for scaling. 
         let x = 0;
         let val = 0;
         let a = 0;
@@ -341,36 +482,26 @@ class ArithmeticCodec extends Component{
 
 
         while(symbol !== "$" && x < charLimit && decodedSequenceLengthSoFar < msgLength-1){
-            console.log("[Beggining of loop]")
-            console.log("[decoded sequence length]:", decodedSequenceLengthSoFar)
-            console.log("[msg length]:", msgLength-1 )
             x +=1; 
             tempBitStringArr = bitStringArr.slice(start, end);
-            //convert bitstring to Freq
+            //convert bitstring to interval value
             val = this.bitStringArrToTargetValue(tempBitStringArr);
-            console.log(val)
+
             //check to see if val fits in any of the symbol high-low ranges
             for(let i = 0; i< symbolListLength; i++){
                 width = b - a;
                 btemp = a + width * (highFreq[i])
                 atemp = a + width * (lowFreq[i])
-                console.log("trying symbol: ", letterArr[i])
-                console.log("atemp: ", atemp)
-                console.log("btemp: ", btemp)
-                console.log("val: ", val)
+
                 if(val >= atemp && val < btemp){
-                    console.log("TARGET FOUND")
-                    console.log("decodedletter: ", letterArr[i])
                     let decodedLetter = String(letterArr[i])
                     if(decodedLetter === "space"){
                         decodedLetter = " "
                     }
+
                     decodedMsg = decodedMsg.concat(decodedLetter)
-                    console.log("decoded MSG so far:", decodedMsg)
-                    
                     decodedSequenceLengthSoFar += 1;
-                    console.log("[decoded sequence length]:", decodedSequenceLengthSoFar)
-                    console.log("[msg length]:", msgLength-1 )
+
                     if(decodedSequenceLengthSoFar == msgLength-1){
                         break;
                     }
@@ -379,16 +510,16 @@ class ArithmeticCodec extends Component{
                     symbol = decodedLetter;
                     
                 }
-                while (b < 0.5 || a > 0.5){
-                    console.log("E1/E2 scaling...")
-                    if(b < 0.5){
+                while (b < 0.5 || a > 0.5){ 
+                    //console.log("E1/E2 scaling...")
+                    if(b < 0.5){ //E1 scaling 
                         a = 2 * a;
                         b = 2 * b;
                         //shift bits 
                         start += 1;
                         end += 1;
 
-                    } else {
+                    } else { //E2 scaling
                         a = 2 * (a - 0.5);
                         b = 2 * (b - 0.5);
                         //shift bits
@@ -399,14 +530,13 @@ class ArithmeticCodec extends Component{
                 
                 
             }
-            console.log('[x]', x)
-            console.log('[symbol]', symbol)
-            console.log("exiting letter check")
             
         }
         this.setState({decodedMsg: decodedMsg})
 
     }
+
+
 
     symbolIndexWithMinFrequency = () => {
         console.log("finding symbol with min freq")
@@ -534,6 +664,81 @@ class ArithmeticCodec extends Component{
         let decodedMsg = this.state.decodedMsg.split("$")
         decodedMsg = decodedMsg[0]
         decodedMsg = <p>{decodedMsg}</p>
+        let E1 = null;
+        let E2 = null;
+        let E3 = null;
+        let e1IntervalInfo = this.state.e1IntervalInfo;
+        let e2IntervalInfo = this.state.e2IntervalInfo;
+        let e3IntervalInfo = this.state.e3IntervalInfo;
+        let bitString = this.state.encodedBitString;
+        let letterToBeEncodedMsg = null;
+        let beforeUpdateMsg = null;
+        let afterUpdateMsg = null;
+        let afterScalingMsg = null;
+        if(this.state.encoderInitated){
+            let msgArr = this.state.messageToBeEncoded.split("")
+            let letterToBeEncoded = msgArr[this.state.lettersEncodedSoFar-1]
+            letterToBeEncodedMsg = <h1>Letter to be encoded: {letterToBeEncoded} </h1>
+            
+            let startBeforeUpdate = this.state.startBeforeUpdate
+            startBeforeUpdate = startBeforeUpdate.toFixed(2)
+            let endBeforeUpdate = this.state.endBeforeUpdate
+            endBeforeUpdate = endBeforeUpdate.toFixed(2)
+
+            let startAfterUpdate = this.state.startAfterUpdate
+            startAfterUpdate = startAfterUpdate.toFixed(2)
+            let endAfterUpdate = this.state.endAfterUpdate
+            endAfterUpdate = endAfterUpdate.toFixed(2)
+            console.log("[startAfterUpdate]",startAfterUpdate)
+
+            beforeUpdateMsg = (
+                <div>
+                    <h1>Before Interval Update</h1>
+                    <IntervalBar start={startBeforeUpdate} end={endBeforeUpdate} />
+                </div>
+            )
+            afterUpdateMsg = (
+                <div>
+                    <h1>After Interval Update</h1>
+                    <IntervalBar start={startAfterUpdate} end={endAfterUpdate} />
+                </div>
+            )
+        }
+        console.log(e1IntervalInfo)
+        if(e1IntervalInfo.length > 0){
+            //E1 = <E1IntervalBar start="0.0" end="1.0"  bitString={bitString}/>
+            E1 = this.state.e1IntervalInfo.map((info, index)=>{
+                let a = info.a
+                a = a.toFixed(2)
+                let b = info.b
+                b = b.toFixed(2)
+                return <E1IntervalBar key={index} start={info.a} end={info.b} bitString={info.bitString} />
+            })
+            console.log("E1 : ", E1)
+            
+        }
+        if(e2IntervalInfo.length > 0){
+            E2 = this.state.e2IntervalInfo.map((info, index)=>{
+                let a = info.a
+                a = a.toFixed(2)
+                let b = info.b
+                b = b.toFixed(2)
+                return <E2IntervalBar key={index} start={a} end={b} bitString={info.bitString} />
+            })
+            console.log("E2 : ", E2)
+        }
+        if(e3IntervalInfo.length > 0){
+            E3 = this.state.e3IntervalInfo.map((info, index)=>{
+                let a = info.a
+                a = a.toFixed(2)
+                let b = info.b
+                b = b.toFixed(2)
+                console.log(b)
+                return <E3IntervalBar key={index} start={a} end={b} bitString={info.bitString} />
+            })
+            console.log("E3 : ", E3)
+        }
+
         
         
         return (
@@ -542,7 +747,13 @@ class ArithmeticCodec extends Component{
                <div>
                     <input type="text" onChange={this.MsgHandler}></input>
                     <button onClick= {this.FrequencyInitiation}>Encode MSG</button>
-
+                    <br></br>
+                    {beforeUpdateMsg}
+                    {letterToBeEncodedMsg}
+                    {afterUpdateMsg}
+                    {E1}
+                    {E2}
+                    {E3}
                     <h1>Encoded BitString : {encodedBitString} </h1>
                     <h1>Encoded BitStringLength : {encodedBitStringLength} </h1>
                </div>

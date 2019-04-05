@@ -1,0 +1,10 @@
+.E2 {
+    border: groove red 1px;
+    padding:50px;
+    margin:10px;
+
+}
+
+.E2 h1{
+    text-decoration: underline;
+}
