@@ -48,10 +48,10 @@ showDropdownMenu(event) {
 
           { this.state.displayMenu ? (
           <ul>
-         <li><a onClick={()=>this.setCompressionVal("1")}>1</a></li>
-         <li><a onClick={()=>this.setCompressionVal("2")}>2</a></li>
-         <li><a onClick={()=>this.setCompressionVal("3")}>3</a></li>
-         <li><a onClick={()=>this.setCompressionVal("4")}>4</a></li>
+         <li onClick={()=>this.setCompressionVal("1")}><a>1</a></li>
+         <li onClick={()=>this.setCompressionVal("2")}><a>2</a></li>
+         <li onClick={()=>this.setCompressionVal("3")}><a>3</a></li>
+         <li onClick={()=>this.setCompressionVal("4")}><a>4</a></li>
           </ul>
         ):
         (

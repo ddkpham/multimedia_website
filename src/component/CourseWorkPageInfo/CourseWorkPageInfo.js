@@ -46,15 +46,13 @@ class CourseWorkPageInfo extends Component{
                     </li>
                 </ul>
                 <br></br>
-                
             </div>
         )
     }
 }
 
 const imgStyle = {
-    marginTop: '45px',
-    marginBottom: '10px',
+    marginBottom: '40px',
     width: '170px',
     height: '170px'
 }

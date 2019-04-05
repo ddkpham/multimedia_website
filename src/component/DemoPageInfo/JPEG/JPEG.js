@@ -8,7 +8,6 @@ class JPEG extends Component{
         return(
             <div>
                 <h1>JPEG</h1>
-                
                 <Intro />
                 <ImageManager />
             </div>
