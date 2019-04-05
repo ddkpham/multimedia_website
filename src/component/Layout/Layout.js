@@ -14,6 +14,7 @@ import CourseWorkPage from '../../Pages/CourseWorkPage/CourseWorkPage';
 import Huffman from '../DemoPageInfo/Huffman/Huffman'
 import JPEG from '../DemoPageInfo/JPEG/JPEG'
 import LoginPage from '../../Pages/LoginPage/LoginPage'
+import AdaptiveHuffman from '../DemoPageInfo/AdaptiveHuffman/AdaptiveHuffman'
 import { hasRole, isAllowed } from '../../Auth/auth';
 
 //import Toolbar from '../Navigation/Toolbar/Toolbar';
@@ -51,6 +52,7 @@ class layout extends Component{
                     <Route path="/course-work" component = {CourseWorkPage} />
                     <Route path="/arithmetic_encoding" component = {ArithmetricCodec} />
                     <Route path="/huffman" component = {Huffman} />
+                    <Route path="/adaptive-huffman" component = {AdaptiveHuffman} />
                     <Route path="/jpeg" component = {JPEG}/>
                     <Route path="/" component={HomePage} />
                </Switch>
