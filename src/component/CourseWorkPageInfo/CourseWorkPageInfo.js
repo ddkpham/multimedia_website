@@ -1,11 +1,28 @@
 import React, {Component} from 'react';
 import Project_topic from '../../assets/material/365-term-project-topics.pdf';
 import Library from '../../assets/images/library.png';
-import classes from './CourseWorkPageInfo.module.css'
+import classes from './CourseWorkPageInfo.module.css';
+import config from '../../Config/config'
 
 
 class CourseWorkPageInfo extends Component{
     render(){
+        let coursys = null;
+        if(config.courseWork.coursys){
+            coursys = <a href='https://coursys.sfu.ca/'>Go to coursys</a>
+        }
+        let assignment1 = null;
+        if(config.courseWork.assignment1){
+            assignment1 = <a href='http://www.cs.sfu.ca/CourseCentral/365/li/material/work/PA1.html'>Assignment1</a>
+        }
+        let assignment2 = null;
+        if(config.courseWork.assignment2){
+            assignment2 = <a href='http://www.cs.sfu.ca/CourseCentral/365/li/material/work/PA2.html'>Assignment2</a>
+        }
+        let term_project = null;
+        if(config.courseWork.term_project){
+            term_project = <a href={Project_topic}>Possible Term Project Topics</a>
+        }
         return(
             <div className={classes.CourseWorkPageInfo}> 
                 <p className={classes.Header} >Course Work</p>
@@ -16,20 +33,20 @@ class CourseWorkPageInfo extends Component{
                         Grades
                     </li>
                     <li>
-                        <a href='https://coursys.sfu.ca/'>Go to coursys</a>
+                        {coursys}
                     </li>
                     <br></br>
                     <li style = {liStyle} >
                         Assignments
                     </li>
                     <li>
-                        <a href='http://www.cs.sfu.ca/CourseCentral/365/li/material/work/PA1.html'>Assignment1</a>
+                        {assignment1}
                     </li>
                     <li>
-                        <a href='http://www.cs.sfu.ca/CourseCentral/365/li/material/work/PA2.html'>Assignment2</a>
+                        {assignment2}
                     </li>
                     <li>
-                        <a href={Project_topic}>Possible Term Project Topics</a>
+                        {term_project}
                     </li>
                     <br></br>
                     <li style = {liStyle} >

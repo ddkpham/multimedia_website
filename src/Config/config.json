@@ -1,0 +1,52 @@
+{
+    "courseContent": {
+        "chapter1": true,
+        "chapter2": true,
+        "chapter3": true,
+        "chapter4": true,
+        "chapter5": true,
+        "chapter6": true,
+        "chapter7": true,
+        "chapter8": true,
+        "chapter9": true,
+        "chapter10": true,
+        "chapter11": true,
+        "chapter12": true
+    },
+    "supplementaryMaterial":{
+        "week1": true,
+        "week2": true,
+        "week3": true,
+        "week4": true,
+        "week5": true,
+        "week6": true,
+        "week7": true,
+        "week9": true,
+        "week10": true,
+        "week10_2": true,
+        "week11": true,
+        "chapter12": true,
+        "chapter12_2": true
+    },
+    "courseWork":{
+        "coursys": true,
+        "assignment1": true,
+        "assignment2": true,
+        "term_project": true
+    },
+    "resources": {
+        "syllabus": true, 
+        "handouts": true,
+        "faq": true,
+        "useful_link": true,
+        "demo": true,
+        "demoPage": true
+    },
+    "demos": {
+        "arithmetic": true,
+        "adaptive_arithmetic": true,
+        "huffman": true,
+        "adaptive_huffman": true,
+        "JPEG": true
+    }
+}
