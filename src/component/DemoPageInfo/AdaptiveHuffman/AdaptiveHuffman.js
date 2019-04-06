@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import classes from './AdaptiveHuffman.module.css'
+import DemoNav from '../DemoNav/DemoNav';
 
 class HuffmanTree {
 
@@ -8,175 +9,398 @@ class HuffmanTree {
         this.right = null;
         this.parent = null;
         this.symbol = symbol;
-        this.count = count; 
+        this.count = count;
+        this.order = null;
     }
 
 }
-
-
-
-
-// User defined class 
-// to store element and its priority 
-class QElement { 
-    constructor(element, priority) 
-    { 
-        this.element = element; 
-        this.priority = priority; 
-    } 
-} 
-
-    // PriorityQueue class 
-class PriorityQueue { 
-  
-    // An array is used to implement priority 
-    constructor() 
-    { 
-        this.items = []; 
-    } 
-  
-    // functions to be implemented 
-    enqueue = (huffTree) => {
-        'use strict';
-        //console.log('enqueing...')
-        var contain = false;
-
-        // if queue is empty 
-        // let list = JSON.stringify(this.items)
-        // console.log("[items before empty]", list)
-        if(this.isEmpty()){
-            this.items.push(huffTree)
-            return
-        }
-        //find where to put element into queue
-        for (var i = 0; i < this.items.length; i++) { 
-            if (this.items[i].count >= huffTree.count) { 
-                console.log("adding another item")
-                // enqueued 
-                let beforeInsertTree = this.items
-                console.log('[Before Insertion]',beforeInsertTree)
-                
-                this.items.splice(i, 0, huffTree); 
-                let afterInsertTree = this.items
-                console.log('[After Insertion]',afterInsertTree)
-                contain = true; 
-                break; 
-            } 
-        } 
-        //if the element has the highest priority push to end 
-        // console.log("item is largest")
-        // console.log(contain)
-        if(!contain){
-            // console.log('large item pushing to back...')
-            this.items.push(huffTree); 
-            // let test = this.items
-            // console.log(test)
-        }
-        
-
-    }
-    dequeue = ()=>{
-        // return the dequeued element 
-        // and remove it. 
-        // if the queue is empty 
-        // returns Underflow 
-        if (this.isEmpty()){
-            return "Underflow"; 
-        } 
-        return this.items.shift();
-    }
-
-    front = ()=>{
-        if(this.isEmpty()){
-            return "Empty Queue"
-        }
-        return this.items[0]
-    }
-    
-    rear = ()=>{
-        // returns the lowest priorty 
-        // element of the queue 
-        if (this.isEmpty()){
-            return "No elements in Queue";
-        } 
-         
-        return this.items[this.items.length - 1]; 
-    }
-
-    isEmpty =()=>{
-        return this.items.length == 0;
-    }
-
-    getLength = () =>{
-        return this.items.length
-    }
-
-    printQueue = ()=>{
-        //console.log("inside printQueue")
-        if(this.isEmpty()){
-            return "Queue is empty"
-        }
-        var str = ""; 
-        let len = this.items.length
-        let list = {...this.items}
-        console.log(list)
-        for (var i = 0; i < len; i++){
-            str += list[i].symbol + " ";
-        } 
-            
-        return str;
-    }
-}
-
 
 class AdaptiveHuffman extends Component{
+
     state = {
-        map: null, 
-        list: [], 
-        freq: null,
-        jsonObject: {
-            name: 'subin',
-            email: 'loser@hotmail.com'
+        msgToBeDecoded: null,
+        encodedMsg: "",
+        BitStringLength: null
+    }
+
+    inputHandler = (event) =>{
+        //console.log(event.target.value)
+        let msgToBeDecoded = event.target.value
+        this.setState({msgToBeDecoded:msgToBeDecoded})
+    }
+
+    initialSymbolToCode = (symbol) =>{
+        switch(symbol) {
+            case "$":
+                return "0"
+            case "a":
+                return "00001"
+            case "b":
+                return "00010"
+            case "c":
+                return "00011"
+            case "d":
+                return "00100"
+            default:
+                console.log("Unsupported Symbol")
+                return null
         }
+    }
+
+    initialCodeToSymbol = (symbol) =>{
+        switch(symbol) {
+            case "0":
+                return "$"
+            case "00001":
+                return "a"
+            case "00010":
+                return "b"
+            case "00011":
+                return "c"
+            case "00100":
+                return "d"
+            default:
+                console.log("Unsupported codeword")
+                return null
+        }
+    }
+
+    findNodesWithCount = (huffmanTree, count) =>{
+        let nodesToVisit = []
+        let nodesWithCount = []
+        nodesToVisit.push(huffmanTree)
+        while (nodesToVisit.length != 0) {
+            let currNode = nodesToVisit.shift()
+            if (currNode.count === count) {
+                nodesWithCount.push(currNode)
+            }
+            if (currNode.left !== null) {
+                nodesToVisit.push(currNode.left)
+            }
+            if (currNode.right !== null) {
+                nodesToVisit.push(currNode.right)
+            }
+        }
+        return nodesWithCount
+    }
+
+    reassignOrder = (huffmanTree) =>{
+        let nodesToVisit = []
+        nodesToVisit.push(huffmanTree)
+        let order = 512;
+        while (nodesToVisit.length != 0) {
+            let currNode = nodesToVisit.shift()
+            currNode.order = order
+            order = order - 1
+            if (currNode.right !== null) {
+                nodesToVisit.push(currNode.right)
+            }
+            if (currNode.left !== null) {
+                nodesToVisit.push(currNode.left)
+            }
+        }
+        return
+    }
+
+    checkAndSwap = (huffmanTree, symbolTree) =>{
+        let nodesWithCount = this.findNodesWithCount(huffmanTree, symbolTree.count)
+        let highestOrderedNode = symbolTree
+        var arrayLength = nodesWithCount.length
+        for (var j = 0; j < arrayLength; j++) {
+            if (highestOrderedNode.order < nodesWithCount[j].order) {
+                highestOrderedNode = nodesWithCount[j]
+            }
+        }
+
+        if (highestOrderedNode !== symbolTree && highestOrderedNode !== symbolTree.parent) {
+            console.log("SWAP")
+            let highestOrderedNodeParent = highestOrderedNode.parent
+            let symbolTreeParent = symbolTree.parent
+
+            if (highestOrderedNodeParent.left === highestOrderedNode) {
+                highestOrderedNodeParent.left = symbolTree
+            } else if (highestOrderedNodeParent.right === highestOrderedNode) {
+                highestOrderedNodeParent.right = symbolTree
+            } else {
+                console.log("BAD")
+            }
+
+            if (symbolTreeParent.left === symbolTree) {
+                symbolTreeParent.left = highestOrderedNode
+            } else if (symbolTreeParent.right === symbolTree) {
+                symbolTreeParent.right = highestOrderedNode
+            } else {
+                console.log("BAD")
+            }
+
+            highestOrderedNode.parent = symbolTreeParent
+            symbolTree.parent = highestOrderedNodeParent
+
+            this.reassignOrder(huffmanTree)
+
+        }
+    }
+
+    HuffmanEncoder = ()=>{
+
+        let symbolList = []
+        var symbolMap = new Map()
+        let newSymbolTreeNew = new HuffmanTree("$", 0)
+        newSymbolTreeNew.order = 512
+
+        let huffmanTreeRoot = newSymbolTreeNew
+        symbolList.push(newSymbolTreeNew)
+
+        let msgToBeDecoded = this.state.msgToBeDecoded;
+        let msgArr = msgToBeDecoded.split("");
+        let len = msgArr.length
+
+        let encodedMsg = ""
+
+        let nextIsNew = false
+        for(let i=0; i< len; i++){
+
+            // encode(c)
+            let codeWord = ""
+            if (symbolMap.get(msgArr[i]) === undefined) {
+                console.log("Use Initial_code")
+                codeWord = this.initialSymbolToCode(msgArr[i])
+            } else {
+                let currNode = symbolMap.get(msgArr[i])
+                let prevNode = null
+                while(currNode.parent !== null){
+                    console.log("traversing tree....")
+                    prevNode = currNode;
+                    currNode = currNode.parent;
+                    if(prevNode === currNode.left){
+                        codeWord = "0" + codeWord;
+                    } else if (prevNode === currNode.right){
+                        codeWord = "1" + codeWord;
+                    }
+                    else {
+                        console.log("BAD")
+                    }
+                }
+            }
+            encodedMsg = encodedMsg + codeWord
+
+            // update_tree
+            if (msgArr[i] == "$") {
+                console.log("Next symbol is a new one")
+                if (symbolMap.get(msgArr[i]) === undefined) {
+                    symbolMap.set("$", newSymbolTreeNew)
+                }
+                nextIsNew = true
+            } else {
+                if (nextIsNew) {
+                    console.log("New: " + msgArr[i])
+
+                    let newSymbolTree = new HuffmanTree(msgArr[i], 1)
+                    symbolList.push(newSymbolTree)
+                    symbolMap.set(msgArr[i], newSymbolTree)
+
+                    let metaTree = new HuffmanTree(null, 1)
+
+                    metaTree.order = newSymbolTreeNew.order
+                    if (newSymbolTreeNew.parent !== null) {
+                        newSymbolTreeNew.parent.left = metaTree
+                    }
+
+                    metaTree.left = newSymbolTreeNew
+                    metaTree.right = newSymbolTree
+                    metaTree.parent = newSymbolTreeNew.parent
+
+                    newSymbolTreeNew.parent = metaTree
+                    newSymbolTreeNew.order = metaTree.order - 2
+                    newSymbolTree.parent = metaTree
+                    newSymbolTree.order = metaTree.order - 1
+
+                    if (newSymbolTreeNew === huffmanTreeRoot) {
+                        huffmanTreeRoot = metaTree
+                    }
+
+                    let parent = metaTree.parent
+                    while (parent !== null) {
+                        parent.count = parent.count + 1
+                        parent = parent.parent
+                    }
+
+                    nextIsNew = false
+                } else {
+                    console.log("Not New: " + msgArr[i])
+                    let symbolTree = symbolMap.get(msgArr[i])
+                    this.checkAndSwap(huffmanTreeRoot, symbolTree)
+                    symbolTree.count = symbolTree.count + 1
+                    let parent = symbolTree.parent
+                    while (parent !== null) {
+                        this.checkAndSwap(huffmanTreeRoot, parent)
+                        parent.count = parent.count + 1
+                        parent = parent.parent
+                    }
+                }
+            }
+        }
+        console.log(huffmanTreeRoot)
+        console.log(encodedMsg)
+
+        this.setState({encodedMsg:encodedMsg}, ()=>{
+            console.log(this.state.encodedMsg)
+        })
+        let BitStringLength = encodedMsg.split("").length
+        this.setState({BitStringLength:BitStringLength}, ()=>{
+            console.log(this.state.BitStringLength)
+        })
+
 
     }
 
-    buttonHandler = ()=>{
-        console.log("button clicked")
-        //state changing 
-        let map = []
-        let jsonObject = {
-            name: "subin",
-            email: "not a loser"
+    decodeMsgHandler = ()=>{
+
+        let symbolList = []
+        var symbolMap = new Map()
+        let newSymbolTreeNew = new HuffmanTree("$", 0)
+        newSymbolTreeNew.order = 512
+
+        let huffmanTreeRoot = newSymbolTreeNew
+        symbolList.push(newSymbolTreeNew)
+
+        let encodedMsg = this.state.encodedMsg;
+        let msgArr = encodedMsg.split("");
+        let len = msgArr.length
+
+        let decodedMsg = ""
+        let currNode = huffmanTreeRoot
+
+        let currCodeWord = ""
+        let initalCodeLength = 5
+
+        let nextIsNew = false
+        let insertSymbol = false
+        let symbol = ""
+
+        for(let i=0; i< len; i++){
+            if (nextIsNew) {
+                currCodeWord = currCodeWord + msgArr[i]
+                if (currCodeWord.length === initalCodeLength) {
+                    symbol = this.initialCodeToSymbol(currCodeWord)
+                    decodedMsg = decodedMsg + symbol
+                    insertSymbol = true
+                    currCodeWord = ""
+                }
+            } else if (currNode.left === null && currNode.right === null) {
+                symbol = currNode.symbol
+                decodedMsg = decodedMsg + symbol
+                insertSymbol = true
+            } else {
+                if (msgArr[i] === "0") {
+                    currNode = currNode.left
+                } else if (msgArr[i] === "1") {
+                    currNode = currNode.right
+                } else {
+                    console.log("BAD")
+                }
+                if (currNode.left === null && currNode.right === null) {
+                    symbol = currNode.symbol
+                    decodedMsg = decodedMsg + symbol
+                    insertSymbol = true
+                }
+            }
+
+
+            if (insertSymbol === true) {
+                // update_tree
+                if (symbol == "$") {
+                    console.log("Next symbol is a new one")
+                    if (symbolMap.get(symbol) === undefined) {
+                        symbolMap.set("$", newSymbolTreeNew)
+                    }
+                    nextIsNew = true
+                } else {
+                    if (nextIsNew) {
+                        console.log("New: " + symbol)
+
+                        let newSymbolTree = new HuffmanTree(symbol, 1)
+                        symbolList.push(newSymbolTree)
+                        symbolMap.set(symbol, newSymbolTree)
+
+                        let metaTree = new HuffmanTree(null, 1)
+
+                        metaTree.order = newSymbolTreeNew.order
+                        if (newSymbolTreeNew.parent !== null) {
+                            newSymbolTreeNew.parent.left = metaTree
+                        }
+
+                        metaTree.left = newSymbolTreeNew
+                        metaTree.right = newSymbolTree
+                        metaTree.parent = newSymbolTreeNew.parent
+
+                        newSymbolTreeNew.parent = metaTree
+                        newSymbolTreeNew.order = metaTree.order - 2
+                        newSymbolTree.parent = metaTree
+                        newSymbolTree.order = metaTree.order - 1
+
+                        if (newSymbolTreeNew === huffmanTreeRoot) {
+                            huffmanTreeRoot = metaTree
+                        }
+
+                        let parent = metaTree.parent
+                        while (parent !== null) {
+                            parent.count = parent.count + 1
+                            parent = parent.parent
+                        }
+
+                        nextIsNew = false
+                    } else {
+                        console.log("Not New: " + symbol)
+                        let symbolTree = symbolMap.get(symbol)
+                        this.checkAndSwap(huffmanTreeRoot, symbolTree)
+                        symbolTree.count = symbolTree.count + 1
+                        let parent = symbolTree.parent
+                        while (parent !== null) {
+                            this.checkAndSwap(huffmanTreeRoot, parent)
+                            parent.count = parent.count + 1
+                            parent = parent.parent
+                        }
+                    }
+                }
+                insertSymbol = false
+                currNode = huffmanTreeRoot
+            }
         }
-        this.setState({map:map, jsonObject: jsonObject})
 
-
-        jsonObject = {...this.state.jsonObject};
-        console.log(jsonObject)
+        console.log("[decodedMSG]", decodedMsg)
+        this.setState({decodedMsg: decodedMsg})
 
     }
-
-
 
     render(){
-        console.log('[rendering adaptive huffman comp]')
-        let menu = null;
-        if(this.state.map !== null){
-            menu = (
-                <div className={classes.AdaptiveHuffman}>
-                    <h1>AdaptiveHuffman Demo</h1>
-                     <button onClick={this.buttonHandler}></button>
-                 </div>
-            )
-        }
-        return(
-            <div>
-                <h1>AdaptiveHuffman Demo</h1>
-                <button onClick={this.buttonHandler}></button>
+        let encodedMsg = this.state.encodedMsg;
+        let decodedMsg = this.state.decodedMsg;
+        let BitStringLength = this.state.BitStringLength;
+        console.log("[final decoded MSG:]", decodedMsg)
+
+        return (
+            <div className={classes.AdaptiveHuffman}>
+                <DemoNav></DemoNav>
+                <div className={classes.AdaptiveHuffmanAlgorithm}>
+                    <h1>ADAPTIVE HUFFMAN DEMO</h1>
+                    <div>
+                        <input type="text" onChange={this.inputHandler}></input>
+                        <button onClick= {this.HuffmanEncoder}>Encode MSG</button>
+
+                        <h3>Encoded BitString : {encodedMsg} </h3>
+                        <h3>Encoded BitStringLength : {BitStringLength} </h3>
+                </div>
+                <div>
+                        <input type="text" onChange={null}></input>
+                        <button onClick= {this.decodeMsgHandler}>Decode MSG</button>
+                        <h3>Decoded Msg : {decodedMsg} </h3>
+                </div>
+               </div>
             </div>
         )
     }
+
 }
 
 
