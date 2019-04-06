@@ -63,6 +63,7 @@ class ImageD extends React.Component {
                     btnType='Danger'
                     clicked={this.props.click}
                     >REMOVE</Button>
+                    <br></br>
                 </div>
 
             </div>

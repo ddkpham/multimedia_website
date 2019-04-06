@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import classes from './Huffman.module.css'
+import DemoNav from '../DemoNav/DemoNav';
 
 class HuffmanTree {
 
@@ -311,19 +312,21 @@ class Huffman extends Component{
         //console.log(priorityQueue.printQueue());
         return (
             <div className={classes.Huffman}>
-                <h1>HUFFMAN DEMO</h1>
-                <div>
-                    <input type="text" onChange={this.inputHandler}></input>
-                    <button onClick= {this.HuffmanEncoder}>Encode MSG</button>
+                <DemoNav></DemoNav>
+                <div className={classes.HuffmanAlgorithm}>
+                    <h1>HUFFMAN DEMO</h1>
+                    <div>
+                        <input type="text" onChange={this.inputHandler}></input>
+                        <button onClick= {this.HuffmanEncoder}>Encode MSG</button>
 
-                    <h1>Encoded BitString : {encodedMsg} </h1>
-                    <h1>Encoded BitStringLength : {BitStringLength} </h1>
-               </div>
-               <div>
-                    <input type="text" onChange={null}></input>
-                    <button onClick= {this.decodeMsgHandler}>Decode MSG</button>
-                    <h1>Decoded Msg : {decodedMsg} </h1>
-                    
+                        <h3>Encoded BitString : {encodedMsg} </h3>
+                        <h3>Encoded BitStringLength : {BitStringLength} </h3>
+                </div>
+                <div>
+                        <input type="text" onChange={null}></input>
+                        <button onClick= {this.decodeMsgHandler}>Decode MSG</button>
+                        <h3>Decoded Msg : {decodedMsg} </h3>
+                </div>
                </div>
             </div>
         )

@@ -26,6 +26,7 @@ class CompressProcess extends Component{
                 <p>Please select Quantization value (1-10)</p>
                
                 <CompressDropdown compressHandler={this.props.compressHandler} />
+                <br></br>
                 <Button
                     clicked={this.props.cancel}
                     btnType='Danger'
