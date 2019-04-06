@@ -9,6 +9,10 @@ class E3IntervalBar extends Component{
             <div className={classes.E3}>
                 <h1>E3 Scaling</h1>
                 <IntervalBar start={this.props.start} end={this.props.end}/>
+                <div>
+                    <span className={classes.prevS}>"s" before scaling:{this.props.prevS} </span>
+                    <span className={classes.s}>"s" after scaling:{this.props.s} </span>
+                </div>
             </div>
         )
     }

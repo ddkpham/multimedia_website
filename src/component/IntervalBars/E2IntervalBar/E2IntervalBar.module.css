@@ -8,3 +8,13 @@
 .E2 h1{
     text-decoration: underline;
 }
+
+.prevS{
+    float:left;
+    width:50%;
+}
+
+.s{
+    float:left;
+    width:50%;
+}

@@ -79,7 +79,8 @@ class ArithmeticCodec extends Component{
         e1IntervalInfo : [],
         e2IntervalInfo : [],
         e3IntervalInfo : [],
-        encoderInitated:false
+        encoderInitated:false, 
+        prevS: 0
 
     }
 
@@ -205,15 +206,21 @@ class ArithmeticCodec extends Component{
                 
                 if(b <=0.5){ //E1 Scaling
                     console.log("e1 scaling")
+                    let prevS = null;
+                    prevS = s.toString();
                     scaledValues = this.e1Scaling( a ,b ,s, bitString );
                     a = scaledValues.a
                     b = scaledValues.b
                     s = scaledValues.s
                     bitString = scaledValues.bitString
+                    console.log("[E1 prevS]", prevS)
+                    console.log("[E1 s]", s)
                     let data = {
                         a:a,
                         b:b,
-                        bitString: bitString
+                        bitString: bitString,
+                        prevS: prevS,
+                        s:s
                     }
                     let e1IntervalInfo = [...this.state.e1IntervalInfo, data];
                     
@@ -223,6 +230,8 @@ class ArithmeticCodec extends Component{
                 }   
                 else{ //E2 Scaling
                     console.log("e2 scaling")
+                    let prevS = null;
+                    prevS = s.toString();
                     scaledValues = this.e2Scaling( a ,b ,s, bitString );
                     a = scaledValues.a
                     b = scaledValues.b
@@ -233,7 +242,9 @@ class ArithmeticCodec extends Component{
                     let data = {
                         a:a,
                         b:b,
-                        bitString: bitString
+                        bitString: bitString,
+                        prevS: prevS,
+                        s:s
                     }
                     e2IntervalInfo.push(data)
                     this.setState({e2IntervalInfo: e2IntervalInfo, s:s})
@@ -244,6 +255,8 @@ class ArithmeticCodec extends Component{
             if(a > 0.25 && b < 0.75){
                 console.log("e3 scaling")
                 scaledValues = null; 
+                let prevS = null;
+                prevS = s.toString();
                 scaledValues = this.e3Scaling( a , b, s , bitString )
                 a = scaledValues.a
                 b = scaledValues.b
@@ -253,7 +266,9 @@ class ArithmeticCodec extends Component{
                 let data = {
                     a:a,
                     b:b,
-                    bitString: bitString
+                    bitString: bitString,
+                    prevS: prevS,
+                    s:s
                 }
                 e3IntervalInfo.push(data)
                 this.setState({e3IntervalInfo: e3IntervalInfo, s:s})
@@ -388,8 +403,8 @@ class ArithmeticCodec extends Component{
             bitString = bitString.concat('0');
         }
             s = 0;
-            a = 2 * (a - 0.5)
-            b = 2 * (b - 0.5)
+            a = 2 * Math.abs(a - 0.5)
+            b = 2 * Math.abs(b - 0.5)
             return {
                 a: a,
                 b: b,
@@ -401,8 +416,8 @@ class ArithmeticCodec extends Component{
     e3Scaling = (a, b, s, bitString) => {
         while (a > 0.25 && b < 0.75){
             s += 1;
-            a = 2 * (a - 0.25)
-            b = 2 * (b - 0.25)
+            a = 2 * Math.abs(a - 0.25)
+            b = 2 * Math.abs(b - 0.25)
            
         }
         return {
@@ -712,7 +727,7 @@ class ArithmeticCodec extends Component{
                 a = a.toFixed(2)
                 let b = info.b
                 b = b.toFixed(2)
-                return <E1IntervalBar key={index} start={info.a} end={info.b} bitString={info.bitString} />
+                return <E1IntervalBar key={index} start={info.a} end={info.b} bitString={info.bitString} s={info.s} prevS={info.prevS}/>
             })
             console.log("E1 : ", E1)
             
@@ -723,7 +738,7 @@ class ArithmeticCodec extends Component{
                 a = a.toFixed(2)
                 let b = info.b
                 b = b.toFixed(2)
-                return <E2IntervalBar key={index} start={a} end={b} bitString={info.bitString} />
+                return <E2IntervalBar key={index} start={a} end={b} bitString={info.bitString} s={info.s} prevS={info.prevS}/>
             })
             console.log("E2 : ", E2)
         }
@@ -734,7 +749,7 @@ class ArithmeticCodec extends Component{
                 let b = info.b
                 b = b.toFixed(2)
                 console.log(b)
-                return <E3IntervalBar key={index} start={a} end={b} bitString={info.bitString} />
+                return <E3IntervalBar key={index} start={a} end={b} bitString={info.bitString} s={info.s} prevS={info.prevS}/>
             })
             console.log("E3 : ", E3)
         }
