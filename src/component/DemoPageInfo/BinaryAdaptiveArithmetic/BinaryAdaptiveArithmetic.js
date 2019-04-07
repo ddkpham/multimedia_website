@@ -76,6 +76,7 @@ class BinaryAdaptiveArithmetic extends Component{
             while (b<= 0.5 || a >= 0.5){
                 
                 if(b <=0.5){ //E1 Scaling
+                    console.log("E1 scaling")
                     scaledValues = this.e1Scaling( a ,b ,s, bitString );
                     a = scaledValues.a
                     b = scaledValues.b
@@ -83,6 +84,7 @@ class BinaryAdaptiveArithmetic extends Component{
                     bitString = scaledValues.bitString
                 }   
                 else{ //E2 Scaling
+                    console.log("E2 scaling")
                     scaledValues = this.e2Scaling( a ,b ,s, bitString );
                     a = scaledValues.a
                     b = scaledValues.b
@@ -93,6 +95,7 @@ class BinaryAdaptiveArithmetic extends Component{
             //E3 Scaling
             
             if(a > 0.25 && b < 0.75){
+                console.log("E3 scaling")
                 scaledValues = null; 
                 scaledValues = this.e3Scaling( a , b, s , bitString )
                 a = scaledValues.a
@@ -137,8 +140,9 @@ class BinaryAdaptiveArithmetic extends Component{
         for(let i = 0; i< len; i++){
             symbolProbability[i] = symbolCount[i] / totalSymbolCount
         }
+        console.log("[updateSymbol Probability function]",symbolProbability)
         return symbolProbability
-        // console.log(symbolProbability)
+        
         //this.setState({symbolProbability: symbolProbability}, this.calculateLowFrequencies)
         
     }
@@ -266,7 +270,7 @@ class BinaryAdaptiveArithmetic extends Component{
             highFreq.push(parseFloat(cumulativeTotal));
         }
         //console.log("[highFreq]",highFreq)
-        this.setState({highFreq:highFreq}, this.encoderWithCheck)
+        this.setState({highFreq:highFreq}, this.encoder)
         
     }
 
@@ -286,6 +290,7 @@ class BinaryAdaptiveArithmetic extends Component{
     }
 
     MessageDecoderWithScaling = ()=>{
+        console.log('----------------Decoding Message---------------------')
         //find symbol with min frequency
         //1. find symbol with minFrequency
         // let minFreqSymbolFreq = this.symbolIndexWithMinFrequency()
@@ -293,7 +298,8 @@ class BinaryAdaptiveArithmetic extends Component{
 
         //2. find length of bits for window size
         // let windowSize = this.findBitsForWindowSize(minFreqSymbolFreq)
-        let windowSize = 4
+
+        let windowSize = this.state.encodedBitStringLength;
 
         //3. set window size 
         // start = 0  end = l - 1
@@ -341,47 +347,80 @@ class BinaryAdaptiveArithmetic extends Component{
 
             //check to see if val fits in any of the symbol high-low ranges
             for(let i = 0; i< symbolListLength; i++){
+                console.log('[before update a]: ', a)
+                console.log('[before update b]: ', b)
+                console.log('Letter being tested: ', this.decodedLetter(i))
                 width = b - a;
                 btemp = a + width * (highFreq[i])
                 atemp = a + width * (lowFreq[i])
+                console.log('[width]: ', width)
+                console.log('[highFreq]: ', highFreq)
+                console.log('[lowFreq]: ', lowFreq)
+                console.log('[after update atemp]: ', atemp)
+                console.log('[after update btemp]: ', btemp)
+                console.log('[val]:', val)
 
                 if(val >= atemp && val < btemp){
                     let decodedLetter = this.decodedLetter(i);
+                    //increase symbol count and total symbol count
+                    symbolCount[i] = symbolCount[i] + 1;
+                    totalSymbolCount = totalSymbolCount + 1;
+
+                    console.log('[TARGET FOUND]:', decodedLetter)
 
                     decodedMsg = decodedMsg.concat(decodedLetter)
                     decodedSequenceLengthSoFar += 1;
+                    console.log('[Decoded MsgsoFar]:', decodedMsg)
 
-                    if(decodedSequenceLengthSoFar == msgLength-1){
-                        break;
-                    }
+
+                    // if(decodedSequenceLengthSoFar == msgLength){
+                    //     break;
+                    // }
                     a = atemp;
                     b = btemp;
                     symbol = decodedLetter;
                     
                 }
-                while (b < 0.5 || a > 0.5){ 
-                    //console.log("E1/E2 scaling...")
-                    if(b < 0.5){ //E1 scaling 
-                        a = 2 * a;
-                        b = 2 * b;
-                        //shift bits 
-                        start += 1;
-                        end += 1;
+                // E1/E2 scaling. Will Implement if there is time. 
+                // while (b < 0.5 || a > 0.5){ 
+                //     //console.log("E1/E2 scaling...")
+                //     if(b < 0.5){ //E1 scaling 
+                //         console.log('E1 Scaling...')
+                //         console.log('[before update a]: ', a)
+                //         console.log('[before update b]: ', b)
+                //         a = 2 * a;
+                //         b = 2 * b;
+                //         console.log('[after update a]: ', a)
+                //         console.log('[after update b]: ', b)
+                //         //shift bits 
+                //         start += 1;
+                //         end += 1;
 
-                    } else { //E2 scaling
-                        a = 2 * (a - 0.5);
-                        b = 2 * (b - 0.5);
-                        //shift bits
-                        start += 1;
-                        end += 1;
-                    }
-                }
+                //     } else { //E2 scaling
+                //         console.log('E2 Scaling...')
+                //         console.log('[before update a]: ', a)
+                //         console.log('[before update b]: ', b)
+                //         a = 2 * (a - 0.5);
+                //         b = 2 * (b - 0.5);
+                //         console.log('[after update a]: ', a)
+                //         console.log('[after update b]: ', b)
+                //         //shift bits
+                //         start += 1;
+                //         end += 1;
+                //     }
+                // }
+                console.log('[before update symbolProbability]', symbolProbability)
+                console.log('[before update lowFreq]', lowFreq)
+                console.log('[before update highFreq]', highFreq)
                  //update Probabilities and Frequency arrays 
                 symbolProbability = this.updateSymbolProbabilty(symbolCount, totalSymbolCount);
                 //console.log("[symbolProbability]: ", symbolProbability)
                 lowFreq = this.updateLowFrequencies(symbolProbability);
                 // console.log("[lowFreq]: ", lowFreq)
                 highFreq = this.updateHighFrequencies(symbolProbability)
+                console.log('[after update symbolProbability]', symbolProbability)
+                console.log('[after update lowFreq]', lowFreq)
+                console.log('[after update highFreq]', highFreq)
                 // console.log("[highFreq]: ", highFreq)
                 //console.log(symbolCount)
                 // console.log("updated Probabilities and Frequency arrays")
