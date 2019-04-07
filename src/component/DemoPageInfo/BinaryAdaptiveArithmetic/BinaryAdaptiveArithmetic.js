@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import classes from './BinaryAdaptiveArithmetic.module.css';
-
+import BinaryIntervalBar from './BinaryIntervalBar/BinaryIntervalBar'
 
 class BinaryAdaptiveArithmetic extends Component{
     state = {
@@ -347,18 +347,18 @@ class BinaryAdaptiveArithmetic extends Component{
 
             //check to see if val fits in any of the symbol high-low ranges
             for(let i = 0; i< symbolListLength; i++){
-                console.log('[before update a]: ', a)
-                console.log('[before update b]: ', b)
-                console.log('Letter being tested: ', this.decodedLetter(i))
+                // console.log('[before update a]: ', a)
+                // console.log('[before update b]: ', b)
+                // console.log('Letter being tested: ', this.decodedLetter(i))
                 width = b - a;
                 btemp = a + width * (highFreq[i])
                 atemp = a + width * (lowFreq[i])
-                console.log('[width]: ', width)
-                console.log('[highFreq]: ', highFreq)
-                console.log('[lowFreq]: ', lowFreq)
-                console.log('[after update atemp]: ', atemp)
-                console.log('[after update btemp]: ', btemp)
-                console.log('[val]:', val)
+                // console.log('[width]: ', width)
+                // console.log('[highFreq]: ', highFreq)
+                // console.log('[lowFreq]: ', lowFreq)
+                // console.log('[after update atemp]: ', atemp)
+                // console.log('[after update btemp]: ', btemp)
+                // console.log('[val]:', val)
 
                 if(val >= atemp && val < btemp){
                     let decodedLetter = this.decodedLetter(i);
@@ -366,11 +366,11 @@ class BinaryAdaptiveArithmetic extends Component{
                     symbolCount[i] = symbolCount[i] + 1;
                     totalSymbolCount = totalSymbolCount + 1;
 
-                    console.log('[TARGET FOUND]:', decodedLetter)
+                    // console.log('[TARGET FOUND]:', decodedLetter)
 
                     decodedMsg = decodedMsg.concat(decodedLetter)
                     decodedSequenceLengthSoFar += 1;
-                    console.log('[Decoded MsgsoFar]:', decodedMsg)
+                    // console.log('[Decoded MsgsoFar]:', decodedMsg)
 
 
                     // if(decodedSequenceLengthSoFar == msgLength){
@@ -409,21 +409,19 @@ class BinaryAdaptiveArithmetic extends Component{
                 //         end += 1;
                 //     }
                 // }
-                console.log('[before update symbolProbability]', symbolProbability)
-                console.log('[before update lowFreq]', lowFreq)
-                console.log('[before update highFreq]', highFreq)
+
+
+                // console.log('[before update symbolProbability]', symbolProbability)
+                // console.log('[before update lowFreq]', lowFreq)
+                // console.log('[before update highFreq]', highFreq)
                  //update Probabilities and Frequency arrays 
                 symbolProbability = this.updateSymbolProbabilty(symbolCount, totalSymbolCount);
-                //console.log("[symbolProbability]: ", symbolProbability)
                 lowFreq = this.updateLowFrequencies(symbolProbability);
-                // console.log("[lowFreq]: ", lowFreq)
                 highFreq = this.updateHighFrequencies(symbolProbability)
-                console.log('[after update symbolProbability]', symbolProbability)
-                console.log('[after update lowFreq]', lowFreq)
-                console.log('[after update highFreq]', highFreq)
-                // console.log("[highFreq]: ", highFreq)
-                //console.log(symbolCount)
-                // console.log("updated Probabilities and Frequency arrays")
+                // console.log('[after update symbolProbability]', symbolProbability)
+                // console.log('[after update lowFreq]', lowFreq)
+                // console.log('[after update highFreq]', highFreq)
+                
                 
                 
             }
@@ -497,6 +495,7 @@ class BinaryAdaptiveArithmetic extends Component{
                     <input type="text" onChange={this.MsgHandler}></input>
                     <button onClick= {this.calculateSymbolProbabilty}>Encode MSG</button>
                     <br></br>
+                    <BinaryIntervalBar />
                     <h3>Encoded BitString : {encodedBitString} </h3>
                     <h3>Encoded BitStringLength : {encodedBitStringLength} </h3>
                </div>
