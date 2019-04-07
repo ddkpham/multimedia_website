@@ -71,6 +71,10 @@ class ResourcePage extends Component{
         if(config.demos.JPEG){
             JPEG = <li><NavLink to="/jpeg">JPEG </NavLink></li>
         }
+        let adaptive_arithmetic = null;
+        if(config.demos.adaptive_arithmetic){
+            adaptive_arithmetic = <li><NavLink to="/adaptive-arithmetic">Adaptive Arithmetic Coding </NavLink></li>
+        }
 
 
         console.log(this.state.demoPage)
@@ -99,6 +103,7 @@ class ResourcePage extends Component{
                 <img style = {imgStyle} src={Data} alt='icon'></img>
                 <ul style = {ulStyle}>
                         {arithmetic}<br></br>
+                        {adaptive_arithmetic}<br></br>
                         {huffman}<br></br>
                         {adaptive_huffman}<br></br>
                         {JPEG}<br></br>
