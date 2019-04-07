@@ -11,7 +11,7 @@ class E2IntervalBar extends Component{
                 <IntervalBar start={this.props.start} end={this.props.end}/>
                 <h2>Emit "1"</h2>
                 <div>
-                    <span className={classes.prevS}>"s" before scaling:{this.props.prevS} </span>
+                    <span >"s" before scaling:{this.props.prevS} </span>
                     <span className={classes.s}>"s" after scaling:{this.props.s} </span>
                 </div>
                 <h3>Encoded BitString so far : {this.props.bitString}</h3>

@@ -7,6 +7,11 @@
     
 }
 
+.Text{
+    width:60%;
+    display: inline-block;
+}
+
 .a{
     width:40%;
     background-color: white;
@@ -52,23 +57,21 @@
 
 
 .atext{
-    padding-left: 20% !important;
     float: left;
 }
 
 .btext{
-    padding-left: 21% !important;
+    padding-left: 28% !important;
     float:left;
 }
 .ctext{
-    padding-left: 15% !important;
+    padding-left: 24% !important;
     float:left;
 }
 .dtext{
-    padding-left: 7% !important;
+    padding-left: 9% !important;
     float:left;
 }
 .endtext{
-    padding-left: 4% !important;
-    float:left;
+    float:right;
 }

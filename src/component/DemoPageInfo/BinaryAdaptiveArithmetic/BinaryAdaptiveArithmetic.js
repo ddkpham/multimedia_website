@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import classes from './BinaryAdaptiveArithmetic.module.css';
 import BinaryIntervalBar from './BinaryIntervalBar/BinaryIntervalBar'
+import E1BinaryIntervalBar from '../BinaryAdaptiveArithmetic/E1BinaryIntervalBar/E1BinaryIntervalBar'
 
 class BinaryAdaptiveArithmetic extends Component{
     state = {
@@ -487,6 +488,14 @@ class BinaryAdaptiveArithmetic extends Component{
         let encodedBitString = this.state.encodedBitString;
         let encodedBitStringLength = this.state.encodedBitStringLength; 
         let decodedMsg = this.state.decodedMsg; 
+        let intervalInfo = {
+            aWidth : 60,
+            bWidth : 40,
+            start : 0.0,
+            mid : 0.5,
+            end : 1.0
+        }
+
         return(
             <div className={classes.ArithmeticCodec}>
                 <div className={classes.ArithmeticAlgorithm}>
@@ -495,7 +504,8 @@ class BinaryAdaptiveArithmetic extends Component{
                     <input type="text" onChange={this.MsgHandler}></input>
                     <button onClick= {this.calculateSymbolProbabilty}>Encode MSG</button>
                     <br></br>
-                    <BinaryIntervalBar />
+                    <E1BinaryIntervalBar intervalInfo={intervalInfo} />
+                    <BinaryIntervalBar intervalInfo={intervalInfo}/>
                     <h3>Encoded BitString : {encodedBitString} </h3>
                     <h3>Encoded BitStringLength : {encodedBitStringLength} </h3>
                </div>
