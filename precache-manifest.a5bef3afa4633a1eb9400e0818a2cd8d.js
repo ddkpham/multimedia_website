@@ -1,23 +1,23 @@
 self.__precacheManifest = [
   {
-    "revision": "df6f8db13070a436ba93",
-    "url": "/multimedia_website/static/css/main.e4dfd882.chunk.css"
+    "revision": "d200cd58534ebd829fcb",
+    "url": "/multimedia_website/static/css/main.a4065985.chunk.css"
   },
   {
-    "revision": "df6f8db13070a436ba93",
-    "url": "/multimedia_website/static/js/main.20f205a8.chunk.js"
+    "revision": "d200cd58534ebd829fcb",
+    "url": "/multimedia_website/static/js/main.cc707512.chunk.js"
   },
   {
     "revision": "4e7ba8cd0cc339117b15",
     "url": "/multimedia_website/static/js/runtime~main.259f39c0.js"
   },
   {
-    "revision": "254f88944589a2349ed5",
+    "revision": "058abd99351acfbb4989",
     "url": "/multimedia_website/static/css/2.5cd8e47c.chunk.css"
   },
   {
-    "revision": "254f88944589a2349ed5",
-    "url": "/multimedia_website/static/js/2.5daf66b4.chunk.js"
+    "revision": "058abd99351acfbb4989",
+    "url": "/multimedia_website/static/js/2.bc244509.chunk.js"
   },
   {
     "revision": "fdff6feca26e6f410e48b5771e41f710",
@@ -216,7 +216,7 @@ self.__precacheManifest = [
     "url": "/multimedia_website/static/media/sfulogo.aa96f48c.jpg"
   },
   {
-    "revision": "32689ed48e0c2f0d2cccb59b30335810",
+    "revision": "736b963d615b21df09abb7fd1c7c904c",
     "url": "/multimedia_website/index.html"
   }
 ];
