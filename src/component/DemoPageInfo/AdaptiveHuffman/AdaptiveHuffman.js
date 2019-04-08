@@ -480,13 +480,7 @@ class AdaptiveHuffman extends Component{
                         <h3>Compression Ratio : {compressionRatio} </h3>
                 </div>
 
-<<<<<<< Updated upstream
-                <div className="visualizer-container">
-=======
-
-
                 <div className={classes.visualizerContainer}>
->>>>>>> Stashed changes
                     {/* Render Tree with data passed as prop */}
                     <Tree
                       data={data}
@@ -500,10 +494,7 @@ class AdaptiveHuffman extends Component{
                       }}
                     />
                 </div>
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
                 <div>
                         <button onClick= {this.decodeMsgHandler}>Decode MSG</button>
                         <h3>Decoded Msg : {decodedMsg} </h3>
