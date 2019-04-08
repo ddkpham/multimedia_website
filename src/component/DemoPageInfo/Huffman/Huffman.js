@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import classes from './Huffman.module.css'
 import DemoNav from '../DemoNav/DemoNav';
 import { Button, Input } from 'reactstrap';
+import Tree from "react-tree-graph";
 
 class HuffmanTree {
 
@@ -136,13 +137,41 @@ class Huffman extends Component{
         symbolToCodeWord: null,
         codeWordToSymbol: null,
         encodedMsg: "",
-        BitStringLength: null
+        BitStringLength: null,
+        data: {}
     }
 
     inputHandler = (event) =>{
         //console.log(event.target.value)
         let msgToBeDecoded = event.target.value
         this.setState({msgToBeDecoded:msgToBeDecoded})
+    }
+
+    createDataTree = (huffmanTree)=> {
+        if (huffmanTree === null) {
+            return {}
+        }
+
+        if (huffmanTree.left === null && huffmanTree.right === null) {
+            return {"name":huffmanTree.symbol}
+        }
+
+        let rightObject = this.createDataTree(huffmanTree.right)
+        let leftObject = this.createDataTree(huffmanTree.left)
+        let children = []
+        if (rightObject !== null) {
+            children.push(rightObject)
+        }
+        if (leftObject !== null) {
+            children.push(leftObject)
+        }
+
+        let newObject = {
+            "name": huffmanTree.symbol,
+            "children": [rightObject,leftObject]
+        }
+
+        return newObject
     }
 
 
@@ -206,12 +235,14 @@ class Huffman extends Component{
 
             console.log("[symbolToCodeWord]:",symbolToCodeWord)
             console.log("[codeWordToSymbol]",codeWordToSymbol)
-
-
-
-
-
         }
+        if (symbolListLen === 1) {
+            let node = symbolList[0]
+            let codeWord = "0"
+            symbolToCodeWord.set(node.symbol, codeWord)
+            codeWordToSymbol.set(codeWord, node.symbol)
+        }
+
         let encodedMsg = ""
         let msgArrLen = msgArr.length
         for(let i = 0; i< msgArrLen; i++ ){
@@ -219,6 +250,12 @@ class Huffman extends Component{
             let bitString = symbolToCodeWord.get(symbol)
             encodedMsg = encodedMsg + bitString
         }
+
+        let data = this.createDataTree(pQueue.dequeue())
+        this.setState({data:data}, ()=>{
+            console.log(this.state.data)
+        })
+
         console.log("[symbolToCodeWord]:",symbolToCodeWord)
         console.log("[codeWordToSymbol]",codeWordToSymbol)
         this.setState({symbolToCodeWord:symbolToCodeWord, codeWordToSymbol: codeWordToSymbol, encodedMsg:encodedMsg}, ()=>{
@@ -282,6 +319,8 @@ class Huffman extends Component{
 
         let compressionRatio = asciiBitStringLength / BitStringLength
 
+        let data = this.state.data;
+
         console.log("[final decoded MSG:]", decodedMsg)
         // creating object for queue classs
         // var priorityQueue = new PriorityQueue();
@@ -335,6 +374,22 @@ class Huffman extends Component{
                         <h5><b>Compression Ratio : </b>{compressionRatio} </h5>
                     </div>
                 <div>
+
+                <div className={classes.visualizerContainer}>
+                    {/* Render Tree with data passed as prop */}
+                    <Tree
+                      data={data}
+                      height={350}
+                      width={350}
+                      svgProps={{
+                        transform: "rotate(90)"
+                      }}
+                      textProps={{
+                        transform: "rotate(270)"
+                      }}
+                    />
+                </div>
+
                         <div className={classes.decoding}>
                             <Button disabled={!this.state.msgToBeDecoded} color="primary" onClick= {this.decodeMsgHandler}>Decode MSG</Button>
                             <h5><b>Decoded Msg : </b>{decodedMsg} </h5>
