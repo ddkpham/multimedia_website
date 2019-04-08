@@ -55,6 +55,7 @@ class ResourcePage extends Component{
                 >{buttonStr}</Button>
             )
         }
+        
         let arithmetic = null; 
         if(config.demos.arithmetic){
             arithmetic = <li><NavLink to="/arithmetic_encoding" >Arithmetic Encoding</NavLink></li>

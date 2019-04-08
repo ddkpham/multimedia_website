@@ -8,6 +8,8 @@ import BinaryIntervalBar from '../BinaryAdaptiveArithmetic/BinaryIntervalBar/Bin
 import Button from '../../../component/UI/Button/Button'
 import DecodedMsgBox from '../DecodedMsgBox/DecodedMsgBox'
 import EncodingIntroMsg from '../EncodingIntroMsg/EncodingIntroMsg'
+import DemoNav from '../DemoNav/DemoNav';
+
 class BinaryAdaptiveArithmetic extends Component{
     state = {
         encodedBitString: "", 
@@ -845,8 +847,9 @@ class BinaryAdaptiveArithmetic extends Component{
 
         return(
             <div className={classes.ArithmeticCodec}>
+                <DemoNav></DemoNav>
                 <div className={classes.ArithmeticAlgorithm}>
-                <h1>Binary Arithmetic Codec</h1>
+                <h1>Binary Adaptive Arithmetic Coding Demo</h1>
                 <div>
                     <input type="text" onChange={this.MsgHandler}></input>
                     {encodeBtn}

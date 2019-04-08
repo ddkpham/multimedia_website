@@ -11,7 +11,8 @@
         "chapter9": true,
         "chapter10": true,
         "chapter11": true,
-        "chapter12": true
+        "chapter12": true,
+        "chapter14": true
     },
     "supplementaryMaterial":{
         "week1": true,
@@ -22,11 +23,11 @@
         "week6": true,
         "week7": true,
         "week9": true,
-        "week10": true,
-        "week10_2": true,
+        "week10a": true,
+        "week10b": true,
         "week11": true,
-        "chapter12": true,
-        "chapter12_2": true
+        "week12a": true,
+        "week12": true
     },
     "courseWork":{
         "coursys": true,

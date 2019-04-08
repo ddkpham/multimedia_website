@@ -1,7 +1,7 @@
 .Intro{
-    height:480px;
+    height:420px;
     width:100%;
-    margin-top:50px;
+    margin-top:30px;
     background: linear-gradient( rgba(184, 61, 53, 0.6), rgba(100, 89, 211, 0.6)), url("../../../../assets/images/landscape.jpg");
     background-repeat: no-repeat;
     background-size:cover;

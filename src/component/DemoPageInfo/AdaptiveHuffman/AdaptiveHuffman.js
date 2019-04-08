@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import classes from './AdaptiveHuffman.module.css'
 import DemoNav from '../DemoNav/DemoNav';
+import Tree from "react-tree-graph";
 
 class HuffmanTree {
 
@@ -20,7 +21,9 @@ class AdaptiveHuffman extends Component{
     state = {
         msgToBeDecoded: null,
         encodedMsg: "",
-        BitStringLength: null
+        BitStringLength: null,
+        treeHeight: 0,
+        data: {}
     }
 
     inputHandler = (event) =>{
@@ -199,6 +202,49 @@ class AdaptiveHuffman extends Component{
         return [nextIsNew, huffmanTreeRoot]
     }
 
+    getHeight = (huffmanTree)=> {
+        if (huffmanTree.left === null && huffmanTree.right === null) {
+            return 1
+        }
+        let leftHeight = 0
+        let rightHeight = 0
+        if (huffmanTree.left !== null) {
+            leftHeight = 1 + this.getHeight(huffmanTree.left)
+        }
+        if (huffmanTree.right !== null) {
+            rightHeight = 1 + this.getHeight(huffmanTree.right)
+        }
+        console.log(Math.max(leftHeight, rightHeight))
+        return Math.max(leftHeight, rightHeight)
+    }
+
+    createDataTree = (huffmanTree)=> {
+        if (huffmanTree === null) {
+            return {}
+        }
+
+        if (huffmanTree.left === null && huffmanTree.right === null) {
+            return {"name":huffmanTree.symbol}
+        }
+
+        let rightObject = this.createDataTree(huffmanTree.right)
+        let leftObject = this.createDataTree(huffmanTree.left)
+        let children = []
+        if (rightObject !== null) {
+            children.push(rightObject)
+        }
+        if (leftObject !== null) {
+            children.push(leftObject)
+        }
+
+        let newObject = {
+            "name": huffmanTree.symbol,
+            "children": [rightObject,leftObject]
+        }
+
+        return newObject
+    }
+
     HuffmanEncoder = ()=>{
 
         let symbolList = []
@@ -221,7 +267,33 @@ class AdaptiveHuffman extends Component{
             // encode(c)
             let codeWord = ""
             if (symbolMap.get(msgArr[i]) === undefined) {
+                if (symbolMap.get("$") === undefined) {
+                    codeWord = this.initialSymbolToCode("$")
+                } else {
+                    let currNode = symbolMap.get("$")
+                    let prevNode = null
+                    while(currNode.parent !== null){
+                        prevNode = currNode;
+                        currNode = currNode.parent;
+                        if(prevNode === currNode.left){
+                            codeWord = "0" + codeWord;
+                        } else if (prevNode === currNode.right){
+                            codeWord = "1" + codeWord;
+                        }
+                        else {
+                            console.log("BAD")
+                        }
+                    }
+                }
+                encodedMsg = encodedMsg + codeWord
+
+                let newSymbol = "$"
+                let returnedArr = this.updateTree(newSymbol, huffmanTreeRoot, symbolMap, symbolList, newSymbolTreeNew, nextIsNew)
+                nextIsNew = returnedArr[0]
+                huffmanTreeRoot = returnedArr[1]
+
                 codeWord = this.initialSymbolToCode(msgArr[i])
+
             } else {
                 let currNode = symbolMap.get(msgArr[i])
                 let prevNode = null
@@ -246,6 +318,16 @@ class AdaptiveHuffman extends Component{
             nextIsNew = returnedArr[0]
             huffmanTreeRoot = returnedArr[1]
         }
+
+        let treeHeight = this.getHeight(huffmanTreeRoot)
+        this.setState({treeHeight:treeHeight}, ()=>{
+            console.log(this.state.treeHeight)
+        })
+
+        let data = this.createDataTree(huffmanTreeRoot)
+        this.setState({data:data}, ()=>{
+            console.log(this.state.data)
+        })
 
         this.setState({encodedMsg:encodedMsg}, ()=>{
             console.log(this.state.encodedMsg)
@@ -293,7 +375,9 @@ class AdaptiveHuffman extends Component{
                 }
             } else if (currNode.left === null && currNode.right === null) {
                 symbol = currNode.symbol
-                decodedMsg = decodedMsg + symbol
+                if (symbol !== "$") {
+                    decodedMsg = decodedMsg + symbol
+                }
                 insertSymbol = true
             } else {
                 if (msgArr[i] === "0") {
@@ -305,7 +389,10 @@ class AdaptiveHuffman extends Component{
                 }
                 if (currNode.left === null && currNode.right === null) {
                     symbol = currNode.symbol
-                    decodedMsg = decodedMsg + symbol
+
+                    if (symbol !== "$") {
+                        decodedMsg = decodedMsg + symbol
+                    }
                     insertSymbol = true
                 }
             }
@@ -331,13 +418,19 @@ class AdaptiveHuffman extends Component{
         let encodedMsg = this.state.encodedMsg;
         let decodedMsg = this.state.decodedMsg;
         let BitStringLength = this.state.BitStringLength;
+
+        let traversedList= []
+        let delayedList = []
+        let data = this.state.data;
+        let height = this.state.treeHeight * 100
+
         console.log("[final decoded MSG:]", decodedMsg)
 
         return (
             <div className={classes.AdaptiveHuffman}>
                 <DemoNav></DemoNav>
                 <div className={classes.AdaptiveHuffmanAlgorithm}>
-                    <h1>ADAPTIVE HUFFMAN DEMO</h1>
+                    <h1>Adaptive Huffman Coding Demo</h1>
                     <div>
                         <input type="text" onChange={this.inputHandler}></input>
                         <button onClick= {this.HuffmanEncoder}>Encode MSG</button>
@@ -345,11 +438,32 @@ class AdaptiveHuffman extends Component{
                         <h3>Encoded BitString : {encodedMsg} </h3>
                         <h3>Encoded BitStringLength : {BitStringLength} </h3>
                 </div>
+
+
+
+                <div className="visualizer-container">
+                    {/* Render Tree with data passed as prop */}
+                    <Tree
+                      data={data}
+                      height={height}
+                      width={400}
+                      svgProps={{
+                        transform: "rotate(90)"
+                      }}
+                      textProps={{
+                        transform: "rotate(270)"
+                      }}
+                    />
+                </div>
+
+
+
                 <div>
                         <input type="text" onChange={null}></input>
                         <button onClick= {this.decodeMsgHandler}>Decode MSG</button>
                         <h3>Decoded Msg : {decodedMsg} </h3>
                 </div>
+
                </div>
             </div>
         )

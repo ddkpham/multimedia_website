@@ -313,7 +313,7 @@ class Huffman extends Component{
             <div className={classes.Huffman}>
                 <DemoNav></DemoNav>
                 <div className={classes.HuffmanAlgorithm}>
-                    <h1>HUFFMAN DEMO</h1>
+                    <h1>Huffman Coding Demo</h1>
                     <div>
                         <input type="text" onChange={this.inputHandler}></input>
                         <button onClick= {this.HuffmanEncoder}>Encode MSG</button>
