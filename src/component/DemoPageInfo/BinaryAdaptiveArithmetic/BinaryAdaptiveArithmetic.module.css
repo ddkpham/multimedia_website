@@ -14,4 +14,12 @@
 .ArithmeticCodec h1{
     padding: 50px;
     overflow-wrap: break-word;
+    text-decoration: underline;
+    color: pink;
+}
+.ArithmeticCodec h3{
+    padding: 10px;
+    overflow-wrap: break-word;
+    text-decoration: underline;
+    color: pink;
 }

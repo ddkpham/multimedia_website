@@ -5,6 +5,9 @@ import E1BinaryIntervalBar from '../BinaryAdaptiveArithmetic/E1BinaryIntervalBar
 import E2BinaryIntervalBar from '../BinaryAdaptiveArithmetic/E2BinaryIntervalBar/E2BinaryIntervalBar'
 import E3BinaryIntervalBar from '../BinaryAdaptiveArithmetic/E3BinaryIntervalBar/E3BinaryIntervalBar'
 import BinaryIntervalBar from '../BinaryAdaptiveArithmetic/BinaryIntervalBar/BinaryIntervalBar'
+import Button from '../../../component/UI/Button/Button'
+import DecodedMsgBox from '../DecodedMsgBox/DecodedMsgBox'
+import EncodingIntroMsg from '../EncodingIntroMsg/EncodingIntroMsg'
 import DemoNav from '../DemoNav/DemoNav';
 
 class BinaryAdaptiveArithmetic extends Component{
@@ -48,6 +51,9 @@ class BinaryAdaptiveArithmetic extends Component{
         let msgLength = messageToBeEncoded.split("").length
         this.setState({messageToBeEncoded: messageToBeEncoded, msgLength:msgLength})
     }
+    componentDidUpdate() {
+        window.scrollTo(0, 0)
+    }
 
     encoderWithUI = ()=>{
 
@@ -64,7 +70,9 @@ class BinaryAdaptiveArithmetic extends Component{
         } else{
             //reset all E1/E2/E3 components
             let reset = [];
-            this.setState({e1IntervalInfo: reset, e2IntervalInfo: reset, e3IntervalInfo: reset})
+            console.log('reset value: ', reset)
+            this.setState({e1IntervalInfo: reset, e2IntervalInfo: reset, e3IntervalInfo: reset}, 
+                ()=>{console.log('reseted:',this.state.e1IntervalInfo)})
             
             //set up parameters 
             let messageToBeEncoded = this.state.messageToBeEncoded;
@@ -106,6 +114,8 @@ class BinaryAdaptiveArithmetic extends Component{
 
             //E1/E2/E3 Scaling
             let scaledValues = null;
+            let e1IntervalInfo = []
+            let e2IntervalInfo = []
             while (b<= 0.5 || a >= 0.5 ){
                 
                 if(b <=0.5){ //E1 Scaling
@@ -137,11 +147,11 @@ class BinaryAdaptiveArithmetic extends Component{
                         s: s,
                         bitString: bitString
                     }
-                    let e1IntervalInfo = [...this.state.e1IntervalInfo, intervalInfo];
-                    console.log('e1IntervalInfo', e1IntervalInfo)
-                    this.setState({e1IntervalInfo: e1IntervalInfo, s:s})
+                    e1IntervalInfo.push(intervalInfo)
 
-
+                    //let e1IntervalInfo = [...this.state.e1IntervalInfo, intervalInfo];
+                    //console.log('e1IntervalInfo', e1IntervalInfo)
+                    //this.setState({e1IntervalInfo: e1IntervalInfo, s:s})
                 }   
                 else{ //E2 Scaling
                     console.log("E2 scaling")
@@ -174,13 +184,17 @@ class BinaryAdaptiveArithmetic extends Component{
                         s: s,
                         bitString: bitString
                     }
-                    let e2IntervalInfo = [...this.state.e2IntervalInfo, intervalInfo];
-                    console.log('e2IntervalInfo', e2IntervalInfo)
-                    this.setState({e2IntervalInfo: e2IntervalInfo, s:s})
+                    e2IntervalInfo.push(intervalInfo)
+                    // let e2IntervalInfo = [...this.state.e2IntervalInfo, intervalInfo];
+                    // console.log('e2IntervalInfo', e2IntervalInfo)
+                    // this.setState({e2IntervalInfo: e2IntervalInfo, s:s})
                 }
             }
+            //END of E1/E2 scaling
+            this.setState({e1IntervalInfo:e1IntervalInfo, e2IntervalInfo:e2IntervalInfo, s:s})
+
             //E3 Scaling
-            
+            let e3IntervalInfo = []
             if(a > 0.25 && b < 0.75){
                 console.log("E3 scaling")
                 scaledValues = null; 
@@ -208,10 +222,12 @@ class BinaryAdaptiveArithmetic extends Component{
                     s: s,
                     bitString: bitString
                 }
-                let e3IntervalInfo = [...this.state.e3IntervalInfo, intervalInfo];
-                console.log('e3IntervalInfo', e3IntervalInfo)
-                this.setState({e3IntervalInfo: e3IntervalInfo, s:s})
+                e3IntervalInfo.push(intervalInfo)
+                // let e3IntervalInfo = [...this.state.e3IntervalInfo, intervalInfo];
+                // console.log('e3IntervalInfo', e3IntervalInfo)
+                // this.setState({e3IntervalInfo: e3IntervalInfo, s:s})
             }
+            this.setState({e3IntervalInfo:e3IntervalInfo, s:s})
             //update Probabilities and Frequency arrays 
             console.log("before updating symbolProbability, symbolCount, totalSymbolCount", symbolCount, totalSymbolCount)
             symbolProbability = this.updateSymbolProbabilty(symbolCount, totalSymbolCount);
@@ -715,6 +731,13 @@ class BinaryAdaptiveArithmetic extends Component{
 
 
     render(){
+        let encodeBtn = null;
+            let continueEncodingBtn = null;
+            if(this.state.encoderInitiated){
+                continueEncodingBtn = <Button btnType="Success" clicked= {this.calculateSymbolProbabilty}>Continue Encoding</Button>
+            } else{
+                encodeBtn = <Button btnType="Success" clicked= {this.calculateSymbolProbabilty}>Encode MSG</Button>
+            }
         let encodedBitString = this.state.encodedBitString;
         let encodedBitStringLength = this.state.encodedBitStringLength; 
         let decodedMsg = this.state.decodedMsg; 
@@ -756,7 +779,7 @@ class BinaryAdaptiveArithmetic extends Component{
             //Letter to be encoded message
             let msgArr = this.state.messageToBeEncoded.split("")
             let letterToBeEncoded = msgArr[this.state.lettersEncodedSoFar-1]
-            letterToBeEncodedMsg = <h1>Letter to be encoded: {letterToBeEncoded} </h1>
+            letterToBeEncodedMsg = <h3>Letter to be encoded: {letterToBeEncoded} </h3>
             
             //Interval bar before update
             let startBeforeUpdate = this.state.startBeforeUpdate
@@ -782,7 +805,7 @@ class BinaryAdaptiveArithmetic extends Component{
             }
             beforeUpdateMsg = (
                 <div>
-                    <h1>Before Interval Update</h1>
+                    <h3>Before Interval Update</h3>
                     <BinaryIntervalBar intervalInfo={intervalInfo} />
                 </div>
             )
@@ -816,7 +839,7 @@ class BinaryAdaptiveArithmetic extends Component{
 
             afterUpdateMsg = (
                 <div>
-                    <h1>After Interval Update</h1>
+                    <h3>After Interval Update</h3>
                     <BinaryIntervalBar intervalInfo={intervalInfo} />
                 </div>
             )
@@ -829,21 +852,24 @@ class BinaryAdaptiveArithmetic extends Component{
                 <h1>Binary Adaptive Arithmetic Coding Demo</h1>
                 <div>
                     <input type="text" onChange={this.MsgHandler}></input>
-                    <button onClick= {this.calculateSymbolProbabilty}>Encode MSG</button>
+                    {encodeBtn}
                     <br></br>
-                    {beforeUpdateMsg}
-                    {letterToBeEncodedMsg}
-                    {afterUpdateMsg}
+                    <EncodingIntroMsg 
+                        beforeUpdateMsg={beforeUpdateMsg}
+                        letterToBeEncodedMsg={letterToBeEncodedMsg}
+                        afterUpdateMsg ={afterUpdateMsg}
+                    />
                     {E1}
                     {E2}
                     {E3}
+                    {continueEncodingBtn}
                     <h3>Encoded BitString : {encodedBitString} </h3>
                     <h3>Encoded BitStringLength : {encodedBitStringLength} </h3>
                </div>
                <div>
                     <input type="text" onChange={this.decodeMsgHandler}></input>
-                    <button onClick= {this.MessageDecoderWithScaling}>Decode MSG</button>
-                    <h3>Decoded Msg : {decodedMsg} </h3>
+                    <Button btnType="Success" clicked= {this.MessageDecoderWithScaling}>Decode MSG</Button>
+                    <DecodedMsgBox decodedMsg={decodedMsg} />
                     
                </div>
                </div>

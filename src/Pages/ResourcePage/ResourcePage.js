@@ -116,13 +116,15 @@ class ResourcePage extends Component{
         return(
             
             <div style = {bodyStyle}>
+            
                 {title}
                 {demoList}
-                {resourceList}
                 <Button
-                btnType="Success"
-                clicked={this.demoPageRender}
+                    btnType="Success"
+                    clicked={this.demoPageRender}
                 >{buttonStr}</Button>
+                {resourceList}
+                
             </div>
         )
     }
