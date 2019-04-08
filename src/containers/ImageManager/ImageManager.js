@@ -57,16 +57,29 @@ class ImageManager extends Component{
     //This will be a HTTP request for image compression later
     //Return: FILE SIZE- Before and After 
     compressAndShowImage = () =>{ 
+        let filePath = this.state.confirmedImage;
+        let sizeBefore = 20;
+        if(filePath === 'lena.jpg'){
+            sizeBefore = 9.4;
+        } else if (filePath === 'dog.jpg'){
+            sizeBefore = 76.4;
+        } else if (filePath === 'squirrel.jpg'){
+            sizeBefore = 160;
+        } else {
+            sizeBefore = 142;
+        }
+        let sizeAfter = sizeBefore /2;
+
         this.setState({loadingImage:true })
         const images = [...this.state.images]
         const id = this.state.indexCount
-        const filePath = this.state.confirmedImage;
+        //const filePath = this.state.confirmedImage;
         console.log('[ImageManger.js]',filePath)
         const compression = this.state.confirmedCompressVal;
 
 
         images.push({id:id, filePath: filePath, compression:compression, 
-                    sizeBefore: 20, sizeAfter:10})
+                    sizeBefore: sizeBefore, sizeAfter:sizeAfter})
         this.setState((prevState, props)=>{
             return {
                 images:images,
