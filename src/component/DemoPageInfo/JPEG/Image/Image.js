@@ -1,7 +1,6 @@
 import React from 'react';
 
 import classes from './Image.module.css'
-import Aux from '../../../../hoc/Aux'
 import Button from '../../../UI/Button/Button'
 var images = require.context('../../../../assets/images', true);
 

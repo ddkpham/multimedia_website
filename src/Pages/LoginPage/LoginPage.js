@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import classes from './LoginPage.module.css';
 
 class LoginPage extends Component{
@@ -54,7 +54,6 @@ class LoginPage extends Component{
                     <FormGroup>
                         <Label className={classes.Label}>Password</Label>
                         <Input
-                            type="password" 
                             name="password" 
                             placeholder="please enter password"
                             type="password"

@@ -69,7 +69,7 @@ class AdaptiveHuffman extends Component{
         let nodesToVisit = []
         let nodesWithCount = []
         nodesToVisit.push(huffmanTree)
-        while (nodesToVisit.length != 0) {
+        while (nodesToVisit.length !== 0) {
             let currNode = nodesToVisit.shift()
             if (currNode.count === count) {
                 nodesWithCount.push(currNode)
@@ -88,7 +88,7 @@ class AdaptiveHuffman extends Component{
         let nodesToVisit = []
         nodesToVisit.push(huffmanTree)
         let order = 512;
-        while (nodesToVisit.length != 0) {
+        while (nodesToVisit.length !== 0) {
             let currNode = nodesToVisit.shift()
             currNode.order = order
             order = order - 1
@@ -142,7 +142,7 @@ class AdaptiveHuffman extends Component{
     }
 
     updateTree = (symbol, huffmanTreeRoot, symbolMap, symbolList, newSymbolTreeNew, nextIsNew) =>{
-        if (symbol == "$") {
+        if (symbol === "$") {
             console.log("Next symbol is a new one")
             if (symbolMap.get(symbol) === undefined) {
                 symbolMap.set("$", newSymbolTreeNew)

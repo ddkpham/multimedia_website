@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 
 import classes from './IntroNavItems.module.css'
-import { Link, NavLink }from 'react-router-dom';
+
 
 class IntroNavItems extends Component{
     render(){
-        const linkStyle = {
-            textDecoration:'none', 
-            color:'white', 
-            fontSize:'1.6em',
-        }
+        // const linkStyle = {
+        //     textDecoration:'none', 
+        //     color:'white', 
+        //     fontSize:'1.6em',
+        // }
 
         return(
             <div className={classes.IntroNavItems}>

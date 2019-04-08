@@ -89,14 +89,14 @@ class ArithmeticCodec extends Component{
         
     }
 
-    frequencyTotalCheck = () => {
-        let letterFrequency = this.state.letterFrequency;
-        let totalFrequency = Object.values(letterFrequency).reduce(( total, el) =>{
+    // frequencyTotalCheck = () => {
+    //     let letterFrequency = this.state.letterFrequency;
+    //     let totalFrequency = Object.values(letterFrequency).reduce(( total, el) =>{
        
-            return el + total
-        }, 0);
+    //         return el + total
+    //     }, 0);
 
-    }
+    // }
 
     FrequencyInitiation = () =>{
         let letterFrequency = Object.values(this.state.letterFrequency)
@@ -670,7 +670,7 @@ class ArithmeticCodec extends Component{
     }
 
     render(){
-        this.frequencyTotalCheck();
+        //this.frequencyTotalCheck();
         //this.lowFrequencyInitiation();
         let encodedBitString = <p>{this.state.encodedBitString}</p>
         let encodedBitStringLength = <p>{this.state.encodedBitStringLength}</p>
