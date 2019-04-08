@@ -3,6 +3,8 @@ import classes from './AdaptiveHuffman.module.css'
 import DemoNav from '../DemoNav/DemoNav';
 import Tree from "react-tree-graph";
 import { relative } from 'path';
+import { Button, Input } from 'reactstrap';
+
 
 class HuffmanTree {
     constructor( symbol, count){
@@ -471,14 +473,15 @@ class AdaptiveHuffman extends Component{
                 <div className={classes.AdaptiveHuffmanAlgorithm}>
                     <h1>Adaptive Huffman Coding Demo</h1>
                     <div>
-                        <input type="text" onChange={this.inputHandler}></input>
-                        <button onClick= {this.HuffmanEncoder}>Encode MSG</button>
-
-                        <h3>Encoded BitString : {encodedMsg} </h3>
-                        <h3>Encoded BitStringLength : {BitStringLength} </h3>
-                        <h3>ASCII BitStringLength : {asciiBitStringLength} </h3>
-                        <h3>Compression Ratio : {compressionRatio} </h3>
-                </div>
+                        <div className={classes.encoding}>
+                            <input className={classes.encodedMsg} type="text" onChange={this.inputHandler} placeholder=" Please enter the msg"></input>
+                            <Button disabled={!this.state.msgToBeDecoded} color="success" onClick= {this.HuffmanEncoder}>Encode MSG</Button>
+                        </div>
+                            <h5><b>Encoded BitString : </b>{encodedMsg} </h5>
+                            <h5><b>Encoded BitStringLength : </b>{BitStringLength} </h5>
+                            <h5><b>ASCII BitStringLength : </b>{asciiBitStringLength} </h5>
+                            <h5><b>Compression Ratio : </b>{compressionRatio} </h5>
+                        </div>
 
                 <div className={classes.visualizerContainer}>
                     {/* Render Tree with data passed as prop */}
@@ -495,9 +498,9 @@ class AdaptiveHuffman extends Component{
                     />
                 </div>
 
-                <div>
-                        <button onClick= {this.decodeMsgHandler}>Decode MSG</button>
-                        <h3>Decoded Msg : {decodedMsg} </h3>
+                <div className={classes.decoding}>
+                        <Button disabled={!this.state.msgToBeDecoded} color="primary" onClick= {this.decodeMsgHandler}>Decode MSG</Button>
+                        <h5><b>Decoded Msg : </b>{decodedMsg} </h5>
                 </div>
 
                </div>
