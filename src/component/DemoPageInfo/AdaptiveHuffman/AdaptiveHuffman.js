@@ -141,6 +141,64 @@ class AdaptiveHuffman extends Component{
         }
     }
 
+    updateTree = (symbol, huffmanTreeRoot, symbolMap, symbolList, newSymbolTreeNew, nextIsNew) =>{
+        if (symbol == "$") {
+            console.log("Next symbol is a new one")
+            if (symbolMap.get(symbol) === undefined) {
+                symbolMap.set("$", newSymbolTreeNew)
+            }
+            nextIsNew = true
+        } else {
+            if (nextIsNew) {
+                console.log("New: " + symbol)
+
+                let newSymbolTree = new HuffmanTree(symbol, 1)
+                symbolList.push(newSymbolTree)
+                symbolMap.set(symbol, newSymbolTree)
+
+                let metaTree = new HuffmanTree(null, 1)
+
+                metaTree.order = newSymbolTreeNew.order
+                if (newSymbolTreeNew.parent !== null) {
+                    newSymbolTreeNew.parent.left = metaTree
+                }
+
+                metaTree.left = newSymbolTreeNew
+                metaTree.right = newSymbolTree
+                metaTree.parent = newSymbolTreeNew.parent
+
+                newSymbolTreeNew.parent = metaTree
+                newSymbolTreeNew.order = metaTree.order - 2
+                newSymbolTree.parent = metaTree
+                newSymbolTree.order = metaTree.order - 1
+
+                if (newSymbolTreeNew === huffmanTreeRoot) {
+                    huffmanTreeRoot = metaTree
+                }
+
+                let parent = metaTree.parent
+                while (parent !== null) {
+                    parent.count = parent.count + 1
+                    parent = parent.parent
+                }
+
+                nextIsNew = false
+            } else {
+                console.log("Not New: " + symbol)
+                let symbolTree = symbolMap.get(symbol)
+                this.checkAndSwap(huffmanTreeRoot, symbolTree)
+                symbolTree.count = symbolTree.count + 1
+                let parent = symbolTree.parent
+                while (parent !== null) {
+                    this.checkAndSwap(huffmanTreeRoot, parent)
+                    parent.count = parent.count + 1
+                    parent = parent.parent
+                }
+            }
+        }
+        return [nextIsNew, huffmanTreeRoot]
+    }
+
     HuffmanEncoder = ()=>{
 
         let symbolList = []
@@ -163,13 +221,11 @@ class AdaptiveHuffman extends Component{
             // encode(c)
             let codeWord = ""
             if (symbolMap.get(msgArr[i]) === undefined) {
-                console.log("Use Initial_code")
                 codeWord = this.initialSymbolToCode(msgArr[i])
             } else {
                 let currNode = symbolMap.get(msgArr[i])
                 let prevNode = null
                 while(currNode.parent !== null){
-                    console.log("traversing tree....")
                     prevNode = currNode;
                     currNode = currNode.parent;
                     if(prevNode === currNode.left){
@@ -185,63 +241,11 @@ class AdaptiveHuffman extends Component{
             encodedMsg = encodedMsg + codeWord
 
             // update_tree
-            if (msgArr[i] == "$") {
-                console.log("Next symbol is a new one")
-                if (symbolMap.get(msgArr[i]) === undefined) {
-                    symbolMap.set("$", newSymbolTreeNew)
-                }
-                nextIsNew = true
-            } else {
-                if (nextIsNew) {
-                    console.log("New: " + msgArr[i])
-
-                    let newSymbolTree = new HuffmanTree(msgArr[i], 1)
-                    symbolList.push(newSymbolTree)
-                    symbolMap.set(msgArr[i], newSymbolTree)
-
-                    let metaTree = new HuffmanTree(null, 1)
-
-                    metaTree.order = newSymbolTreeNew.order
-                    if (newSymbolTreeNew.parent !== null) {
-                        newSymbolTreeNew.parent.left = metaTree
-                    }
-
-                    metaTree.left = newSymbolTreeNew
-                    metaTree.right = newSymbolTree
-                    metaTree.parent = newSymbolTreeNew.parent
-
-                    newSymbolTreeNew.parent = metaTree
-                    newSymbolTreeNew.order = metaTree.order - 2
-                    newSymbolTree.parent = metaTree
-                    newSymbolTree.order = metaTree.order - 1
-
-                    if (newSymbolTreeNew === huffmanTreeRoot) {
-                        huffmanTreeRoot = metaTree
-                    }
-
-                    let parent = metaTree.parent
-                    while (parent !== null) {
-                        parent.count = parent.count + 1
-                        parent = parent.parent
-                    }
-
-                    nextIsNew = false
-                } else {
-                    console.log("Not New: " + msgArr[i])
-                    let symbolTree = symbolMap.get(msgArr[i])
-                    this.checkAndSwap(huffmanTreeRoot, symbolTree)
-                    symbolTree.count = symbolTree.count + 1
-                    let parent = symbolTree.parent
-                    while (parent !== null) {
-                        this.checkAndSwap(huffmanTreeRoot, parent)
-                        parent.count = parent.count + 1
-                        parent = parent.parent
-                    }
-                }
-            }
+            let newSymbol = msgArr[i]
+            let returnedArr = this.updateTree(newSymbol, huffmanTreeRoot, symbolMap, symbolList, newSymbolTreeNew, nextIsNew)
+            nextIsNew = returnedArr[0]
+            huffmanTreeRoot = returnedArr[1]
         }
-        console.log(huffmanTreeRoot)
-        console.log(encodedMsg)
 
         this.setState({encodedMsg:encodedMsg}, ()=>{
             console.log(this.state.encodedMsg)
@@ -309,60 +313,10 @@ class AdaptiveHuffman extends Component{
 
             if (insertSymbol === true) {
                 // update_tree
-                if (symbol == "$") {
-                    console.log("Next symbol is a new one")
-                    if (symbolMap.get(symbol) === undefined) {
-                        symbolMap.set("$", newSymbolTreeNew)
-                    }
-                    nextIsNew = true
-                } else {
-                    if (nextIsNew) {
-                        console.log("New: " + symbol)
-
-                        let newSymbolTree = new HuffmanTree(symbol, 1)
-                        symbolList.push(newSymbolTree)
-                        symbolMap.set(symbol, newSymbolTree)
-
-                        let metaTree = new HuffmanTree(null, 1)
-
-                        metaTree.order = newSymbolTreeNew.order
-                        if (newSymbolTreeNew.parent !== null) {
-                            newSymbolTreeNew.parent.left = metaTree
-                        }
-
-                        metaTree.left = newSymbolTreeNew
-                        metaTree.right = newSymbolTree
-                        metaTree.parent = newSymbolTreeNew.parent
-
-                        newSymbolTreeNew.parent = metaTree
-                        newSymbolTreeNew.order = metaTree.order - 2
-                        newSymbolTree.parent = metaTree
-                        newSymbolTree.order = metaTree.order - 1
-
-                        if (newSymbolTreeNew === huffmanTreeRoot) {
-                            huffmanTreeRoot = metaTree
-                        }
-
-                        let parent = metaTree.parent
-                        while (parent !== null) {
-                            parent.count = parent.count + 1
-                            parent = parent.parent
-                        }
-
-                        nextIsNew = false
-                    } else {
-                        console.log("Not New: " + symbol)
-                        let symbolTree = symbolMap.get(symbol)
-                        this.checkAndSwap(huffmanTreeRoot, symbolTree)
-                        symbolTree.count = symbolTree.count + 1
-                        let parent = symbolTree.parent
-                        while (parent !== null) {
-                            this.checkAndSwap(huffmanTreeRoot, parent)
-                            parent.count = parent.count + 1
-                            parent = parent.parent
-                        }
-                    }
-                }
+                let newSymbol = symbol
+                let returnedArr = this.updateTree(newSymbol, huffmanTreeRoot, symbolMap, symbolList, newSymbolTreeNew, nextIsNew)
+                nextIsNew = returnedArr[0]
+                huffmanTreeRoot = returnedArr[1]
                 insertSymbol = false
                 currNode = huffmanTreeRoot
             }
