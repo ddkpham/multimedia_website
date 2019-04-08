@@ -221,7 +221,33 @@ class AdaptiveHuffman extends Component{
             // encode(c)
             let codeWord = ""
             if (symbolMap.get(msgArr[i]) === undefined) {
+                if (symbolMap.get("$") === undefined) {
+                    codeWord = this.initialSymbolToCode("$")
+                } else {
+                    let currNode = symbolMap.get("$")
+                    let prevNode = null
+                    while(currNode.parent !== null){
+                        prevNode = currNode;
+                        currNode = currNode.parent;
+                        if(prevNode === currNode.left){
+                            codeWord = "0" + codeWord;
+                        } else if (prevNode === currNode.right){
+                            codeWord = "1" + codeWord;
+                        }
+                        else {
+                            console.log("BAD")
+                        }
+                    }
+                }
+                encodedMsg = encodedMsg + codeWord
+
+                let newSymbol = "$"
+                let returnedArr = this.updateTree(newSymbol, huffmanTreeRoot, symbolMap, symbolList, newSymbolTreeNew, nextIsNew)
+                nextIsNew = returnedArr[0]
+                huffmanTreeRoot = returnedArr[1]
+
                 codeWord = this.initialSymbolToCode(msgArr[i])
+
             } else {
                 let currNode = symbolMap.get(msgArr[i])
                 let prevNode = null
@@ -293,7 +319,9 @@ class AdaptiveHuffman extends Component{
                 }
             } else if (currNode.left === null && currNode.right === null) {
                 symbol = currNode.symbol
-                decodedMsg = decodedMsg + symbol
+                if (symbol !== "$") {
+                    decodedMsg = decodedMsg + symbol
+                }
                 insertSymbol = true
             } else {
                 if (msgArr[i] === "0") {
@@ -305,7 +333,10 @@ class AdaptiveHuffman extends Component{
                 }
                 if (currNode.left === null && currNode.right === null) {
                     symbol = currNode.symbol
-                    decodedMsg = decodedMsg + symbol
+
+                    if (symbol !== "$") {
+                        decodedMsg = decodedMsg + symbol
+                    }
                     insertSymbol = true
                 }
             }
