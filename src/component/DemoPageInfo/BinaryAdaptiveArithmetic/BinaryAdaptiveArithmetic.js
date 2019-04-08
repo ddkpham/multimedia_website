@@ -104,7 +104,7 @@ class BinaryAdaptiveArithmetic extends Component{
 
             //E1/E2/E3 Scaling
             let scaledValues = null;
-            while (b<= 0.5 && e2test <10 || a >= 0.5 && e2test <10){
+            while (b<= 0.5 || a >= 0.5 ){
                 
                 if(b <=0.5){ //E1 Scaling
                     console.log("E1 scaling")

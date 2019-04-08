@@ -39,7 +39,6 @@ class PriorityQueue {
   
     // functions to be implemented 
     enqueue = (huffTree) => {
-        'use strict';
         //console.log('enqueing...')
         var contain = false;
 
@@ -106,7 +105,7 @@ class PriorityQueue {
     }
 
     isEmpty =()=>{
-        return this.items.length == 0;
+        return this.items.length === 0;
     }
 
     getLength = () =>{

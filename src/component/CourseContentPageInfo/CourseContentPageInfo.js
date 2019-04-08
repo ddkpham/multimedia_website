@@ -274,9 +274,9 @@ const navStyle =  {
     fontSize: '12.5px',
 }
 
-const ulStyle = {
-    style: 'none',
-    padding: '0px'
-}
+// const ulStyle = {
+//     style: 'none',
+//     padding: '0px'
+// }
 
 export default CourseContentPageInfo;
