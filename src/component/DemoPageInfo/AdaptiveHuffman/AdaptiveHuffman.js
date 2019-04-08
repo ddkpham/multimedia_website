@@ -459,8 +459,6 @@ class AdaptiveHuffman extends Component{
 
         let compressionRatio = asciiBitStringLength / BitStringLength
 
-        let traversedList= []
-        let delayedList = []
         let data = this.state.data;
         let height = this.state.treeHeight * 100
 
