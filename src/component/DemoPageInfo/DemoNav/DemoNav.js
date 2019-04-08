@@ -12,13 +12,19 @@ class DemoNav extends Component{
                         DemoList
                     </ListGroupItem>
                     <ListGroupItem>
-                        <NavLink to="/arithmetic_encoding" >Arithmetic Encoding</NavLink>
+                        <NavLink to="/arithmetic_encoding" >Arithmetic</NavLink>
                     </ListGroupItem>
                     <ListGroupItem>
-                        <NavLink to="/huffman">Huffman Coding </NavLink>
+                        <NavLink to="/adaptive-arithmetic">Adaptie Arithmetic</NavLink>
                     </ListGroupItem>
                     <ListGroupItem>
-                        <NavLink to="/jpeg">JPEG </NavLink>
+                        <NavLink to="/huffman">Huffman</NavLink>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <NavLink to="/adaptive-huffman">Adaptive Huffman</NavLink>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <NavLink to="/jpeg">JPEG</NavLink>
                     </ListGroupItem>
                     </ListGroup>
             </div>

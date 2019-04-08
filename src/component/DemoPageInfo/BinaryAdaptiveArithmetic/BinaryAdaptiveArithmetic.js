@@ -5,6 +5,8 @@ import E1BinaryIntervalBar from '../BinaryAdaptiveArithmetic/E1BinaryIntervalBar
 import E2BinaryIntervalBar from '../BinaryAdaptiveArithmetic/E2BinaryIntervalBar/E2BinaryIntervalBar'
 import E3BinaryIntervalBar from '../BinaryAdaptiveArithmetic/E3BinaryIntervalBar/E3BinaryIntervalBar'
 import BinaryIntervalBar from '../BinaryAdaptiveArithmetic/BinaryIntervalBar/BinaryIntervalBar'
+import DemoNav from '../DemoNav/DemoNav';
+
 class BinaryAdaptiveArithmetic extends Component{
     state = {
         encodedBitString: "", 
@@ -822,6 +824,7 @@ class BinaryAdaptiveArithmetic extends Component{
 
         return(
             <div className={classes.ArithmeticCodec}>
+                <DemoNav></DemoNav>
                 <div className={classes.ArithmeticAlgorithm}>
                 <h1>Binary Arithmetic Codec</h1>
                 <div>
