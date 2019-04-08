@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import classes from './AdaptiveHuffman.module.css'
 import DemoNav from '../DemoNav/DemoNav';
 import Tree from "react-tree-graph";
+import { relative } from 'path';
 
 class HuffmanTree {
-
     constructor( symbol, count){
         this.left = null;
         this.right = null;
@@ -27,6 +27,7 @@ class AdaptiveHuffman extends Component{
     }
 
     inputHandler = (event) =>{
+        //this.state.data = {}
         //console.log(event.target.value)
         let msgToBeDecoded = event.target.value
         this.setState({msgToBeDecoded:msgToBeDecoded})
@@ -281,7 +282,7 @@ class AdaptiveHuffman extends Component{
 
         let symbolList = []
         var symbolMap = new Map()
-        let newSymbolTreeNew = new HuffmanTree("$", 0)
+        let newSymbolTreeNew = new HuffmanTree("$", 0);
         newSymbolTreeNew.order = 512
 
         let huffmanTreeRoot = newSymbolTreeNew
@@ -479,12 +480,18 @@ class AdaptiveHuffman extends Component{
                         <h3>Compression Ratio : {compressionRatio} </h3>
                 </div>
 
+<<<<<<< Updated upstream
                 <div className="visualizer-container">
+=======
+
+
+                <div className={classes.visualizerContainer}>
+>>>>>>> Stashed changes
                     {/* Render Tree with data passed as prop */}
                     <Tree
                       data={data}
-                      height={height}
-                      width={400}
+                      height={350}
+                      width={350}
                       svgProps={{
                         transform: "rotate(90)"
                       }}
@@ -493,7 +500,10 @@ class AdaptiveHuffman extends Component{
                       }}
                     />
                 </div>
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
                 <div>
                         <button onClick= {this.decodeMsgHandler}>Decode MSG</button>
                         <h3>Decoded Msg : {decodedMsg} </h3>
