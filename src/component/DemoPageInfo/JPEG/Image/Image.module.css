@@ -1,7 +1,7 @@
 .Image{
     align-items: center;
     width: 800px;
-    height: 720px;
+    height: 650px;
     justify-content: space-between;
     border-style: double;
     border-width: 5px;
@@ -10,7 +10,7 @@
     border-radius: 10px;
 }
 
-.Image h2{
+.Image h5{
     float:left;
     width: 50%;
     box-sizing: border-box;
@@ -22,13 +22,19 @@
 }
 
 .Image h1{
-    text-decoration: underline;
+    text-decoration: none;
     color: darkgray;
-    font-weight: 1000;
+    font-weight: 1500;
+    padding: 20px;
 }
 
 .Filesize{
     display:inline;
+}
+
+.CompressionInfo{
+    padding: 25px;
+    margin-bottom: 50px;
 }
 
 .Image img{

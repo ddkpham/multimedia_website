@@ -758,7 +758,7 @@ class ArithmeticCodec extends Component{
            <div className={classes.ArithmeticCodec}>
                 <DemoNav></DemoNav>
                 <div className={classes.ArithmeticAlgorithm}>
-                <h1>Arithmetic Codec</h1>
+                <h1>Arithmetic Coding Demo</h1>
                 <div>
                     <input type="text" onChange={this.MsgHandler}></input>
                     <button onClick= {this.FrequencyInitiation}>Encode MSG</button>

@@ -337,7 +337,7 @@ class AdaptiveHuffman extends Component{
             <div className={classes.AdaptiveHuffman}>
                 <DemoNav></DemoNav>
                 <div className={classes.AdaptiveHuffmanAlgorithm}>
-                    <h1>ADAPTIVE HUFFMAN DEMO</h1>
+                    <h1>Adaptive Huffman Coding Demo</h1>
                     <div>
                         <input type="text" onChange={this.inputHandler}></input>
                         <button onClick= {this.HuffmanEncoder}>Encode MSG</button>
