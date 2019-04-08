@@ -46,26 +46,25 @@ class ImageD extends React.Component {
                     <img width='350px' height='350px' src={img_src} alt=""/>
                     <img width='350px' height='350px' src={comp_img_src} alt=""/> 
                 <div className={classes.Filesize}>
-                    <div className={classes.headers}>
-                        <h2>File Size Before: {this.props.sizeBefore}kB</h2>
+                    <div className={classes.CompressionInfo}>
+                        <div className={classes.headers}>
+                            <h5>File Size Before: {this.props.sizeBefore}kB</h5>
+                        </div>
+                        <div className={classes.headers}>
+                            <h5>File Size After: {this.props.sizeAfter}kB</h5>
+                        </div>
+                        <div className={classes.headers}>
+                            <h5>Quantization Scaling factor: {this.props.compression}</h5>
+                        </div>
+                        <div className={classes.headers}>
+                            <h5>Compression Ratio: {compression_ratio}</h5>
+                        </div>
                     </div>
-                    <div className={classes.headers}>
-                        <h2>File Size After: {this.props.sizeAfter}kB</h2>
-                    </div>
-                    <div className={classes.headers}>
-                        <h2>Quantization Scaling factor: {this.props.compression}</h2>
-                    </div>
-                    <div className={classes.headers}>
-                        <h2>Compression Ratio: {compression_ratio}</h2>
-                    </div>
-                    
                     <Button
                     btnType='Danger'
                     clicked={this.props.click}
                     >REMOVE</Button>
-                    <br></br>
                 </div>
-
             </div>
             
         );

@@ -826,7 +826,7 @@ class BinaryAdaptiveArithmetic extends Component{
             <div className={classes.ArithmeticCodec}>
                 <DemoNav></DemoNav>
                 <div className={classes.ArithmeticAlgorithm}>
-                <h1>Binary Arithmetic Codec</h1>
+                <h1>Binary Adaptive Arithmetic Coding Demo</h1>
                 <div>
                     <input type="text" onChange={this.MsgHandler}></input>
                     <button onClick= {this.calculateSymbolProbabilty}>Encode MSG</button>

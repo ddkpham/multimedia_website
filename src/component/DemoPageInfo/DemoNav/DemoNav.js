@@ -15,7 +15,7 @@ class DemoNav extends Component{
                         <NavLink to="/arithmetic_encoding" >Arithmetic</NavLink>
                     </ListGroupItem>
                     <ListGroupItem>
-                        <NavLink to="/adaptive-arithmetic">Adaptie Arithmetic</NavLink>
+                        <NavLink to="/adaptive-arithmetic">Adaptive Arithmetic</NavLink>
                     </ListGroupItem>
                     <ListGroupItem>
                         <NavLink to="/huffman">Huffman</NavLink>
