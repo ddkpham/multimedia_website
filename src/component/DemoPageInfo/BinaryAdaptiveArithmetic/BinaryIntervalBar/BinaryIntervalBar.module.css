@@ -1,3 +1,8 @@
+.BinaryIntervalBarContent{
+    border: 1px solid black;
+    height: 100px;
+}
+
 .BinaryIntervalBar{
     color: blue;
     border: 1px solid black;

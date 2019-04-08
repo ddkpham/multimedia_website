@@ -1,0 +1,7 @@
+.DecodedMsgBox{
+    border: 1px solid pink;
+}
+
+.DecodedMsgBox p{
+    text-decoration: none;
+}

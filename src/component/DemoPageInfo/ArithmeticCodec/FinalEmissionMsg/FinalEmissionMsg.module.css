@@ -1,0 +1,12 @@
+.FinalEmissionMsg{
+    margin: 20px;
+    padding-top: 10px;
+    border: 1px solid lightblue;
+}
+
+.FinalEmissionMsg h2{
+    color: darkgray;
+}
+.FinalEmissionMsg h3{
+    text-decoration: none;
+}
