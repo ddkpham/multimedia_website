@@ -1,23 +1,23 @@
 self.__precacheManifest = [
   {
-    "revision": "d200cd58534ebd829fcb",
-    "url": "/multimedia_website/static/css/main.a4065985.chunk.css"
+    "revision": "7ed660c7a5a2a90a7535",
+    "url": "/multimedia_website/static/css/main.6b8f8d14.chunk.css"
   },
   {
-    "revision": "d200cd58534ebd829fcb",
-    "url": "/multimedia_website/static/js/main.cc707512.chunk.js"
+    "revision": "7ed660c7a5a2a90a7535",
+    "url": "/multimedia_website/static/js/main.b0abc7e6.chunk.js"
   },
   {
     "revision": "4e7ba8cd0cc339117b15",
     "url": "/multimedia_website/static/js/runtime~main.259f39c0.js"
   },
   {
-    "revision": "058abd99351acfbb4989",
+    "revision": "7fed2e1585d8db77da2e",
     "url": "/multimedia_website/static/css/2.5cd8e47c.chunk.css"
   },
   {
-    "revision": "058abd99351acfbb4989",
-    "url": "/multimedia_website/static/js/2.bc244509.chunk.js"
+    "revision": "7fed2e1585d8db77da2e",
+    "url": "/multimedia_website/static/js/2.5921f816.chunk.js"
   },
   {
     "revision": "fdff6feca26e6f410e48b5771e41f710",
@@ -172,6 +172,46 @@ self.__precacheManifest = [
     "url": "/multimedia_website/static/media/beach_dock.e642fe0f.jpg"
   },
   {
+    "revision": "7ec3ecb059f865b38eeb58101045b170",
+    "url": "/multimedia_website/static/media/bird.7ec3ecb0.jpg"
+  },
+  {
+    "revision": "184807e9323b3cdc0b08527e12e3ecc6",
+    "url": "/multimedia_website/static/media/bird1.184807e9.jpg"
+  },
+  {
+    "revision": "f07795f5c59f5633de260548237259d6",
+    "url": "/multimedia_website/static/media/bird2.f07795f5.jpg"
+  },
+  {
+    "revision": "6a186accf36b8f6c37f8ccdad3965405",
+    "url": "/multimedia_website/static/media/bird3.6a186acc.jpg"
+  },
+  {
+    "revision": "267f2fa6624b0e8058781cddee3686c9",
+    "url": "/multimedia_website/static/media/bird4.267f2fa6.jpg"
+  },
+  {
+    "revision": "cabd43c0f46224fef02177eded114890",
+    "url": "/multimedia_website/static/media/dog.cabd43c0.jpg"
+  },
+  {
+    "revision": "1646cf3e896ac83c3128bf749ae83db7",
+    "url": "/multimedia_website/static/media/dog1.1646cf3e.jpg"
+  },
+  {
+    "revision": "8268b681c2c139b2093e82a599ef30fa",
+    "url": "/multimedia_website/static/media/dog2.8268b681.jpg"
+  },
+  {
+    "revision": "468e10ed536fcdec39ad4d040120abf5",
+    "url": "/multimedia_website/static/media/dog3.468e10ed.jpg"
+  },
+  {
+    "revision": "403af1dfc60bbf3f3b932d8218615c2f",
+    "url": "/multimedia_website/static/media/dog4.403af1df.jpg"
+  },
+  {
     "revision": "412d9ec6db4e44e85320d4b95db44097",
     "url": "/multimedia_website/static/media/forrest.412d9ec6.jpg"
   },
@@ -216,7 +256,27 @@ self.__precacheManifest = [
     "url": "/multimedia_website/static/media/sfulogo.aa96f48c.jpg"
   },
   {
-    "revision": "736b963d615b21df09abb7fd1c7c904c",
+    "revision": "506970c59ff347c99ab73b3222cf15dd",
+    "url": "/multimedia_website/static/media/squirrel.506970c5.jpg"
+  },
+  {
+    "revision": "446bf4255ffe119ad561e5afb0fd7549",
+    "url": "/multimedia_website/static/media/squirrel1.446bf425.jpg"
+  },
+  {
+    "revision": "39dba52f185bb7f945e3b62681dac7db",
+    "url": "/multimedia_website/static/media/squirrel2.39dba52f.jpg"
+  },
+  {
+    "revision": "b25d2cfb56d3740ad0a47a7a7d995413",
+    "url": "/multimedia_website/static/media/squirrel3.b25d2cfb.jpg"
+  },
+  {
+    "revision": "472b60447c983c53a0a11cd0f7193a32",
+    "url": "/multimedia_website/static/media/squirrel4.472b6044.jpg"
+  },
+  {
+    "revision": "a446f721a07ec63d29612253ccc6f1a8",
     "url": "/multimedia_website/index.html"
   }
 ];
