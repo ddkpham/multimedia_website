@@ -65,9 +65,6 @@ class ArithmeticCodec extends Component{
         decodedMsg: "",
         letterToBeEncoded: "",
         encodedMsgLength: null,
-        e1status:false,
-        e2status:false,
-        e3status:false,
         startBeforeUpdate: 0.0,
         endBeforeUpdate: 1.0,
         startAfterUpdate: 0.0,
@@ -157,7 +154,6 @@ class ArithmeticCodec extends Component{
         
         let msgLength = this.state.messageToBeEncoded;
         msgLength = msgLength.length
-        console.log(msgLength)
         let lettersEncodedSoFar = this.state.lettersEncodedSoFar;
         console.log("[letters encoded so far]", lettersEncodedSoFar)
         if(lettersEncodedSoFar >= msgLength){

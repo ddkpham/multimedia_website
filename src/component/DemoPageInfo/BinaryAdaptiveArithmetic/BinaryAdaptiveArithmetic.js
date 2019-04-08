@@ -1,24 +1,42 @@
 import React, {Component} from 'react';
 
 import classes from './BinaryAdaptiveArithmetic.module.css';
-import BinaryIntervalBar from './BinaryIntervalBar/BinaryIntervalBar'
 import E1BinaryIntervalBar from '../BinaryAdaptiveArithmetic/E1BinaryIntervalBar/E1BinaryIntervalBar'
-
+import E2BinaryIntervalBar from '../BinaryAdaptiveArithmetic/E2BinaryIntervalBar/E2BinaryIntervalBar'
+import E3BinaryIntervalBar from '../BinaryAdaptiveArithmetic/E3BinaryIntervalBar/E3BinaryIntervalBar'
+import BinaryIntervalBar from '../BinaryAdaptiveArithmetic/BinaryIntervalBar/BinaryIntervalBar'
 class BinaryAdaptiveArithmetic extends Component{
     state = {
-        encodedBitString: null, 
+        encodedBitString: "", 
         encodedBitStringLength: 0,
         decodedMsg: null, 
         messageToBeEncoded: "", 
         msgLength:0,
         symbolCount :[1,1],
+        prevSymbolProbability: [],
+        prevLowFreq: null, 
         symbolProbability: [],
         lowFreq: null, 
         highFreq: null,
         totalSymbolCount: 2,
         encoderInitiated: false,
-        messageToBeDecoded: ""
-
+        messageToBeDecoded: "", 
+        lettersEncodedSoFar: 0,
+        startBeforeUpdate: 0.0,
+        endBeforeUpdate: 1.0,
+        startAfterUpdate: 0.0,
+        endAfterUpdate: 1.0,
+        startAfterScaling: 0.0,
+        endAfterScaling: 1.0,
+        start: 0.0,
+        end: 1.0,
+        prevS:0,
+        s: 0,
+        width: 1.0,
+        e1IntervalInfo : [],
+        e2IntervalInfo : [],
+        e3IntervalInfo : [],
+        e2test: 1
     }
 
     MsgHandler = ( event ) =>{
@@ -27,6 +45,207 @@ class BinaryAdaptiveArithmetic extends Component{
         //console.log(messageToBeEncoded)
         let msgLength = messageToBeEncoded.split("").length
         this.setState({messageToBeEncoded: messageToBeEncoded, msgLength:msgLength})
+    }
+
+    encoderWithUI = ()=>{
+
+        if(this.state.lettersEncodedSoFar === 0){
+            //initiate symbol count to 1 for all symbols. 
+            this.symbolCountInitiation()
+            this.setState({encoderInitiated:true})
+        }
+        let msgLength = this.state.msgLength;
+        let lettersEncodedSoFar = this.state.lettersEncodedSoFar;
+        console.log('letters encoded so far', this.state.lettersEncodedSoFar)
+        if(lettersEncodedSoFar >= msgLength){
+            console.log("finished Encoding!")
+        } else{
+            //reset all E1/E2/E3 components
+            let reset = [];
+            this.setState({e1IntervalInfo: reset, e2IntervalInfo: reset, e3IntervalInfo: reset})
+            
+            //set up parameters 
+            let messageToBeEncoded = this.state.messageToBeEncoded;
+            let a = this.state.start;
+            let b = this.state.end;
+            console.log("starting [a,b]: ", a, b)
+            let width = this.state.width;
+            let s = this.state.s;
+            let bitString = this.state.encodedBitString;
+            let letterIndex = null;
+            let prevLowFreq = this.state.lowFreq
+            let prevSymbolProbability = this.state.symbolProbability
+            this.setState({prevLowFreq: prevLowFreq, prevSymbolProbability: prevSymbolProbability})
+            let lowFreq = this.state.lowFreq;
+            let highFreq = this.state.highFreq;
+            let symbolCount = this.state.symbolCount;
+            let totalSymbolCount = this.state.totalSymbolCount
+            let symbolProbability = this.state.symbolProbability;
+            let messageArr = messageToBeEncoded.split("")
+            let e2test = this.state.e2test
+            //obtain letter to be encoded
+            lettersEncodedSoFar = this.state.lettersEncodedSoFar;
+            
+            
+            console.log("[lettersEncodedSoFar]:", lettersEncodedSoFar)
+            let letterToBeEncoded = messageArr[lettersEncodedSoFar];
+            console.log("letter to be Encoded: ", letterToBeEncoded)
+            letterIndex = this.findLetterIndex(letterToBeEncoded);
+            width = b - a;
+            // console.log("width: ", width)
+            this.setState({startBeforeUpdate:a, endBeforeUpdate:b})
+            b = a + width * (highFreq[letterIndex])
+            a = a + width * (lowFreq[letterIndex])
+            this.setState({startAfterUpdate: a, endAfterUpdate:b})
+
+            //increase symbol count and total symbol count
+            symbolCount[letterIndex] = symbolCount[letterIndex] + 1;
+            totalSymbolCount = totalSymbolCount + 1;
+
+            //E1/E2/E3 Scaling
+            let scaledValues = null;
+            while (b<= 0.5 && e2test <10 || a >= 0.5 && e2test <10){
+                
+                if(b <=0.5){ //E1 Scaling
+                    console.log("E1 scaling")
+                    console.log("before scaling a,b,s,bitString", a,b,s,bitString)
+                    scaledValues = this.e1Scaling( a ,b ,s, bitString );
+                    a = scaledValues.a
+                    b = scaledValues.b
+                    s = scaledValues.s
+                    bitString = scaledValues.bitString
+                    console.log("after scaling a,b,s,bitString", a,b,s,bitString)
+                    let aWidth = symbolProbability[0] * 100;
+                    aWidth = parseInt(aWidth)
+                    let bWidth = symbolProbability[1] * 100;
+                    bWidth = parseInt(bWidth)
+                    if(aWidth + bWidth !== 100){
+                        bWidth = bWidth + 1;
+                    }
+                    console.log('mid: ', lowFreq[1])
+                    let mid = (b - a) * lowFreq[1]
+                    mid = mid + a;
+                    console.log('after mid: ', mid)
+                    let intervalInfo = {
+                        aWidth : aWidth,
+                        bWidth : bWidth,
+                        start : a.toFixed(2),
+                        mid : mid.toFixed(2),
+                        end : b.toFixed(2),
+                        s: s,
+                        bitString: bitString
+                    }
+                    let e1IntervalInfo = [...this.state.e1IntervalInfo, intervalInfo];
+                    console.log('e1IntervalInfo', e1IntervalInfo)
+                    this.setState({e1IntervalInfo: e1IntervalInfo, s:s})
+
+
+                }   
+                else{ //E2 Scaling
+                    console.log("E2 scaling")
+                    e2test = e2test + 1;
+                    console.log("before scaling a,b,s,bitString", a,b,s,bitString)
+                    scaledValues = this.e2Scaling( a ,b ,s, bitString );
+                    a = scaledValues.a
+                    b = scaledValues.b
+                    s = scaledValues.s
+                    bitString = scaledValues.bitString
+                    console.log("a,b,s,bitString", a,b,s,bitString)
+                    console.log("bitstring", bitString)
+                    let aWidth = symbolProbability[0] * 100;
+                    aWidth = parseInt(aWidth)
+                    let bWidth = symbolProbability[1] * 100;
+                    bWidth = parseInt(bWidth)
+                    console.log('before mid: ', lowFreq[1])
+                    let mid = (b - a) * lowFreq[1]
+                    mid = mid + a;
+                    console.log('after mid: ', mid)
+                    if(aWidth + bWidth !== 100){
+                        bWidth = bWidth + 1;
+                    }
+                    let intervalInfo = {
+                        aWidth : aWidth,
+                        bWidth : bWidth,
+                        start : a.toFixed(2),
+                        mid : mid.toFixed(2),
+                        end : b.toFixed(2),
+                        s: s,
+                        bitString: bitString
+                    }
+                    let e2IntervalInfo = [...this.state.e2IntervalInfo, intervalInfo];
+                    console.log('e2IntervalInfo', e2IntervalInfo)
+                    this.setState({e2IntervalInfo: e2IntervalInfo, s:s})
+                }
+            }
+            //E3 Scaling
+            
+            if(a > 0.25 && b < 0.75){
+                console.log("E3 scaling")
+                scaledValues = null; 
+                scaledValues = this.e3Scaling( a , b, s , bitString )
+                a = scaledValues.a
+                b = scaledValues.b
+                s = scaledValues.s
+                bitString = scaledValues.bitString
+                //update E3 interval info
+                let aWidth = symbolProbability[0] * 100;
+                aWidth = parseInt(aWidth)
+                let bWidth = symbolProbability[1] * 100;
+                bWidth = parseInt(bWidth)
+                if(aWidth + bWidth !== 100){
+                    bWidth = bWidth + 1;
+                }
+                let mid = (b - a) * lowFreq[1]
+                mid = mid + a;
+                let intervalInfo = {
+                    aWidth : aWidth,
+                    bWidth : bWidth,
+                    start : a.toFixed(2),
+                    mid : mid.toFixed(2),
+                    end : b.toFixed(2),
+                    s: s,
+                    bitString: bitString
+                }
+                let e3IntervalInfo = [...this.state.e3IntervalInfo, intervalInfo];
+                console.log('e3IntervalInfo', e3IntervalInfo)
+                this.setState({e3IntervalInfo: e3IntervalInfo, s:s})
+            }
+            //update Probabilities and Frequency arrays 
+            console.log("before updating symbolProbability, symbolCount, totalSymbolCount", symbolCount, totalSymbolCount)
+            symbolProbability = this.updateSymbolProbabilty(symbolCount, totalSymbolCount);
+            //console.log("[symbolProbability]: ", symbolProbability)
+            lowFreq = this.updateLowFrequencies(symbolProbability);
+            // console.log("[lowFreq]: ", lowFreq)
+            highFreq = this.updateHighFrequencies(symbolProbability)
+            // console.log("[highFreq]: ", highFreq)
+            //console.log(symbolCount)
+
+            let lettersEncodedSoFar = this.state.lettersEncodedSoFar + 1;
+            this.setState({lettersEncodedSoFar: lettersEncodedSoFar, symbolProbability: symbolProbability,
+                lowFreq: lowFreq, highFreq:highFreq, symbolCount:symbolCount, e2test:e2test, totalSymbolCount:totalSymbolCount})
+
+            if(lettersEncodedSoFar === msgLength){
+                s = s + 1;
+                if(a <= 0.25){
+                    bitString = bitString.concat('0')
+                    for (let i = 0; i < s; i++){
+                        bitString = bitString.concat( '1')
+                    }
+                } else {
+                    bitString = bitString.concat( '1')
+                    for (let i = 0; i < s; i++){
+                        bitString = bitString.concat( '0')
+                    }
+                    //console.log("[bitString]: ", bitString)
+
+                }
+                
+                this.setState({encodedBitString:bitString})
+            }
+
+            console.log("[bitString]: ", bitString)
+            this.setState({encodedBitString: bitString, start:a, end:b, width:width, s:s})
+        }
     }
 
     encoder = () =>{
@@ -65,8 +284,10 @@ class BinaryAdaptiveArithmetic extends Component{
             letterIndex = this.findLetterIndex(messageArr[i])
             width = b - a;
             // update start and end intervals
+            this.setState({startBeforeUpdate:a, endBeforeUpdate:b})
             b = a + width * (highFreq[letterIndex])
             a = a + width * (lowFreq[letterIndex])
+            this.setState({startAfterUpdate: a, endAfterUpdate:b})
 
             //increase symbol count and total symbol count
             symbolCount[letterIndex] = symbolCount[letterIndex] + 1;
@@ -105,6 +326,7 @@ class BinaryAdaptiveArithmetic extends Component{
                 bitString = scaledValues.bitString
             }
             //update Probabilities and Frequency arrays 
+            console.log("before updating symbolProbability, symbolCount, totalSymbolCount", symbolCount, totalSymbolCount)
             symbolProbability = this.updateSymbolProbabilty(symbolCount, totalSymbolCount);
             //console.log("[symbolProbability]: ", symbolProbability)
             lowFreq = this.updateLowFrequencies(symbolProbability);
@@ -134,8 +356,10 @@ class BinaryAdaptiveArithmetic extends Component{
 
     }
 
+    
+
     updateSymbolProbabilty = (symbolCount, totalSymbolCount) =>{
-        //console.log("[updating Symbol Pr]",symbolCount, totalSymbolCount)
+        console.log("[updating Symbol Pr]",symbolCount, totalSymbolCount)
         let symbolProbability = [];
         let len = symbolCount.length;
         for(let i = 0; i< len; i++){
@@ -271,7 +495,7 @@ class BinaryAdaptiveArithmetic extends Component{
             highFreq.push(parseFloat(cumulativeTotal));
         }
         //console.log("[highFreq]",highFreq)
-        this.setState({highFreq:highFreq}, this.encoder)
+        this.setState({highFreq:highFreq}, this.encoderWithUI)
         
     }
 
@@ -300,7 +524,7 @@ class BinaryAdaptiveArithmetic extends Component{
         //2. find length of bits for window size
         // let windowSize = this.findBitsForWindowSize(minFreqSymbolFreq)
 
-        let windowSize = this.state.encodedBitStringLength;
+        let windowSize = this.state.encodedBitString.length;
 
         //3. set window size 
         // start = 0  end = l - 1
@@ -316,7 +540,7 @@ class BinaryAdaptiveArithmetic extends Component{
         // if symbol is EOF break 
     
         // let letterArr = Object.keys(this.state.letterFrequency)
-        let symbolListLength = this.state.symbolCount.length;
+        let symbolListLength = 2;
         let symbol = null;
         let tempBitStringArr = null;
         //slice is not inclusive
@@ -342,7 +566,11 @@ class BinaryAdaptiveArithmetic extends Component{
 
         while(x < charLimit && decodedSequenceLengthSoFar < msgLength){
             x +=1; 
+            // console.log('bitStringArr',bitStringArr)
+            // console.log('start', start)
+            // console.log('end', end)
             tempBitStringArr = bitStringArr.slice(start, end);
+            console.log(tempBitStringArr)
             //convert bitstring to interval value
             val = this.bitStringArrToTargetValue(tempBitStringArr);
 
@@ -488,12 +716,108 @@ class BinaryAdaptiveArithmetic extends Component{
         let encodedBitString = this.state.encodedBitString;
         let encodedBitStringLength = this.state.encodedBitStringLength; 
         let decodedMsg = this.state.decodedMsg; 
-        let intervalInfo = {
-            aWidth : 60,
-            bWidth : 40,
-            start : 0.0,
-            mid : 0.5,
-            end : 1.0
+        let letterToBeEncodedMsg = null;
+        let beforeUpdateMsg = null;
+        let afterUpdateMsg = null;
+        let E1 = null;
+        let E2 = null;
+        let E3 = null;
+        let e1IntervalInfo = this.state.e1IntervalInfo;
+        if(e1IntervalInfo.length > 0){
+            //E1 = <E1IntervalBar start="0.0" end="1.0"  bitString={bitString}/>
+            E1 = this.state.e1IntervalInfo.map((info, index)=>{
+                return <E1BinaryIntervalBar key={index} intervalInfo={info}/>
+            })
+            console.log("E1 : ", E1)
+            
+        }
+        let e2IntervalInfo = this.state.e2IntervalInfo;
+        if(e2IntervalInfo.length > 0){
+            //E1 = <E1IntervalBar start="0.0" end="1.0"  bitString={bitString}/>
+            E2 = this.state.e2IntervalInfo.map((info, index)=>{
+                return <E2BinaryIntervalBar key={index} intervalInfo={info}/>
+            })
+            console.log("E2 : ", E2)
+            
+        }
+        let e3IntervalInfo = this.state.e3IntervalInfo;
+        if(e3IntervalInfo.length > 0){
+            //E1 = <E1IntervalBar start="0.0" end="1.0"  bitString={bitString}/>
+            E3 = this.state.e3IntervalInfo.map((info, index)=>{
+                return <E3BinaryIntervalBar key={index} intervalInfo={info}/>
+            })
+            console.log("E3 : ", E3)
+            
+        }
+        if(this.state.encoderInitiated){
+            console.log("encoder initated!")
+            //Letter to be encoded message
+            let msgArr = this.state.messageToBeEncoded.split("")
+            let letterToBeEncoded = msgArr[this.state.lettersEncodedSoFar-1]
+            letterToBeEncodedMsg = <h1>Letter to be encoded: {letterToBeEncoded} </h1>
+            
+            //Interval bar before update
+            let startBeforeUpdate = this.state.startBeforeUpdate
+            startBeforeUpdate = startBeforeUpdate.toFixed(2)
+            let endBeforeUpdate = this.state.endBeforeUpdate
+            endBeforeUpdate = endBeforeUpdate.toFixed(2)
+            let aWidth = this.state.prevSymbolProbability[0] * 100;
+            aWidth = parseInt(aWidth)
+            let bWidth = this.state.prevSymbolProbability[1] * 100;
+            bWidth = parseInt(bWidth)
+            if(aWidth + bWidth !== 100){
+                bWidth = bWidth + 1;
+            }
+            let mid = (this.state.endBeforeUpdate - this.state.startBeforeUpdate) * this.state.prevLowFreq[1]
+            mid = mid + this.state.startBeforeUpdate
+            mid = mid.toFixed(2)
+            let intervalInfo = {
+                aWidth : aWidth,
+                bWidth : bWidth,
+                start : startBeforeUpdate,
+                mid : mid,
+                end : endBeforeUpdate
+            }
+            beforeUpdateMsg = (
+                <div>
+                    <h1>Before Interval Update</h1>
+                    <BinaryIntervalBar intervalInfo={intervalInfo} />
+                </div>
+            )
+            //Interval bar after update 
+            let startAfterUpdate = this.state.startAfterUpdate
+            startAfterUpdate = startAfterUpdate.toFixed(2)
+            let endAfterUpdate = this.state.endAfterUpdate
+            endAfterUpdate = endAfterUpdate.toFixed(2)
+            console.log("[startAfterUpdate]",startAfterUpdate)
+            console.log('symbolProbability: ', this.state.symbolProbability)
+            let symbolProbability = this.state.prevSymbolProbability
+            console.log('[symbolProbability check ]', this.state.prevSymbolProbability)
+            aWidth = symbolProbability[0] * 100;
+            aWidth = parseInt(aWidth)
+            bWidth = symbolProbability[1] * 100;
+            bWidth = parseInt(bWidth)
+            if(aWidth + bWidth !== 100){
+                bWidth = bWidth + 1;
+            }
+            mid = (this.state.endAfterUpdate - this.state.startAfterUpdate) * this.state.prevLowFreq[1]
+            mid = mid + this.state.startAfterUpdate
+            mid = mid.toFixed(2) 
+            console.log('aWidth check:', aWidth)
+            intervalInfo = {
+                aWidth : aWidth,
+                bWidth : bWidth,
+                start : startAfterUpdate,
+                mid : mid,
+                end : endAfterUpdate
+            }
+
+            afterUpdateMsg = (
+                <div>
+                    <h1>After Interval Update</h1>
+                    <BinaryIntervalBar intervalInfo={intervalInfo} />
+                </div>
+            )
         }
 
         return(
@@ -504,8 +828,12 @@ class BinaryAdaptiveArithmetic extends Component{
                     <input type="text" onChange={this.MsgHandler}></input>
                     <button onClick= {this.calculateSymbolProbabilty}>Encode MSG</button>
                     <br></br>
-                    <E1BinaryIntervalBar intervalInfo={intervalInfo} />
-                    <BinaryIntervalBar intervalInfo={intervalInfo}/>
+                    {beforeUpdateMsg}
+                    {letterToBeEncodedMsg}
+                    {afterUpdateMsg}
+                    {E1}
+                    {E2}
+                    {E3}
                     <h3>Encoded BitString : {encodedBitString} </h3>
                     <h3>Encoded BitStringLength : {encodedBitStringLength} </h3>
                </div>
