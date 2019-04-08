@@ -33,39 +33,66 @@ class AdaptiveHuffman extends Component{
     }
 
     initialSymbolToCode = (symbol) =>{
-        switch(symbol) {
-            case "$":
-                return "0"
-            case "a":
-                return "00001"
-            case "b":
-                return "00010"
-            case "c":
-                return "00011"
-            case "d":
-                return "00100"
-            default:
-                console.log("Unsupported Symbol")
-                return null
+        if (symbol === "$") {
+            return "0"
         }
+        // switch(symbol) {
+        //     case "$":
+        //         return "0"
+        //     case "a":
+        //         return "00001"
+        //     case "b":
+        //         return "00010"
+        //     case "c":
+        //         return "00011"
+        //     case "d":
+        //         return "00100"
+        //     default:
+        //         console.log("Unsupported Symbol")
+        //         return null
+        // }
+        let asciiValue = symbol.charCodeAt(0)
+        let bitString = ""
+        for (let i = 0; i < 8; i++) {
+            if (asciiValue & 1 === 1) {
+                bitString = "1" + bitString
+            } else {
+                bitString = "0" + bitString
+            }
+            asciiValue = asciiValue >>> 1
+        }
+        return bitString
+
     }
 
-    initialCodeToSymbol = (symbol) =>{
-        switch(symbol) {
-            case "0":
-                return "$"
-            case "00001":
-                return "a"
-            case "00010":
-                return "b"
-            case "00011":
-                return "c"
-            case "00100":
-                return "d"
-            default:
-                console.log("Unsupported codeword")
-                return null
+    initialCodeToSymbol = (code) =>{
+        if (code === "0") {
+            return "$"
         }
+        // switch(symbol) {
+        //     case "0":
+        //         return "$"
+        //     case "00001":
+        //         return "a"
+        //     case "00010":
+        //         return "b"
+        //     case "00011":
+        //         return "c"
+        //     case "00100":
+        //         return "d"
+        //     default:
+        //         console.log("Unsupported codeword")
+        //         return null
+        // }
+        let asciiValue = 0
+        let mask = 1
+        for (let i = 0; i < 8; i++) {
+            if (parseInt(code[7-i]) & 1 === 1) {
+                asciiValue = asciiValue ^ mask
+            }
+            mask = mask << 1
+        }
+        return String.fromCharCode(asciiValue)
     }
 
     findNodesWithCount = (huffmanTree, count) =>{
@@ -247,6 +274,11 @@ class AdaptiveHuffman extends Component{
 
     HuffmanEncoder = ()=>{
 
+        if (this.state.msgToBeDecoded ===null){
+            alert('Message to be encoded cannot be empty')
+            return
+        }
+
         let symbolList = []
         var symbolMap = new Map()
         let newSymbolTreeNew = new HuffmanTree("$", 0)
@@ -358,7 +390,7 @@ class AdaptiveHuffman extends Component{
         let currNode = huffmanTreeRoot
 
         let currCodeWord = ""
-        let initalCodeLength = 5
+        let initalCodeLength = 8
 
         let nextIsNew = false
         let insertSymbol = false
@@ -419,8 +451,14 @@ class AdaptiveHuffman extends Component{
         let decodedMsg = this.state.decodedMsg;
         let BitStringLength = this.state.BitStringLength;
 
-        let traversedList= []
-        let delayedList = []
+        let msgToBeDecoded = this.state.msgToBeDecoded
+        let asciiBitStringLength = 0
+        if (msgToBeDecoded !== null) {
+            asciiBitStringLength = msgToBeDecoded.length * 8
+        }
+
+        let compressionRatio = asciiBitStringLength / BitStringLength
+
         let data = this.state.data;
         let height = this.state.treeHeight * 100
 
@@ -437,9 +475,9 @@ class AdaptiveHuffman extends Component{
 
                         <h3>Encoded BitString : {encodedMsg} </h3>
                         <h3>Encoded BitStringLength : {BitStringLength} </h3>
+                        <h3>ASCII BitStringLength : {asciiBitStringLength} </h3>
+                        <h3>Compression Ratio : {compressionRatio} </h3>
                 </div>
-
-
 
                 <div className="visualizer-container">
                     {/* Render Tree with data passed as prop */}
@@ -456,10 +494,7 @@ class AdaptiveHuffman extends Component{
                     />
                 </div>
 
-
-
                 <div>
-                        <input type="text" onChange={null}></input>
                         <button onClick= {this.decodeMsgHandler}>Decode MSG</button>
                         <h3>Decoded Msg : {decodedMsg} </h3>
                 </div>
