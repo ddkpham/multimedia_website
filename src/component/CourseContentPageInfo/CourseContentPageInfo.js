@@ -27,11 +27,11 @@ import Week5 from '../../assets/material/supplements/Week5.pdf';
 import Week6 from '../../assets/material/supplements/Week6.pdf';
 import Week7 from '../../assets/material/supplements/Week7.pdf';
 import Week9 from '../../assets/material/supplements/Week9.pdf';
-import Week10 from '../../assets/material/supplements/Week10.pdf';
-import Week10_2 from '../../assets/material/supplements/Week10_2.pdf';
+import Week10a from '../../assets/material/supplements/Week10.pdf';
+import Week10b from '../../assets/material/supplements/Week10_2.pdf';
 import Week11 from '../../assets/material/supplements/Week11.pdf';
-import Week12 from '../../assets/material/supplements/Week12.pdf';
-import Week12_2 from '../../assets/material/supplements/Week12_2.pdf';
+import Week12a from '../../assets/material/supplements/Week12.pdf';
+import Week12b from '../../assets/material/supplements/Week12_2.pdf';
 
 //config check 
 import config from '../../Config/config'
@@ -61,92 +61,91 @@ class CourseContentPageInfo extends Component{
         let week6 = null;
         let week7 = null;
         let week9 = null;
-        let week10 = null;
-        let week10_2 = null;
+        let week10a = null;
+        let week10b = null;
         let week11 = null;
-        let chapter12a = null; 
-        let chapter12b = null;
+        let week12a = null; 
+        let week12b = null;
 
         
 
         if(config.courseContent.chapter1){
-            chapter1 = <a href={Chapter1} target='iframe_slides'>Chapter1</a>
+            chapter1 = <ListGroupItem><a href={Chapter1} target='iframe_slides'>Chapter1</a></ListGroupItem>
         }
         if(config.courseContent.chapter2){
-            chapter2 = <a href={Chapter2} target='iframe_slides'>Chapter2</a>
+            chapter2 = <ListGroupItem><a href={Chapter2} target='iframe_slides'>Chapter2</a></ListGroupItem>
         }
         if(config.courseContent.chapter3){
-            chapter3 = <a href={Chapter3} target='iframe_slides'>Chapter3</a>
+            chapter3 = <ListGroupItem><a href={Chapter3} target='iframe_slides'>Chapter3</a></ListGroupItem>
         }
         if(config.courseContent.chapter4){
-            chapter4 = <a href={Chapter4} target='iframe_slides'>Chapter4</a>
+            chapter4 = <ListGroupItem><a href={Chapter4} target='iframe_slides'>Chapter4</a></ListGroupItem>
         }
         if(config.courseContent.chapter5){
-            chapter5 = <a href={Chapter5} target='iframe_slides'>Chapter5</a>
+            chapter5 = <ListGroupItem><a href={Chapter5} target='iframe_slides'>Chapter5</a></ListGroupItem>
         }
         if(config.courseContent.chapter6){
-            chapter6 = <a href={Chapter6} target='iframe_slides'>Chapter6</a>
+            chapter6 = <ListGroupItem><a href={Chapter6} target='iframe_slides'>Chapter6</a></ListGroupItem>
         }
         if(config.courseContent.chapter7){
-            chapter7 = <a href={Chapter7} target='iframe_slides'>Chapter7</a>
+            chapter7 = <ListGroupItem><a href={Chapter7} target='iframe_slides'>Chapter7</a></ListGroupItem>
         }
         if(config.courseContent.chapter8){
-            chapter8 = <a href={Chapter8} target='iframe_slides'>Chapter8</a>
+            chapter8 = <ListGroupItem><a href={Chapter8} target='iframe_slides'>Chapter8</a></ListGroupItem>
         }
         if(config.courseContent.chapter9){
-            chapter9 = <a href={Chapter9} target='iframe_slides'>Chapter9</a>
+            chapter9 = <ListGroupItem><a href={Chapter9} target='iframe_slides'>Chapter9</a></ListGroupItem>
         }
         if(config.courseContent.chapter10){
-            chapter10 = <a href={Chapter10} target='iframe_slides'>Chapter10</a>
+            chapter10 = <ListGroupItem><a href={Chapter10} target='iframe_slides'>Chapter10</a></ListGroupItem>
         }
         if(config.courseContent.chapter11){
-            chapter11 = <a href={Chapter11} target='iframe_slides'>Chapter11</a>
+            chapter11 = <ListGroupItem><a href={Chapter11} target='iframe_slides'>Chapter11</a></ListGroupItem>
         }
         if(config.courseContent.chapter12){
-            chapter12 = <a href={Chapter12} target='iframe_slides'>Chapter12</a>
+            chapter12 = <ListGroupItem><a href={Chapter12} target='iframe_slides'>Chapter12</a></ListGroupItem>
         }
-        
         if(config.courseContent.chapter14){
-            chapter14 = <a href={Chapter14} target='iframe_slides'>Chapter14</a>
+            chapter14 = <ListGroupItem><a href={Chapter14} target='iframe_slides'>Chapter14</a></ListGroupItem>
         }
         if(config.supplementaryMaterial.week1){
-            week1 = <a href={Week1} target='iframe_slides'>Week1: Multimedia Authoring</a>
+            week1 = <ListGroupItem><a href={Week1} target='iframe_slides'>Week1: Multimedia Authoring</a></ListGroupItem>
         }
         if(config.supplementaryMaterial.week2){
-            week2 = <a href={Week2} target='iframe_slides'>Week2: Image Representations</a>
+            week2 = <ListGroupItem><a href={Week2} target='iframe_slides'>Week2: Image Representations</a></ListGroupItem>
         }
         if(config.supplementaryMaterial.week3){
-            week3 = <a href={Week3} target='iframe_slides'>Week3: Color Representations</a>
+            week3 = <ListGroupItem><a href={Week3} target='iframe_slides'>Week3: Color Representations</a></ListGroupItem>
         }
         if(config.supplementaryMaterial.week4){
-            week4 = <a href={Week4} target='iframe_slides'>Week4: DCT matrix implementation</a>
+            week4 = <ListGroupItem><a href={Week4} target='iframe_slides'>Week4: DCT matrix implementation</a></ListGroupItem>
         }
         if(config.supplementaryMaterial.week5){
-            week5 = <a href={Week5} target='iframe_slides'>Week5: Analogy to DCT basis functions</a>
+            week5 = <ListGroupItem><a href={Week5} target='iframe_slides'>Week5: Analogy to DCT basis functions</a></ListGroupItem>
         }
         if(config.supplementaryMaterial.week6){
-            week6 = <a href={Week6} target='iframe_slides'>Week6: Arithmetic Coding Example</a>
+            week6 = <ListGroupItem><a href={Week6} target='iframe_slides'>Week6: Arithmetic Coding Example</a></ListGroupItem>
         }
         if(config.supplementaryMaterial.week7){
-            week7 = <a href={Week7} target='iframe_slides'>Week7: Notes on Lossy Differential Coding</a>
+            week7 = <ListGroupItem><a href={Week7} target='iframe_slides'>Week7: Notes on Lossy Differential Coding</a></ListGroupItem>
         }
         if(config.supplementaryMaterial.week9){
-            week9 = <a href={Week9} target='iframe_slides'>Week9: MPEG-2 SNR Scalability</a>
+            week9 = <ListGroupItem><a href={Week9} target='iframe_slides'>Week9: MPEG-2 SNR Scalability</a></ListGroupItem>
         }
-        if(config.supplementaryMaterial.week10){
-            week10 = <a href={Week10} target='iframe_slides'>Week10: Derivation of the Integer Transform Matrix</a>
+        if(config.supplementaryMaterial.week10a){
+            week10a = <ListGroupItem><a href={Week10a} target='iframe_slides'>Week10: Derivation of the Integer Transform Matrix</a></ListGroupItem>
         }
-        if(config.supplementaryMaterial.week10_2){
-            week10_2 = <a href={Week10_2} target='iframe_slides'>Week10: ** Implementation details about H.264 Codec</a>
+        if(config.supplementaryMaterial.week10b){
+            week10b = <ListGroupItem><a href={Week10b} target='iframe_slides'>Week10: ** Implementation details about H.264 Codec</a></ListGroupItem>
         }
         if(config.supplementaryMaterial.week11){
-            week11 = <a href={Week11} target='iframe_slides'>Week11: Features of H.266 (VVC)</a>
+            week11 = <ListGroupItem><a href={Week11} target='iframe_slides'>Week11: Features of H.266 (VVC)</a></ListGroupItem>
         }
-        if(config.supplementaryMaterial.week12){
-           chapter12a =  <a href={Week12} target='iframe_slides'>Chapter12: Notes on MPEG audio compression</a>
+        if(config.supplementaryMaterial.week12a){
+           week12a =  <ListGroupItem><a href={Week12a} target='iframe_slides'>Chapter12: Notes on MPEG audio compression</a></ListGroupItem>
         }
-        if(config.supplementaryMaterial.week12_2){
-            chapter12b = <a href={Week12_2} target='iframe_slides'>Chapter12: ** Additional Notes on Audio Compression</a>
+        if(config.supplementaryMaterial.week12b){
+            week12b = <ListGroupItem><a href={Week12b} target='iframe_slides'>Chapter12: ** Additional Notes on Audio Compression</a></ListGroupItem>
         }
 
 
@@ -163,88 +162,35 @@ class CourseContentPageInfo extends Component{
                     <ListGroupItem>
                         <a href={Chapter1} target='iframe_slides'>Intro</a>
                     </ListGroupItem>
-                    <ListGroupItem>
                         {chapter1}
-                    </ListGroupItem>
-                    <ListGroupItem>
                         {chapter2}
-                    </ListGroupItem>
-                    <ListGroupItem>
                         {chapter3}
-                    </ListGroupItem>
-                    <ListGroupItem>
                         {chapter4}
-                    </ListGroupItem>
-                    <ListGroupItem>
                         {chapter5}
-                    </ListGroupItem>
-                    <ListGroupItem>
                         {chapter6}
-                    </ListGroupItem>
-                    <ListGroupItem>
                         {chapter7}
-                    </ListGroupItem>
-                    <ListGroupItem>
                         {chapter8}
-                    </ListGroupItem>
-                    <ListGroupItem>
                         {chapter9}
-                    </ListGroupItem>
-                    <ListGroupItem>
                         {chapter10}
-                    </ListGroupItem>
-                    <ListGroupItem>
                         {chapter11}
-                    </ListGroupItem>
-                    <ListGroupItem>
-                        {chapter12a}
-                    </ListGroupItem>
-                    <ListGroupItem>
+                        {chapter12}
                         {chapter14}
-                    </ListGroupItem>
-
                     <ListGroupItem style = {liStyle} >
                         Supplementary Materials
                     </ListGroupItem>
-                    <ListGroupItem>
                         {week1}
-                    </ListGroupItem>
-                    <ListGroupItem>
                         {week2}
-                    </ListGroupItem>
-                    <ListGroupItem>
                         {week3}
-                    </ListGroupItem>
-                    <ListGroupItem>
                         {week4}
-                    </ListGroupItem>
-                    <ListGroupItem>
                         {week5}
-                    </ListGroupItem>
-                    <ListGroupItem>
                         {week6}
-                    </ListGroupItem>
-                    <ListGroupItem>
                         {week7}
-                    </ListGroupItem>
-                    <ListGroupItem>
                         {week9}
-                    </ListGroupItem>
-                    <ListGroupItem>
-                        {week10}
-                    </ListGroupItem>
-                    <ListGroupItem>
-                        {week10_2}
-                    </ListGroupItem>
-                    <ListGroupItem>
+                        {week10a}
+                        {week10b}
                         {week11}
-                    </ListGroupItem>
-                    <ListGroupItem>
-                        {chapter12}
-                    </ListGroupItem>
-                    <ListGroupItem>
-                        {chapter12b}
-                    </ListGroupItem>
+                        {week12a}
+                        {week12b}
                     </ListGroup>
                 </nav>
                     <iframe
