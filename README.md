@@ -22,3 +22,7 @@ to start the local deployment server
 
 
 Navigate to `localhost:3000` and enjoy! 
+
+The username/password to access the site: 
+
+username: `mmtext@sfu.ca` password: `multimedia`
