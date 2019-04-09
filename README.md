@@ -12,8 +12,13 @@ To install the project, make sure you have the following dependencies:
 Once you have downloaded React and NPM, fork the project and run 
 ```
 npm install
-npm start
 
 ```
+to install all required dependencies. 
+```
+npm start
+```
+to start the local deployment server
+
 
 Navigate to `localhost:3000` and enjoy! 
