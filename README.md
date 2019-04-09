@@ -12,7 +12,6 @@ To install the project, make sure you have the following dependencies:
 Once you have downloaded React and NPM, fork the project and run 
 ```
 npm install
-
 ```
 **to install all required dependencies** 
 ```
