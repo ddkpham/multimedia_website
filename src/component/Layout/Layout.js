@@ -42,17 +42,20 @@ class layout extends Component{
 
 
     render(){
-        let tokenAuthTime = sessionStorage.getItem('authToken')
-        console.log("tokenAuth: ", tokenAuthTime)
-        if(tokenAuthTime === undefined){
+        let tokenAuthTime = localStorage.getItem('authToken')
+        if(tokenAuthTime === null){
             tokenAuthTime = 0;
         } else {
             tokenAuthTime = parseInt(tokenAuthTime);
         }
+        console.log("tokenAuth: ", tokenAuthTime)
         const user = this.state.user;
         let routes = null;
         let date = new Date(); 
-        if(user.authenticated || tokenAuthTime ){
+        let currTime = date.getTime();
+        currTime = currTime/1000
+        console.log('currTime: ', currTime);
+        if(user.authenticated || tokenAuthTime >= currTime ){
             routes = (
                 <Switch>
                     {/* --------------------- Temporary anon functions for Pages --------------------*/}

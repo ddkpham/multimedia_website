@@ -22,16 +22,21 @@ class LoginPage extends Component{
         this.setState({password:password})
     }
 
-    loginHandler = ()=>{
+    setAuthToken = () =>{
         let date = new Date()
         let authTime = date.getTime();
+
         //convert to milliseconds
         authTime = authTime / 1000;
         authTime = authTime + 600;
-        sessionStorage.setItem('authToken', authTime.toString())
-        let test = sessionStorage.getItem('authToken')
+        localStorage.setItem('authToken', authTime.toString())
+        let test = localStorage.getItem('authToken')
         console.log('sessionStorage: ', test)
+    }
+
+    loginHandler = ()=>{
         console.log("button clicked")
+        this.setAuthToken()
         let username = this.state.username;
         console.log(username)
         let password = this.state.password;
