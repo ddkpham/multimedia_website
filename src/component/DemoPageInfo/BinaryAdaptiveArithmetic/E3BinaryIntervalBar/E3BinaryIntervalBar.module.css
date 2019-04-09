@@ -8,6 +8,10 @@
 }
 
 .s{
-    float:left;
+    float:right;
     width:50%;
+}
+
+.E3 h2{
+    color: green
 }

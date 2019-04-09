@@ -2,13 +2,15 @@
     padding: 25px;
     margin-top: 20px;
     margin-bottom: 20px;
-    border: 1px solid black;
+    border: 1px solid grey;
 }
 
 .FinalEmissionMsg h3{
-    color: black;
+    color: grey;
     padding: 10px;
-}
-.FinalEmissionMsg h3{
     text-decoration: none;
 }
+.FinalEmissionMsg h2{
+    color: grey
+}
+

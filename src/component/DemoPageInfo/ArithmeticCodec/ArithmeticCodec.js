@@ -155,6 +155,20 @@ class ArithmeticCodec extends Component{
 
     EncoderWithUI = () => {
         // append terminator letter to sequence 
+        let messageCheck = this.state.messageToBeEncoded.split("")
+        if(messageCheck.length <=0){
+            alert('dont forget to enter a message')
+            return
+        }
+        for(let i = 0 ; i<messageCheck.length; i++){
+            if(messageCheck[i] === 'a' || messageCheck[i] === 'b' 
+                || messageCheck[i] === 'c' || messageCheck[i]=== '$'){
+                continue
+            } else{
+                alert('only symbols "a"  "b"  "c" are allowed')
+                return
+            }
+        }
         if(this.state.lettersEncodedSoFar === 0){
             //console.log("0 letters coded so far")
             let msgArr = this.state.messageToBeEncoded.split("")
@@ -716,7 +730,7 @@ class ArithmeticCodec extends Component{
         let compressionRatio = null;
         let continueEncodingBtn = null;
         if(this.state.encoderInitated && !this.state.finalScalingInitiated){
-            continueEncodingBtn = <Button btnType="Success" clicked= {this.FrequencyInitiation}>Continue Encoding</Button>
+            continueEncodingBtn = <Button btnType="Success" onClick= {this.FrequencyInitiation}>Continue Encoding</Button>
         } else {
             encodeBtn = <Button disabled={!this.state.messageToBeEncoded} color="danger" onClick= {this.FrequencyInitiation}>Encode MSG</Button>
         }
@@ -873,7 +887,7 @@ class ArithmeticCodec extends Component{
                 </div>
                <div>
                    <div className={classes.decoding}>
-                        <input type="text" onChange={this.decodeMsgHandler} placeholder=" please enter the msg"></input>
+                        <input type="text" onChange={this.decodeMsgHandler} placeholder=" please enter the encoded msg"></input>
                         <Button 
                             disabled={!this.state.messageToBeDecoded}color="warning" onClick= {this.MessageDecoderWithScaling}>Decode MSG</Button>
                         <DecodedMsgBox decodedMsg={decodedMsg} />

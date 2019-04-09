@@ -5,21 +5,21 @@ import E1BinaryIntervalBar from '../BinaryAdaptiveArithmetic/E1BinaryIntervalBar
 import E2BinaryIntervalBar from '../BinaryAdaptiveArithmetic/E2BinaryIntervalBar/E2BinaryIntervalBar'
 import E3BinaryIntervalBar from '../BinaryAdaptiveArithmetic/E3BinaryIntervalBar/E3BinaryIntervalBar'
 import BinaryIntervalBar from '../BinaryAdaptiveArithmetic/BinaryIntervalBar/BinaryIntervalBar'
-import Button from '../../../component/UI/Button/Button'
+// import Button from '../../../component/UI/Button/Button'
 import DecodedMsgBox from '../DecodedMsgBox/DecodedMsgBox'
 import EncodingIntroMsg from '../EncodingIntroMsg/EncodingIntroMsg'
 import DemoNav from '../DemoNav/DemoNav';
 import EncodedBitStringMsg from '../ArithmeticCodec/EncodedBitStringMsg/EncodedBitStringMsg';
 import FinalEmissionMsg from '../ArithmeticCodec/FinalEmissionMsg/FinalEmissionMsg'
-import CountTable from './CountTable/CountTable'
 import CountTableBefore from './CountTableBefore/CountTableBefore'
 import CountTableAfter from './CountTableAfter/CountTableAfter'
+import {Button} from 'reactstrap'
 class BinaryAdaptiveArithmetic extends Component{
     state = {
         encodedBitString: "", 
         encodedBitStringLength: 0,
         decodedMsg: null, 
-        messageToBeEncoded: "", 
+        messageToBeEncoded: null, 
         msgLength:0,
         prevSymbolCount:[1,1],
         symbolCount :[1,1],
@@ -65,6 +65,19 @@ class BinaryAdaptiveArithmetic extends Component{
     }
 
     encoderWithUI = ()=>{
+        let messageCheck = this.state.messageToBeEncoded.split("")
+        if(messageCheck.length <=0){
+            alert('dont forget to enter a message')
+            return
+        }
+        for(let i = 0 ; i<messageCheck.length; i++){
+            if(messageCheck[i] === 'a' || messageCheck[i] === 'b'){
+                continue
+            } else{
+                alert('only symbols "a" and "b" are allowed')
+                return
+            }
+        }
         if(this.state.lettersEncodedSoFar === 0){
             this.symbolCountInitiation()
             this.setState({encoderInitiated:true})
@@ -746,9 +759,9 @@ class BinaryAdaptiveArithmetic extends Component{
         let encodeBtn = null;
             let continueEncodingBtn = null;
             if(this.state.encoderInitiated && !this.state.finalScalingInitiated){
-                continueEncodingBtn = <Button btnType="Success" clicked= {this.calculateSymbolProbabilty}>Continue Encoding</Button>
+                continueEncodingBtn = <Button btnType="Success" color="danger" onClick= {this.calculateSymbolProbabilty}>Continue Encoding</Button>
             } else{
-                encodeBtn = <Button btnType="Success" clicked= {this.calculateSymbolProbabilty}>Encode MSG</Button>
+                encodeBtn = <Button disabled={!this.state.messageToBeEncoded} btnType="Success" color="danger" onClick= {this.calculateSymbolProbabilty}>Encode MSG</Button>
             }
         let encodedBitString = this.state.encodedBitString;
         let encodedBitStringLength = this.state.encodedBitString;
@@ -789,7 +802,12 @@ class BinaryAdaptiveArithmetic extends Component{
             //Letter to be encoded message
             let msgArr = this.state.messageToBeEncoded.split("")
             let letterToBeEncoded = msgArr[this.state.lettersEncodedSoFar-1]
-            letterToBeEncodedMsg = <h3>Letter to be encoded: {letterToBeEncoded} </h3>
+            letterToBeEncodedMsg = (
+                <div>
+                    <h3>Letter to be encoded:  </h3>
+                    <p><strong>{letterToBeEncoded}</strong></p>
+                </div>
+            )
             
             //Interval bar before update
             let startBeforeUpdate = this.state.startBeforeUpdate
@@ -858,7 +876,7 @@ class BinaryAdaptiveArithmetic extends Component{
         if(this.state.finalScalingInitiated){
             if(this.state.finalScalingfirstQuarter){
                 finalScaling = (
-                    <div>
+                    <div >
                         <h2>Final Emission</h2>
                         <h3>Emit "0"</h3>
                         <h3>Emit {this.state.finalScalingSValue} "1"s</h3>
@@ -887,6 +905,17 @@ class BinaryAdaptiveArithmetic extends Component{
         let symbolCount = this.state.symbolCount;
         let symbolProb = this.state.symbolProbability
 
+        let statsBefore = null;
+        let statsAfter = null;
+        if(this.state.encoderInitiated){
+            statsBefore = <CountTableBefore 
+            symbolCount={prevSymbolCount}
+            symbolProb={prevSymbolProbability}/>
+            
+            statsAfter = <CountTableAfter 
+            symbolCount={symbolCount}
+            symbolProb={symbolProb}/>
+        }
         
 
 
@@ -896,12 +925,12 @@ class BinaryAdaptiveArithmetic extends Component{
                 <div className={classes.ArithmeticAlgorithm}>
                 <h1>Binary Adaptive Arithmetic Coding Demo</h1>
                 <div>
-                    <input type="text" onChange={this.MsgHandler}></input>
+                    <input type="text"  placeholder="enter msg for encoding" onChange={this.MsgHandler}></input>
+                    <br></br>
+                    <br></br>
                     {encodeBtn}
                     <br></br>
-                    <CountTableBefore 
-                        symbolCount={prevSymbolCount}
-                        symbolProb={prevSymbolProbability}/>
+                    {statsBefore}
                     <EncodingIntroMsg 
                         show={this.state.encoderInitiated}
                         beforeUpdateMsg={beforeUpdateMsg}
@@ -916,10 +945,8 @@ class BinaryAdaptiveArithmetic extends Component{
                         finalScaling = {finalScaling}
                     />
 
-                    <CountTableAfter 
-                        symbolCount={symbolCount}
-                        symbolProb={symbolProb}/>
-
+                    {statsAfter}
+                    <br></br>
                     {continueEncodingBtn}
                     <EncodedBitStringMsg 
                         encodedBitString={encodedBitString}
@@ -928,8 +955,10 @@ class BinaryAdaptiveArithmetic extends Component{
                     />
                </div>
                <div>
-                    <input type="text" onChange={this.decodeMsgHandler}></input>
-                    <Button btnType="Success" clicked= {this.MessageDecoderWithScaling}>Decode MSG</Button>
+                    <input type="text" placeholder="enter encoded bitstring" onChange={this.decodeMsgHandler}></input>
+                    <br></br>
+                    <br></br>
+                    <Button disabled={!this.state.finalScalingInitiated} btnType="Success" color="success" onClick= {this.MessageDecoderWithScaling}>Decode MSG</Button>
                     <DecodedMsgBox decodedMsg={decodedMsg} />
                     
                </div>

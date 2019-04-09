@@ -1,0 +1,11 @@
+.CountTableBefore{
+    margin-top: 20px;
+    border: 1px solid royalblue;
+    height: 150px;
+    
+}
+
+.CountTableBefore h2{
+    color: royalblue;
+    margin: 5px;
+}

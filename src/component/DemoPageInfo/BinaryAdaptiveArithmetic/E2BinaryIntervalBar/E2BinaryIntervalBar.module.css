@@ -1,5 +1,5 @@
 .E2{
-    border: 1px solid blue;
+    border: 1px solid lightgreen;
     margin-top: 20px;
 }
 
@@ -9,6 +9,15 @@
 }
 
 .s{
-    float:left;
+    float:right;
     width:50%;
+}
+
+.E2 h2{
+    color: lightgreen;
+}
+
+.E h3{
+    color: black; 
+    text-decoration: none;
 }
