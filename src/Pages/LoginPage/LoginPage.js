@@ -23,6 +23,14 @@ class LoginPage extends Component{
     }
 
     loginHandler = ()=>{
+        let date = new Date()
+        let authTime = date.getTime();
+        //convert to milliseconds
+        authTime = authTime / 1000;
+        authTime = authTime + 600;
+        sessionStorage.setItem('authToken', authTime.toString())
+        let test = sessionStorage.getItem('authToken')
+        console.log('sessionStorage: ', test)
         console.log("button clicked")
         let username = this.state.username;
         console.log(username)
@@ -30,6 +38,8 @@ class LoginPage extends Component{
         console.log(password)
         if(username === 'mmtext@sfu.ca' && password==='multimedia'){
             console.log("correct password")
+            //generate web token
+
             this.props.authenticateUser();
         } else {
             alert('wrong username or password')

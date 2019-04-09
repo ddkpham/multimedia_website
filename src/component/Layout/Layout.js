@@ -27,7 +27,8 @@ class layout extends Component{
             name: "visitor",
             // roles: ['user'],
             // rights:['can-view-website'],
-            authenticated: true
+            authenticated: false, 
+            validTokenTime: 0
         }
     }
 
@@ -41,9 +42,17 @@ class layout extends Component{
 
 
     render(){
+        let tokenAuthTime = sessionStorage.getItem('authToken')
+        console.log("tokenAuth: ", tokenAuthTime)
+        if(tokenAuthTime === undefined){
+            tokenAuthTime = 0;
+        } else {
+            tokenAuthTime = parseInt(tokenAuthTime);
+        }
         const user = this.state.user;
         let routes = null;
-        if(user.authenticated){
+        let date = new Date(); 
+        if(user.authenticated || tokenAuthTime ){
             routes = (
                 <Switch>
                     {/* --------------------- Temporary anon functions for Pages --------------------*/}
