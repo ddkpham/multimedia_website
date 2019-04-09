@@ -160,6 +160,10 @@ class ArithmeticCodec extends Component{
             alert('dont forget to enter a message')
             return
         }
+        if(messageCheck.length >=15){
+            alert('keep your messages to under 15. Trust me. Its for your own good')
+            return 
+        }
         for(let i = 0 ; i<messageCheck.length; i++){
             if(messageCheck[i] === 'a' || messageCheck[i] === 'b' 
                 || messageCheck[i] === 'c' || messageCheck[i]=== '$'){
