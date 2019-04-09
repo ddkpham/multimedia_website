@@ -5,8 +5,7 @@ class DecodedMsgBox extends Component{
     render(){
         return(
             <div className={classes.DecodedMsgBox}>
-                <h3>Decoded Msg :  </h3>
-                <p>{this.props.decodedMsg}</p>
+                <h5><b>Decoded Msg : </b>{this.props.decodedMsg}</h5>
             </div>
         )
     }

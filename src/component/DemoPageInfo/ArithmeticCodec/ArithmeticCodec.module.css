@@ -19,15 +19,29 @@
 .ArithmeticCodec .ArithmeticAlgorithm .UpdateMsg{
     border: 1px solid pink !important;
 }
-.ArithmeticCodec h1{
-    padding: 50px;
-    overflow-wrap: break-word;
-    text-decoration: underline;
-    color: pink;
+
+.updateMsg h4{
+    color: lightskyblue;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
-.ArithmeticCodec h3{
-    padding: 10px;
-    overflow-wrap: break-word;
-    text-decoration: underline;
-    color: pink;
+
+.encoding{
+    margin-bottom: 40px;
+}
+
+.encoding input{
+    width: 20%;
+    height: 38px;
+    margin-right: 15px;
+}
+
+.decoding{
+    margin-bottom: 40px;
+}
+
+.decoding input{
+    width: 20%;
+    height: 38px;
+    margin-right: 15px;
 }

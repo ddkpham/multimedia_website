@@ -6,12 +6,12 @@ class EncodedBitStringMsg extends Component{
     render(){
         return(
             <div className={classes.EncodedBitStringMsg}>
-                <h3>Encoded BitString :  </h3>
-                <h4>{this.props.encodedBitString}</h4>
-                <h3>Encoded BitStringLength :  </h3>
-                <h4>{this.props.encodedBitStringLength}</h4>
-                <h3>Compression Ratio : </h3>
-                <h4>{this.props.compressionRatio}</h4>
+                <h4>Encoded BitString : </h4>
+                <h5>{this.props.encodedBitString}</h5>
+                <h4>Encoded BitStringLength : </h4>
+                <h5>{this.props.encodedBitStringLength}</h5>
+                <h4>Compression Ratio : </h4>
+                <h5>{this.props.compressionRatio}</h5>
             </div>
         )
     }

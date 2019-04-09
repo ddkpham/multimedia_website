@@ -1,6 +1,7 @@
 .ArithmeticCodecUpdateMsg{
     border: 2px solid lightskyblue;
-    padding: 10px;
+    padding: 26px;
+    margin-bottom: 20px;
 }
 .ArithmeticCodecUpdateMsg h2{
     color: pink;

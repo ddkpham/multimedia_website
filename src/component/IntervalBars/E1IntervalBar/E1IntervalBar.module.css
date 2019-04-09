@@ -1,11 +1,13 @@
 .E1 {
-    border: groove blue 1px;
+    border: groove  rgb(188, 252, 62) 1px;
     margin-top: 20px;
-
+    padding: 30px;
 }
 
-.E1 h1{
-    text-decoration: underline;
+.E1 h4{
+    color:yellowgreen;
+    margin-bottom: 20px;
+    text-decoration: none;
 }
 .prevS{
     float:left;

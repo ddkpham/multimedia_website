@@ -1,4 +1,11 @@
 .EncodedBitStringMsg{
     border: 1px solid lightcoral;
-    margin: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.EncodedBitStringMsg h4{
+    color:  lightcoral;
+    margin-top: 15px;
 }
