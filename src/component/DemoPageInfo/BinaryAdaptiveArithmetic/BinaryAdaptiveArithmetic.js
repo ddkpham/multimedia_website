@@ -920,7 +920,15 @@ class BinaryAdaptiveArithmetic extends Component{
             symbolCount={symbolCount}
             symbolProb={symbolProb}/>
         }
-        
+        let compressionInfoBox = null;
+        console.log(this.state.encoderInitiated)
+        if(this.state.encoderInitiated){
+            compressionInfoBox = <EncodedBitStringMsg 
+            encodedBitString={encodedBitString}
+            encodedBitStringLength={encodedBitStringLength}
+            compressionRatio = {compressionRatio}
+            />
+        }
 
 
         return(
@@ -952,11 +960,7 @@ class BinaryAdaptiveArithmetic extends Component{
                     {statsAfter}
                     <br></br>
                     {continueEncodingBtn}
-                    <EncodedBitStringMsg 
-                        encodedBitString={encodedBitString}
-                        encodedBitStringLength={encodedBitStringLength}
-                        compressionRatio = {compressionRatio}
-                    />
+                    {compressionInfoBox}
                </div>
                <div>
                     <input type="text" placeholder="enter encoded bitstring" onChange={this.decodeMsgHandler}></input>
