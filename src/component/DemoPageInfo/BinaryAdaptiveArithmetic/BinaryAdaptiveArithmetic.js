@@ -72,8 +72,7 @@ class BinaryAdaptiveArithmetic extends Component{
         }
 
         if(messageCheck.length >= 15){
-            alert('keep your messages to under 15. Trust me. Its for your own good')
-            return
+            alert('keep your messages to under 15. Trust me. Its for your own')
         }
         for(let i = 0 ; i<messageCheck.length; i++){
             if(messageCheck[i] === 'a' || messageCheck[i] === 'b'){

@@ -147,8 +147,8 @@ class ArithmeticCodec extends Component{
             letterHighFreq = letterFreqArr[i] + cumulativeFreq[i];
             highFreq.push(letterHighFreq)
         }
-        console.log("lowFreq[]",this.state.lowFreq)
-        console.log("highFreq[]",highFreq)
+        // console.log("lowFreq[]",this.state.lowFreq)
+        // console.log("highFreq[]",highFreq)
         this.setState({highFreq: highFreq}, this.EncoderWithUI)
 
     }
@@ -475,7 +475,7 @@ class ArithmeticCodec extends Component{
                 prevS: prevS,
                 s:s
             }
-            data.push(info)
+            //data.push(info)
            
         }
         return {
@@ -514,10 +514,12 @@ class ArithmeticCodec extends Component{
         //find symbol with min frequency
         //1. find symbol with minFrequency
         let minFreqSymbolFreq = this.symbolIndexWithMinFrequency()
-        console.log(minFreqSymbolFreq)
+        //console.log(minFreqSymbolFreq)
 
         //2. find length of bits for window size
-        let windowSize = this.findBitsForWindowSize(minFreqSymbolFreq)
+        // let windowSize = this.findBitsForWindowSize(minFreqSymbolFreq)
+        let windowSize = this.state.encodedBitString.split('')
+        windowSize = windowSize.length
 
         //3. set window size 
         // start = 0  end = l - 1
@@ -559,15 +561,24 @@ class ArithmeticCodec extends Component{
             tempBitStringArr = bitStringArr.slice(start, end);
             //convert bitstring to interval value
             val = this.bitStringArrToTargetValue(tempBitStringArr);
+            console.log("[val]: ", val)
 
             //check to see if val fits in any of the symbol high-low ranges
             for(let i = 0; i< symbolListLength; i++){
+                let test = String(letterArr[i])
+                console.log('Trying Letter: ', test)
                 width = b - a;
+                console.log('[a,b] before update: ', a, b)
+                console.log('[width]: ', width)
                 btemp = a + width * (highFreq[i])
                 atemp = a + width * (lowFreq[i])
+                console.log('[highFreq]', highFreq[i])
+                console.log('[lowFreq]', lowFreq[i])
+                console.log('[a,b] after update: ', atemp, btemp)
 
                 if(val >= atemp && val < btemp){
                     let decodedLetter = String(letterArr[i])
+                    console.log('TARGET FOUND: ', decodedLetter)
                     if(decodedLetter === "space"){
                         decodedLetter = " "
                     }
@@ -616,7 +627,7 @@ class ArithmeticCodec extends Component{
         let lowFreqArr = this.state.letterFrequency;
         lowFreqArr = Object.values(lowFreqArr)
         let len = lowFreqArr.length
-        console.log("length: ", len)
+        // console.log("length: ", len)
         let minFreq = 1;
         //let minIndex = -1;
         for(let i =0; i<len; i++){
@@ -632,7 +643,7 @@ class ArithmeticCodec extends Component{
         //console.log("finding window size")
         let windowSize = -Math.log2(minFreq)
         windowSize = Math.ceil(windowSize)
-        console.log(windowSize)
+        // console.log(windowSize)
         return windowSize
     }
 
@@ -743,7 +754,7 @@ class ArithmeticCodec extends Component{
         let encodedBitString = <p>{this.state.encodedBitString}</p>
         let encodedBitStringLen = this.state.encodedBitString;
         encodedBitStringLen = encodedBitStringLen.split("").length
-        console.log('encodedBitStringLen', encodedBitStringLen)
+        // console.log('encodedBitStringLen', encodedBitStringLen)
         let encodedBitStringLength = <p>{encodedBitStringLen}</p>
         let decodedMsg = this.state.decodedMsg.split("$")
         decodedMsg = decodedMsg[0]
@@ -802,7 +813,7 @@ class ArithmeticCodec extends Component{
             startAfterUpdate = startAfterUpdate.toFixed(2)
             let endAfterUpdate = this.state.endAfterUpdate
             endAfterUpdate = endAfterUpdate.toFixed(2)
-            console.log("[startAfterUpdate]",startAfterUpdate)
+            // console.log("[startAfterUpdate]",startAfterUpdate)
 
             beforeUpdateMsg = (
                 <div className={classes.updateMsg}>
@@ -858,7 +869,18 @@ class ArithmeticCodec extends Component{
         //     border: '5px dotted blue',
         //     height: '200px'
         // }
-        
+        let decodeMsgBox = null;
+        if(this.state.encoderInitated){
+            decodeMsgBox = <DecodedMsgBox decodedMsg={decodedMsg} />
+        }
+        let decodedMsgInfoBox = null;
+        if(this.state.encoderInitated){
+            decodedMsgInfoBox = <EncodedBitStringMsg 
+            encodedBitString={encodedBitString} 
+            encodedBitStringLength={encodedBitStringLength} 
+            compressionRatio ={compressionRatio}
+        />
+        }
         
         return (
            <div className={classes.ArithmeticCodec}>
@@ -883,18 +905,14 @@ class ArithmeticCodec extends Component{
                             finalScaling={finalScaling}
                             show={this.state.finalScalingInitiated} />
                         {continueEncodingBtn}
-                        <EncodedBitStringMsg 
-                            encodedBitString={encodedBitString} 
-                            encodedBitStringLength={encodedBitStringLength} 
-                            compressionRatio ={compressionRatio}
-                        />
+                        {decodedMsgInfoBox}
                 </div>
                <div>
                    <div className={classes.decoding}>
                         <input type="text" onChange={this.decodeMsgHandler} placeholder=" please enter the encoded msg"></input>
                         <Button 
-                            disabled={!this.state.messageToBeDecoded}color="warning" onClick= {this.MessageDecoderWithScaling}>Decode MSG</Button>
-                        <DecodedMsgBox decodedMsg={decodedMsg} />
+                            disabled={!this.state.messageToBeDecoded}color="warning" onClick= {this.MessageDecoder}>Decode MSG</Button>
+                        {decodeMsgBox}
                     </div>
                </div>
                </div>
