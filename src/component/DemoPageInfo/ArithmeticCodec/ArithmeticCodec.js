@@ -6,11 +6,13 @@ import E1IntervalBar from '../../IntervalBars/E1IntervalBar/E1IntervalBar'
 import E2IntervalBar from '../../IntervalBars/E2IntervalBar/E2IntervalBar'
 import E3IntervalBar from '../../IntervalBars/E3IntervalBar/E3IntervalBar'
 import DemoNav from '../DemoNav/DemoNav';
-import Button from '../../../component/UI/Button/Button'
 import DecodedMsgBox from '../DecodedMsgBox/DecodedMsgBox'
 import ArithmeticCodecUpdateMsg from './ArithmeticCodecUpdateMsg/ArithmeticCodecUpdateMsg'
 import FinalEmissionMsg from './FinalEmissionMsg/FinalEmissionMsg'
 import EncodedBitStringMsg from './EncodedBitStringMsg/EncodedBitStringMsg'
+/*import Button from '../../../component/UI/Button/Button'*/
+import { Button } from 'reactstrap';
+
 
 class ArithmeticCodec extends Component{
     state = {
@@ -716,18 +718,18 @@ class ArithmeticCodec extends Component{
         if(this.state.encoderInitated && !this.state.finalScalingInitiated){
             continueEncodingBtn = <Button btnType="Success" clicked= {this.FrequencyInitiation}>Continue Encoding</Button>
         } else {
-            encodeBtn = <Button btnType="Success" clicked= {this.FrequencyInitiation}>Encode MSG</Button>
+            encodeBtn = <Button disabled={!this.state.messageToBeEncoded} color="danger" onClick= {this.FrequencyInitiation}>Encode MSG</Button>
         }
         //this.frequencyTotalCheck();
         //this.lowFrequencyInitiation();
-        let encodedBitString = <p><strong>{this.state.encodedBitString}</strong></p>
+        let encodedBitString = <p>{this.state.encodedBitString}</p>
         let encodedBitStringLen = this.state.encodedBitString;
         encodedBitStringLen = encodedBitStringLen.split("").length
         console.log('encodedBitStringLen', encodedBitStringLen)
-        let encodedBitStringLength = <p><strong>{encodedBitStringLen}</strong></p>
+        let encodedBitStringLength = <p>{encodedBitStringLen}</p>
         let decodedMsg = this.state.decodedMsg.split("$")
         decodedMsg = decodedMsg[0]
-        decodedMsg = <p><strong>{decodedMsg}</strong></p>
+        decodedMsg = <p>{decodedMsg}</p>
         let E1 = null;
         let E2 = null;
         let E3 = null;
@@ -736,24 +738,24 @@ class ArithmeticCodec extends Component{
             if(this.state.finalScalingfirstQuarter){
                 finalScaling = (
                     <div>
-                        <h2>Final Emission</h2>
-                        <h3>Emit "0"</h3>
-                        <h3>Emit {this.state.finalScalingSValue} "1"s</h3>
+                        <h4><b>Final Emission</b></h4>
+                        <h4>Emit "0"</h4>
+                        <h4>Emit {this.state.finalScalingSValue} "1"s</h4>
                     </div>
                 )
             } else{
                 finalScaling = (
                     <div>
-                        <h2>Final Emission</h2>
-                        <h3>Emit "1"</h3>
-                        <h3>Emit {this.state.finalScalingSValue} "0"s</h3>
+                        <h4><b>Final Emission</b></h4>
+                        <h4>Emit "1"</h4>
+                        <h4>Emit {this.state.finalScalingSValue} "0"s</h4>
                     </div>
                 )
             }
             let encodedBSLen = this.state.encodedBitString.split("").length
             let compressRate = (this.state.encodedMsgLength * 8) / encodedBSLen
             compressRate = compressRate.toFixed(2)
-            compressionRatio = <p><strong>{compressRate}</strong></p>
+            compressionRatio = <p>{compressRate}</p>
         }
         let e1IntervalInfo = this.state.e1IntervalInfo;
         let e2IntervalInfo = this.state.e2IntervalInfo;
@@ -767,10 +769,10 @@ class ArithmeticCodec extends Component{
             let msgArr = this.state.messageToBeEncoded.split("")
             let letterToBeEncoded = msgArr[this.state.lettersEncodedSoFar-1]
             letterToBeEncodedMsg = (
-                <div>
-                     <h2>Letter to be encoded: </h2 >
-                     <h3>{letterToBeEncoded}</h3>
-                </div>     
+                <div className={classes.updateMsg}>
+                     <h4>Letter to be encoded: </h4>
+                     <h5>{letterToBeEncoded}</h5>
+                </div>
             )
             
             let startBeforeUpdate = this.state.startBeforeUpdate
@@ -785,14 +787,14 @@ class ArithmeticCodec extends Component{
             console.log("[startAfterUpdate]",startAfterUpdate)
 
             beforeUpdateMsg = (
-                <div>
-                    <h2>Before Interval Update</h2>
+                <div className={classes.updateMsg}>
+                    <h4>Before Interval Update: </h4>
                     <IntervalBar start={startBeforeUpdate} end={endBeforeUpdate} />
                 </div>
             )
             afterUpdateMsg = (
-                <div>
-                    <h2>After Interval Update</h2>
+                <div className={classes.updateMsg}>
+                    <h4>After Interval Update: </h4>
                     <IntervalBar start={startAfterUpdate} end={endAfterUpdate} />
                 </div>
             )
@@ -846,9 +848,10 @@ class ArithmeticCodec extends Component{
                 <div className={classes.ArithmeticAlgorithm}>
                 <h1>Arithmetic Codec</h1>
                     <div>
-                        <input type="text" onChange={this.MsgHandler}></input>
-                        {encodeBtn}
-                        <br></br>
+                        <div className={classes.encoding}>
+                            <input type="text" placeholder=" please enter the msg" onChange={this.MsgHandler}></input>
+                            {encodeBtn}
+                        </div>
                         
                         <ArithmeticCodecUpdateMsg 
                             show={this.state.encoderInitated}
@@ -869,10 +872,12 @@ class ArithmeticCodec extends Component{
                         />
                 </div>
                <div>
-                    <input type="text" onChange={this.decodeMsgHandler}></input>
-                    <Button btnType="Success" clicked= {this.MessageDecoderWithScaling}>Decode MSG</Button>
-                    <DecodedMsgBox decodedMsg={decodedMsg} />
-                    
+                   <div className={classes.decoding}>
+                        <input type="text" onChange={this.decodeMsgHandler} placeholder=" please enter the msg"></input>
+                        <Button 
+                            disabled={!this.state.messageToBeDecoded}color="warning" onClick= {this.MessageDecoderWithScaling}>Decode MSG</Button>
+                        <DecodedMsgBox decodedMsg={decodedMsg} />
+                    </div>
                </div>
                </div>
            </div>
