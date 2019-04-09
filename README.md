@@ -21,6 +21,8 @@ npm start
 **to start the local deployment server**
 
 
+### Checking Out The Site
+
 Navigate to `localhost:3000` and enjoy! 
 
 The username/password to access the site: 
