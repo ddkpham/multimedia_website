@@ -72,7 +72,7 @@ class BinaryAdaptiveArithmetic extends Component{
         }
 
         if(messageCheck.length >= 15){
-            alert('keep your messages to under 15. Trust me. Its for your own')
+            alert('keep your messages to under 15. Trust me. Its for your good')
         }
         for(let i = 0 ; i<messageCheck.length; i++){
             if(messageCheck[i] === 'a' || messageCheck[i] === 'b'){
@@ -252,7 +252,7 @@ class BinaryAdaptiveArithmetic extends Component{
                 }
                 e3IntervalInfo.push(intervalInfo)
                 // let e3IntervalInfo = [...this.state.e3IntervalInfo, intervalInfo];
-                // console.log('e3IntervalInfo', e3IntervalInfo)
+                console.log('e3IntervalInfo', e3IntervalInfo)
                 // this.setState({e3IntervalInfo: e3IntervalInfo, s:s})
             }
             this.setState({e3IntervalInfo:e3IntervalInfo, s:s})
@@ -794,6 +794,7 @@ class BinaryAdaptiveArithmetic extends Component{
             
         }
         let e3IntervalInfo = this.state.e3IntervalInfo;
+        console.log('checking e3 length: ', e3IntervalInfo)
         if(e3IntervalInfo.length > 0){
             //E1 = <E1IntervalBar start="0.0" end="1.0"  bitString={bitString}/>
             E3 = this.state.e3IntervalInfo.map((info, index)=>{
@@ -920,15 +921,7 @@ class BinaryAdaptiveArithmetic extends Component{
             symbolCount={symbolCount}
             symbolProb={symbolProb}/>
         }
-        let compressionInfoBox = null;
-        console.log(this.state.encoderInitiated)
-        if(this.state.encoderInitiated){
-            compressionInfoBox = <EncodedBitStringMsg 
-            encodedBitString={encodedBitString}
-            encodedBitStringLength={encodedBitStringLength}
-            compressionRatio = {compressionRatio}
-            />
-        }
+        
 
 
         return(
@@ -960,7 +953,11 @@ class BinaryAdaptiveArithmetic extends Component{
                     {statsAfter}
                     <br></br>
                     {continueEncodingBtn}
-                    {compressionInfoBox}
+                    <EncodedBitStringMsg 
+                        encodedBitString={encodedBitString}
+                        encodedBitStringLength={encodedBitStringLength}
+                        compressionRatio = {compressionRatio}
+                    />
                </div>
                <div>
                     <input type="text" placeholder="enter encoded bitstring" onChange={this.decodeMsgHandler}></input>

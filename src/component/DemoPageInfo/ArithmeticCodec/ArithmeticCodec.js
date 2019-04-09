@@ -290,7 +290,7 @@ class ArithmeticCodec extends Component{
             let data = []
             //console.log("[a,b]", a, b)
             if(a > 0.25 && b < 0.75){
-                //console.log("e3 scaling...")
+                console.log("e3 scaling...")
                 scaledValues = null; 
                 let prevS = null;
                 prevS = s.toString();
@@ -311,7 +311,7 @@ class ArithmeticCodec extends Component{
                     e3IntervalInfo.push(data[i])
                 }
 
-                //console.log("%c [E3 scaling info]:", 'color:red', e3IntervalInfo)
+                console.log("%c [E3 scaling info]:", 'color:red', e3IntervalInfo)
                 //this.setState({e3IntervalInfo: e3IntervalInfo, s:s})
             }
             //update intervalInfo and a,b,s values 
@@ -475,7 +475,7 @@ class ArithmeticCodec extends Component{
                 prevS: prevS,
                 s:s
             }
-            //data.push(info)
+            data.push(info)
            
         }
         return {
@@ -851,9 +851,9 @@ class ArithmeticCodec extends Component{
             })
             //console.log("E2 : ", E2)
         }
-        //console.log('E3INTERVALINFOLENGTH: ', e3IntervalInfo)
+        console.log('E3INTERVALINFOLENGTH: ', e3IntervalInfo)
         if(e3IntervalInfo.length > 0){
-            //console.log('detected e3')
+            console.log('detected e3')
             E3 = this.state.e3IntervalInfo.map((info, index)=>{
                 let a = info.a
                 a = a.toFixed(2)
