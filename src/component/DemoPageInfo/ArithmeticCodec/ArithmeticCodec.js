@@ -160,7 +160,7 @@ class ArithmeticCodec extends Component{
             alert('dont forget to enter a message')
             return
         }
-        if(messageCheck.length >=15){
+        if(messageCheck.length >=16){
             alert('keep your messages to under 15. Trust me. Its for your own good')
             return 
         }
