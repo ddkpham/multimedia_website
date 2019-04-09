@@ -25,4 +25,4 @@ Navigate to `localhost:3000` and enjoy!
 
 The username/password to access the site: 
 
-**username: `mmtext@sfu.ca` password: `multimedia` ** 
+**username:** `mmtext@sfu.ca` **password:** `multimedia` 
