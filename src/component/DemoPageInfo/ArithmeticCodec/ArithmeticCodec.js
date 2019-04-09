@@ -715,8 +715,8 @@ class ArithmeticCodec extends Component{
         let encodeBtn = null;
         let compressionRatio = null;
         let continueEncodingBtn = null;
-        if(this.state.encoderInitated){
-            continueEncodingBtn = <Button onClick= {this.FrequencyInitiation}>Continue Encoding</Button>
+        if(this.state.encoderInitated && !this.state.finalScalingInitiated){
+            continueEncodingBtn = <Button btnType="Success" clicked= {this.FrequencyInitiation}>Continue Encoding</Button>
         } else {
             encodeBtn = <Button disabled={!this.state.messageToBeEncoded} color="danger" onClick= {this.FrequencyInitiation}>Encode MSG</Button>
         }
