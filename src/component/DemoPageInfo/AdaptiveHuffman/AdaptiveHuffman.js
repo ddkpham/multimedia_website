@@ -2,9 +2,11 @@ import React, {Component} from 'react';
 import classes from './AdaptiveHuffman.module.css'
 import DemoNav from '../DemoNav/DemoNav';
 import Tree from "react-tree-graph";
+import { relative } from 'path';
+import { Button, Input } from 'reactstrap';
+
 
 class HuffmanTree {
-
     constructor( symbol, count){
         this.left = null;
         this.right = null;
@@ -27,45 +29,73 @@ class AdaptiveHuffman extends Component{
     }
 
     inputHandler = (event) =>{
+        //this.state.data = {}
         //console.log(event.target.value)
         let msgToBeDecoded = event.target.value
         this.setState({msgToBeDecoded:msgToBeDecoded})
     }
 
     initialSymbolToCode = (symbol) =>{
-        switch(symbol) {
-            case "$":
-                return "0"
-            case "a":
-                return "00001"
-            case "b":
-                return "00010"
-            case "c":
-                return "00011"
-            case "d":
-                return "00100"
-            default:
-                console.log("Unsupported Symbol")
-                return null
+        if (symbol === "$") {
+            return "0"
         }
+        // switch(symbol) {
+        //     case "$":
+        //         return "0"
+        //     case "a":
+        //         return "00001"
+        //     case "b":
+        //         return "00010"
+        //     case "c":
+        //         return "00011"
+        //     case "d":
+        //         return "00100"
+        //     default:
+        //         console.log("Unsupported Symbol")
+        //         return null
+        // }
+        let asciiValue = symbol.charCodeAt(0)
+        let bitString = ""
+        for (let i = 0; i < 8; i++) {
+            if (asciiValue & 1 === 1) {
+                bitString = "1" + bitString
+            } else {
+                bitString = "0" + bitString
+            }
+            asciiValue = asciiValue >>> 1
+        }
+        return bitString
+
     }
 
-    initialCodeToSymbol = (symbol) =>{
-        switch(symbol) {
-            case "0":
-                return "$"
-            case "00001":
-                return "a"
-            case "00010":
-                return "b"
-            case "00011":
-                return "c"
-            case "00100":
-                return "d"
-            default:
-                console.log("Unsupported codeword")
-                return null
+    initialCodeToSymbol = (code) =>{
+        if (code === "0") {
+            return "$"
         }
+        // switch(symbol) {
+        //     case "0":
+        //         return "$"
+        //     case "00001":
+        //         return "a"
+        //     case "00010":
+        //         return "b"
+        //     case "00011":
+        //         return "c"
+        //     case "00100":
+        //         return "d"
+        //     default:
+        //         console.log("Unsupported codeword")
+        //         return null
+        // }
+        let asciiValue = 0
+        let mask = 1
+        for (let i = 0; i < 8; i++) {
+            if (parseInt(code[7-i]) & 1 === 1) {
+                asciiValue = asciiValue ^ mask
+            }
+            mask = mask << 1
+        }
+        return String.fromCharCode(asciiValue)
     }
 
     findNodesWithCount = (huffmanTree, count) =>{
@@ -247,9 +277,14 @@ class AdaptiveHuffman extends Component{
 
     HuffmanEncoder = ()=>{
 
+        if (this.state.msgToBeDecoded ===null){
+            alert('Message to be encoded cannot be empty')
+            return
+        }
+
         let symbolList = []
         var symbolMap = new Map()
-        let newSymbolTreeNew = new HuffmanTree("$", 0)
+        let newSymbolTreeNew = new HuffmanTree("$", 0);
         newSymbolTreeNew.order = 512
 
         let huffmanTreeRoot = newSymbolTreeNew
@@ -358,7 +393,7 @@ class AdaptiveHuffman extends Component{
         let currNode = huffmanTreeRoot
 
         let currCodeWord = ""
-        let initalCodeLength = 5
+        let initalCodeLength = 8
 
         let nextIsNew = false
         let insertSymbol = false
@@ -419,8 +454,14 @@ class AdaptiveHuffman extends Component{
         let decodedMsg = this.state.decodedMsg;
         let BitStringLength = this.state.BitStringLength;
 
-        let traversedList= []
-        let delayedList = []
+        let msgToBeDecoded = this.state.msgToBeDecoded
+        let asciiBitStringLength = 0
+        if (msgToBeDecoded !== null) {
+            asciiBitStringLength = msgToBeDecoded.length * 8
+        }
+
+        let compressionRatio = asciiBitStringLength / BitStringLength
+
         let data = this.state.data;
         let height = this.state.treeHeight * 100
 
@@ -432,21 +473,22 @@ class AdaptiveHuffman extends Component{
                 <div className={classes.AdaptiveHuffmanAlgorithm}>
                     <h1>Adaptive Huffman Coding Demo</h1>
                     <div>
-                        <input type="text" onChange={this.inputHandler}></input>
-                        <button onClick= {this.HuffmanEncoder}>Encode MSG</button>
+                        <div className={classes.encoding}>
+                            <input className={classes.encodedMsg} type="text" onChange={this.inputHandler} placeholder=" Please enter the msg"></input>
+                            <Button disabled={!this.state.msgToBeDecoded} color="success" onClick= {this.HuffmanEncoder}>Encode MSG</Button>
+                        </div>
+                            <h5><b>Encoded BitString : </b>{encodedMsg} </h5>
+                            <h5><b>Encoded BitStringLength : </b>{BitStringLength} </h5>
+                            <h5><b>ASCII BitStringLength : </b>{asciiBitStringLength} </h5>
+                            <h5><b>Compression Ratio : </b>{compressionRatio} </h5>
+                        </div>
 
-                        <h3>Encoded BitString : {encodedMsg} </h3>
-                        <h3>Encoded BitStringLength : {BitStringLength} </h3>
-                </div>
-
-
-
-                <div className="visualizer-container">
+                <div className={classes.visualizerContainer}>
                     {/* Render Tree with data passed as prop */}
                     <Tree
                       data={data}
-                      height={height}
-                      width={400}
+                      height={350}
+                      width={350}
                       svgProps={{
                         transform: "rotate(90)"
                       }}
@@ -456,12 +498,9 @@ class AdaptiveHuffman extends Component{
                     />
                 </div>
 
-
-
-                <div>
-                        <input type="text" onChange={null}></input>
-                        <button onClick= {this.decodeMsgHandler}>Decode MSG</button>
-                        <h3>Decoded Msg : {decodedMsg} </h3>
+                <div className={classes.decoding}>
+                        <Button disabled={!this.state.msgToBeDecoded} color="primary" onClick= {this.decodeMsgHandler}>Decode MSG</Button>
+                        <h5><b>Decoded Msg : </b>{decodedMsg} </h5>
                 </div>
 
                </div>
