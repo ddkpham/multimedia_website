@@ -28,7 +28,7 @@ class LoginPage extends Component{
 
         //convert to milliseconds
         authTime = authTime / 1000;
-        authTime = authTime + 600;
+        authTime = authTime + 3000;
         localStorage.setItem('authToken', authTime.toString())
         let test = localStorage.getItem('authToken')
         console.log('sessionStorage: ', test)
