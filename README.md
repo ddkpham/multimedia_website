@@ -2,6 +2,12 @@
 
 website: https://ddkpham.github.io/multimedia_website/#/
 
+
+The username/password to access the site: 
+
+**username:** `mmtext@sfu.ca` **password:** `multimedia` 
+
+
 ### Project Installation
 
 To install the project, make sure you have the following dependencies:
@@ -23,7 +29,3 @@ npm start
 ### Checking Out The Site
 
 Navigate to `localhost:3000` and enjoy! 
-
-The username/password to access the site: 
-
-**username:** `mmtext@sfu.ca` **password:** `multimedia` 
