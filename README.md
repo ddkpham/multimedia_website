@@ -3,8 +3,6 @@
 website: https://ddkpham.github.io/multimedia_website/#/
 
 
-The username/password to access the site: 
-
 **username:** `mmtext@sfu.ca` **password:** `multimedia` 
 
 
