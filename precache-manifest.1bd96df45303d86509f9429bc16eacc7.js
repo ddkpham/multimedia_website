@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "b08bfe9e573aabed33d6",
+    "revision": "116eb9a67090a8561a55",
     "url": "/multimedia_website/static/css/main.4bbbc567.chunk.css"
   },
   {
-    "revision": "b08bfe9e573aabed33d6",
-    "url": "/multimedia_website/static/js/main.76ef3fb2.chunk.js"
+    "revision": "116eb9a67090a8561a55",
+    "url": "/multimedia_website/static/js/main.58dbf8cd.chunk.js"
   },
   {
     "revision": "4e7ba8cd0cc339117b15",
@@ -276,7 +276,7 @@ self.__precacheManifest = [
     "url": "/multimedia_website/static/media/squirrel4.472b6044.jpg"
   },
   {
-    "revision": "42795da81e4f034cd4885cb7b2b989d9",
+    "revision": "9b11b485e806c23a8b81aa9377a5f0d9",
     "url": "/multimedia_website/index.html"
   }
 ];
