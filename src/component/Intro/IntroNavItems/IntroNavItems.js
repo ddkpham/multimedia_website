@@ -7,8 +7,8 @@ class IntroNavItems extends Component {
     return (
       <div className={classes.IntroNavItems}>
         <div>
-          <h1>Compression</h1>
-          <h3>Algorithm Demos</h3>
+          <h1>Compression Algo</h1>
+          <h3>Visualization Demos</h3>
         </div>
       </div>
     );

@@ -9,7 +9,6 @@ class JPEG extends Component {
     return (
       <div className={classes.JPEG}>
         <div className={classes.JPEGAlgorithm}>
-          <Intro />
           <ImageManager />
         </div>
       </div>

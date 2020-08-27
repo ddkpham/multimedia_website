@@ -170,11 +170,10 @@ class Huffman extends Component {
     let msgToBeDecoded = this.state.msgToBeDecoded;
     let msgArr = msgToBeDecoded.split("");
     var map = this.frequencyCalculate(msgArr);
-    //console.log(map)
+
     let pQueue = new PriorityQueue();
     for (var [key, value] of map) {
       let newHuffTree = new HuffmanTree(key, value);
-      console.log(newHuffTree);
       pQueue.enqueue(newHuffTree);
       symbolList.push(newHuffTree);
     }
@@ -195,7 +194,6 @@ class Huffman extends Component {
     console.log("creating maps....");
 
     let symbolListLen = symbolList.length;
-    console.log(symbolListLen);
     let symbolToCodeWord = new Map();
     let codeWordToSymbol = new Map();
     for (let i = 0; i < symbolListLen; i++) {
@@ -371,15 +369,15 @@ class Huffman extends Component {
               </Button>
             </div>
             <h5>
-              <b>Encoded BitString : </b>
+              <b>Encoded Bitstring : </b>
               {encodedMsg}{" "}
             </h5>
             <h5>
-              <b>Encoded BitStringLength : </b>
+              <b>Encoded Bitstring length : </b>
               {BitStringLength}{" "}
             </h5>
             <h5>
-              <b>ASCII BitStringLength : </b>
+              <b>ASCII Bitstring length : </b>
               {asciiBitStringLength}{" "}
             </h5>
             <h5>
@@ -403,7 +401,7 @@ class Huffman extends Component {
               />
             </div>
 
-            <div className={classes.decoding}>
+            {/* <div className={classes.decoding}>
               <Button
                 disabled={!this.state.msgToBeDecoded}
                 color="primary"
@@ -415,7 +413,7 @@ class Huffman extends Component {
                 <b>Decoded Msg : </b>
                 {decodedMsg}{" "}
               </h5>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

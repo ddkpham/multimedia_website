@@ -504,15 +504,15 @@ class AdaptiveHuffman extends Component {
               </Button>
             </div>
             <h5>
-              <b>Encoded BitString : </b>
+              <b>Encoded Bitstring : </b>
               {encodedMsg}{" "}
             </h5>
             <h5>
-              <b>Encoded BitStringLength : </b>
+              <b>Encoded Bitstring Length : </b>
               {BitStringLength}{" "}
             </h5>
             <h5>
-              <b>ASCII BitStringLength : </b>
+              <b>ASCII Bitstring length : </b>
               {asciiBitStringLength}{" "}
             </h5>
             <h5>
@@ -536,7 +536,7 @@ class AdaptiveHuffman extends Component {
             />
           </div>
 
-          <div className={classes.decoding}>
+          {/* <div className={classes.decoding}>
             <Button
               disabled={!this.state.msgToBeDecoded}
               color="primary"
@@ -548,7 +548,7 @@ class AdaptiveHuffman extends Component {
               <b>Decoded Msg : </b>
               {decodedMsg}{" "}
             </h5>
-          </div>
+          </div> */}
         </div>
       </div>
     );
