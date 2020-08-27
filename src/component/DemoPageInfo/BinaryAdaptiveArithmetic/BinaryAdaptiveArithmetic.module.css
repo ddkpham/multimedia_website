@@ -1,25 +1,25 @@
-.ArithmeticCodec{
-    width: 100%;
-    height: 100%;
-    margin-top: 73px;
+.ArithmeticCodec {
+  width: 100%;
+  height: 100%;
+  margin-top: 73px;
 }
 
-.ArithmeticAlgorithm{
-    width: 85%;
-    height: 100%;
-    padding: 20px;
-    margin-left: 15%;
+.ArithmeticAlgorithm {
+  width: 85%;
+  height: 100%;
+  padding: 20px;
+  margin: 0 auto;
 }
 
-.ArithmeticCodec h1{
-    padding: 50px;
-    overflow-wrap: break-word;
-    text-decoration: underline;
-    color: pink;
+.ArithmeticCodec h1 {
+  padding: 50px;
+  overflow-wrap: break-word;
+  text-decoration: underline;
+  color: pink;
 }
-.ArithmeticCodec h3{
-    padding: 10px;
-    overflow-wrap: break-word;
-    text-decoration: underline;
-    color: pink;
+.ArithmeticCodec h3 {
+  padding: 10px;
+  overflow-wrap: break-word;
+  text-decoration: underline;
+  color: pink;
 }

@@ -1,47 +1,47 @@
-.ArithmeticCodec{
-    width: 100%;
-    height: 100%;
-    margin-top: 73px;
+.ArithmeticCodec {
+  width: 100%;
+  height: 100%;
+  margin-top: 73px;
 }
 
-.ArithmeticAlgorithm{
-    width: 85%;
-    height: 100%;
-    padding: 20px;
-    margin-left: 15%;
+.ArithmeticAlgorithm {
+  width: 85%;
+  height: 100%;
+  padding: 20px;
+  margin: 0 auto;
 }
 
-.ArithmeticCodec h1{
-    padding: 50px;
-    overflow-wrap: break-word;
+.ArithmeticCodec h1 {
+  padding: 50px;
+  overflow-wrap: break-word;
 }
 
-.ArithmeticCodec .ArithmeticAlgorithm .UpdateMsg{
-    border: 1px solid pink !important;
+.ArithmeticCodec .ArithmeticAlgorithm .UpdateMsg {
+  border: 1px solid pink !important;
 }
 
-.updateMsg h4{
-    color: lightskyblue;
-    margin-top: 20px;
-    margin-bottom: 10px;
+.updateMsg h4 {
+  color: lightskyblue;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
-.encoding{
-    margin-bottom: 40px;
+.encoding {
+  margin-bottom: 40px;
 }
 
-.encoding input{
-    width: 20%;
-    height: 38px;
-    margin-right: 15px;
+.encoding input {
+  width: 20%;
+  height: 38px;
+  margin-right: 15px;
 }
 
-.decoding{
-    margin-bottom: 40px;
+.decoding {
+  margin-bottom: 40px;
 }
 
-.decoding input{
-    width: 20%;
-    height: 38px;
-    margin-right: 15px;
+.decoding input {
+  width: 20%;
+  height: 38px;
+  margin-right: 15px;
 }

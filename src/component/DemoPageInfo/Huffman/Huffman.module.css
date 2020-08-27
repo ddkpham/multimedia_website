@@ -1,38 +1,38 @@
-.Huffman{
-    width: 100%;
-    height: 100%;
-    margin-top: 73px;
+.Huffman {
+  width: 100%;
+  height: 100%;
+  margin-top: 73px;
 }
 
-.HuffmanAlgorithm{
-    width: 85%;
-    height: 100%;
-    padding: 20px;
-    margin-left: 15%;
+.HuffmanAlgorithm {
+  width: 85%;
+  height: 100%;
+  padding: 20px;
+  margin: 0 auto;
 }
 
-.Huffman h1{
-    padding: 50px;
-    overflow-wrap: break-word;
+.Huffman h1 {
+  padding: 50px;
+  overflow-wrap: break-word;
 }
 
-.encoding{
-    margin-bottom: 40px;
+.encoding {
+  margin-bottom: 40px;
 }
 
-.encodedMsg{
-    width: 20%;
-    height: 38px;
-    margin-right: 15px;
+.encodedMsg {
+  width: 20%;
+  height: 38px;
+  margin-right: 15px;
 }
 
-.HuffmanAlgorithm h5{
-    padding-top: 10px;
+.HuffmanAlgorithm h5 {
+  padding-top: 10px;
 }
 
-.decoding{
-    margin: 40px;
+.decoding {
+  margin: 40px;
 }
-.decoding Button{
-    margin-bottom: 15px;
+.decoding Button {
+  margin-bottom: 15px;
 }
