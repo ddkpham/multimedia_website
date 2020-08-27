@@ -387,7 +387,6 @@ class Huffman extends Component {
           </div>
           <div>
             <div className={classes.visualizerContainer}>
-              {/* Render Tree with data passed as prop */}
               <Tree
                 data={data}
                 height={350}

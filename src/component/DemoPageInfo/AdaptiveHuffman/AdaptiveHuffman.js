@@ -23,11 +23,21 @@ class AdaptiveHuffman extends Component {
     BitStringLength: null,
     treeHeight: 0,
     data: {},
+    display: false,
+  };
+
+  reset = () => {
+    this.setState({
+      msgToBeDecoded: null,
+      encodedMsg: "",
+      BitStringLength: null,
+      treeHeight: 0,
+      data: {},
+      display: false,
+    });
   };
 
   inputHandler = (event) => {
-    //this.state.data = {}
-    //console.log(event.target.value)
     let msgToBeDecoded = event.target.value;
     this.setState({ msgToBeDecoded: msgToBeDecoded });
   };
@@ -374,17 +384,13 @@ class AdaptiveHuffman extends Component {
     });
 
     let data = this.createDataTree(huffmanTreeRoot);
-    this.setState({ data: data }, () => {
-      console.log(this.state.data);
-    });
+    this.setState({ data: data });
 
     this.setState({ encodedMsg: encodedMsg }, () => {
       console.log(this.state.encodedMsg);
     });
     let BitStringLength = encodedMsg.split("").length;
-    this.setState({ BitStringLength: BitStringLength }, () => {
-      console.log(this.state.BitStringLength);
-    });
+    this.setState({ BitStringLength: BitStringLength, display: true });
   };
 
   decodeMsgHandler = () => {
@@ -468,6 +474,7 @@ class AdaptiveHuffman extends Component {
   render() {
     let encodedMsg = this.state.encodedMsg;
     let decodedMsg = this.state.decodedMsg;
+    let display = this.state.display;
     let BitStringLength = this.state.BitStringLength;
 
     let msgToBeDecoded = this.state.msgToBeDecoded;
@@ -496,12 +503,21 @@ class AdaptiveHuffman extends Component {
                 placeholder=" Please enter the msg"
               ></input>
               <Button
-                disabled={!this.state.msgToBeDecoded}
+                disabled={!msgToBeDecoded || display}
                 color="success"
                 onClick={this.HuffmanEncoder}
               >
                 Encode MSG
               </Button>
+              <div className={classes.decoding}>
+                <Button
+                  disabled={!this.state.msgToBeDecoded}
+                  color="primary"
+                  onClick={this.reset}
+                >
+                  Reset
+                </Button>
+              </div>
             </div>
             <h5>
               <b>Encoded Bitstring : </b>
@@ -523,17 +539,19 @@ class AdaptiveHuffman extends Component {
 
           <div className={classes.visualizerContainer}>
             {/* Render Tree with data passed as prop */}
-            <Tree
-              data={data}
-              height={350}
-              width={350}
-              svgProps={{
-                transform: "rotate(90)",
-              }}
-              textProps={{
-                transform: "rotate(270)",
-              }}
-            />
+            {display ? (
+              <Tree
+                data={data}
+                height={350}
+                width={350}
+                svgProps={{
+                  transform: "rotate(90)",
+                }}
+                textProps={{
+                  transform: "rotate(270)",
+                }}
+              />
+            ) : null}
           </div>
 
           {/* <div className={classes.decoding}>
