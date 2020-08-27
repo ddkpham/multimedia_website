@@ -1,4 +1,4 @@
-## Multimedia Website Term Project
+## Compression Algo Visualizer
 
 Live URL: http://d2f1k7zacx48az.cloudfront.net/
 
